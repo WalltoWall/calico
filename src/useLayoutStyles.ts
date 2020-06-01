@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 
 import * as styleRefs from './useLayoutStyles.treat'
-import { ResponsiveProp, resolveResponsiveProp } from './responsive'
+import { resolveResponsiveProp } from './utils'
+import { ResponsiveProp } from './types'
 import { Height } from './useLayoutStyles.treat'
 
 export type UseLayoutStylesProps = {

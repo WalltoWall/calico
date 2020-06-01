@@ -3,7 +3,8 @@ import clsx from 'clsx'
 import * as styleRefs from './useGridStyles.treat'
 import { GridTemplateColumns, GridTemplateRows } from './useGridStyles.treat'
 import { ResponsiveSpace } from './useSpaceStyles'
-import { resolveResponsiveProp, ResponsiveProp } from './responsive'
+import { resolveResponsiveProp} from './utils'
+import { ResponsiveProp } from './types'
 
 export type UseGridStylesProps = {
   gap?: ResponsiveSpace

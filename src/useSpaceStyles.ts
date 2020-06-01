@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 
 import * as styleRefs from './useSpaceStyles.treat'
-import { ResponsiveProp, resolveResponsiveProp } from './responsive'
+import { ResponsiveProp } from './types'
+import { resolveResponsiveProp } from './utils'
 import { Theme } from './theme'
 
 export type Space = keyof Theme['space']

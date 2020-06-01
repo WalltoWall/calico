@@ -54,7 +54,7 @@ const isPsuedoStyle = (val: unknown) => {
  * @returns A function like the `style` function from `treat` but with
  * support for responsive arrays.
  */
-export const createResponsiveStyleFn = (breakpoints: string[]) => {
+export const createMq = (breakpoints: string[]) => {
   const mq = (stylesObj: Styles) => {
     const styles = Object.entries(stylesObj)
 

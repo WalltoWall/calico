@@ -1,4 +1,4 @@
-import { createResponsiveStyleFn } from './mq'
+import { createMq } from './createMq'
 
 const grid = 0.25
 
@@ -146,7 +146,7 @@ export const theme = {
   },
 } as const
 
-export const styleMq = createResponsiveStyleFn(
+export const styleMq = createMq(
   Object.values(breakpoints)
     .filter(Boolean)
     .map((bp) => `${bp * 4}px`),

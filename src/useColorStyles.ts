@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 
 import * as styleRefs from './useColorStyles.treat'
-import { ResponsiveProp, resolveResponsiveProp } from './responsive'
+import { resolveResponsiveProp } from './utils'
+import { ResponsiveProp } from './types'
 import { Opacity } from './useColorStyles.treat'
 
 export type UseColorStylesProps = {

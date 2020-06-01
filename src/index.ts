@@ -8,7 +8,7 @@ export { useLayoutStyles } from './useLayoutStyles'
 export { useSpaceStyles } from './useSpaceStyles'
 export { useTypographyStyles } from './useTypographyStyles'
 
-export { basekick } from './basekick'
-export { createResponsiveStyleFn } from './mq'
+export { mapFontStyles } from './mapFontStyles'
+export { createMq } from './createMq'
 
-export * from './systemTypes'
+export * from './types'

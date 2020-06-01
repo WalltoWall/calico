@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 
 import * as styleRefs from './useFlexboxStyles.treat'
-import { ResponsiveProp, resolveResponsiveProp } from './responsive'
+import {  resolveResponsiveProp } from './utils'
+import { ResponsiveProp } from './types'
 
 export type UseFlexboxStylesProps = {
   alignItems?: ResponsiveProp<keyof typeof styleRefs.alignItems>
