@@ -11,6 +11,7 @@ import {
 import { useLayoutStyles, UseLayoutStylesProps } from './useLayoutStyles'
 import { useBorderStyles, UseBorderStylesProps } from './useBorderStyles'
 import { useGridStyles, UseGridStylesProps } from './useGridStyles'
+import { useEffectStyles, UseEffectStylesProps } from './useEffectStyles'
 import { SafeReactHTMLAttributes } from '../types'
 import {
   useInteractivityStyles,
@@ -29,16 +30,15 @@ export type BoxProps = {
   UseColorStylesProps &
   UseBorderStylesProps &
   UseGridStylesProps &
-  UseInteractivityStylesProps
-SafeReactHTMLAttributes
+  UseInteractivityStylesProps &
+  UseEffectStylesProps &
+  SafeReactHTMLAttributes
 
 export const Box = ({
   component,
   children,
   className,
   style,
-
-  opacity,
 
   gap,
   gridAutoFlow,
@@ -47,16 +47,16 @@ export const Box = ({
   gridColumn,
   gridRow,
 
-  borderRadius,
   borderColor,
-  border,
-  borderBottom,
-  borderLeft,
-  borderTop,
-  borderRight,
-  borderX,
-  borderY,
+  borderWidth,
+  borderWidthX,
+  borderWidthY,
+  borderWidthBottom,
+  borderWidthLeft,
+  borderWidthTop,
+  borderWidthRight,
   borderStyle,
+  borderRadius,
 
   margin,
   marginX,
@@ -107,6 +107,8 @@ export const Box = ({
   overflow,
   position,
 
+  opacity,
+
   ...htmlProps
 }: BoxProps) => {
   const spaceStyles = useSpaceStyles({
@@ -140,7 +142,6 @@ export const Box = ({
     flexBasis,
   })
   const colorStyles = useColorStyles({
-    opacity,
     backgroundColor,
     color,
     borderColor,
@@ -162,15 +163,16 @@ export const Box = ({
     position,
   })
   const borderStyles = useBorderStyles({
-    borderRadius,
-    border,
-    borderY,
-    borderX,
-    borderRight,
-    borderTop,
-    borderLeft,
-    borderBottom,
+    borderColor,
+    borderWidth,
+    borderWidthX,
+    borderWidthY,
+    borderWidthBottom,
+    borderWidthLeft,
+    borderWidthTop,
+    borderWidthRight,
     borderStyle,
+    borderRadius,
   })
   const gridStyles = useGridStyles({
     gap,
@@ -185,6 +187,9 @@ export const Box = ({
     pointerEvents,
     userSelect,
   })
+  const effectStyles = useEffectStyles({
+    opacity,
+  })
 
   // ORing undefined will prevent empty string classes in
   // html markup
@@ -198,6 +203,7 @@ export const Box = ({
       borderStyles,
       gridStyles,
       interactivityStyles,
+      effectStyles,
       className,
     ) || undefined
 
