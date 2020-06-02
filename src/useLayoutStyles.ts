@@ -3,14 +3,15 @@ import clsx from 'clsx'
 import * as styleRefs from './useLayoutStyles.treat'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
-import { Height } from './useLayoutStyles.treat'
 
 export type UseLayoutStylesProps = {
   width?: ResponsiveProp<keyof typeof styleRefs.width>
   maxWidth?: ResponsiveProp<keyof typeof styleRefs.maxWidth>
-  height?: ResponsiveProp<Height>
+  height?: ResponsiveProp<keyof typeof styleRefs.height>
   display?: ResponsiveProp<keyof typeof styleRefs.display>
   overflow?: keyof typeof styleRefs.overflow
+  overflowX?: keyof typeof styleRefs.overflowX
+  overflowY?: keyof typeof styleRefs.overflowY
   position?: keyof typeof styleRefs.position
 }
 
@@ -20,6 +21,8 @@ export const useLayoutStyles = ({
   height,
   display,
   overflow,
+  overflowX,
+  overflowY,
   position,
 }: UseLayoutStylesProps) => {
   return clsx(
@@ -56,6 +59,8 @@ export const useLayoutStyles = ({
         styleRefs.displayDesktopWide,
       ),
     overflow !== undefined && styleRefs.overflow[overflow],
+    overflowX !== undefined && styleRefs.overflowX[overflowX],
+    overflowY !== undefined && styleRefs.overflowY[overflowY],
     position !== undefined && styleRefs.position[position],
   )
 }

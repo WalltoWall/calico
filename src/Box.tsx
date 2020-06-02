@@ -112,6 +112,8 @@ export const Box = ({
   userSelect,
   pointerEvents,
   overflow,
+  overflowX,
+  overflowY,
   position,
 
   opacity,
@@ -170,6 +172,8 @@ export const Box = ({
     height,
     display,
     overflow,
+    overflowX,
+    overflowY,
     position,
   })
   const borderStyles = useBorderStyles({
