@@ -10,9 +10,6 @@ export type UseLayoutStylesProps = {
   maxWidth?: ResponsiveProp<keyof typeof styleRefs.maxWidth>
   height?: ResponsiveProp<Height>
   display?: ResponsiveProp<keyof typeof styleRefs.display>
-  outline?: keyof typeof styleRefs.outline
-  userSelect?: keyof typeof styleRefs.userSelect
-  pointerEvents?: ResponsiveProp<keyof typeof styleRefs.pointerEvents>
   overflow?: keyof typeof styleRefs.overflow
   position?: keyof typeof styleRefs.position
 }
@@ -22,9 +19,6 @@ export const useLayoutStyles = ({
   maxWidth,
   height,
   display,
-  outline,
-  userSelect,
-  pointerEvents,
   overflow,
   position,
 }: UseLayoutStylesProps) => {
@@ -60,16 +54,6 @@ export const useLayoutStyles = ({
         styleRefs.displayTablet,
         styleRefs.displayDesktop,
         styleRefs.displayDesktopWide,
-      ),
-    outline !== undefined && styleRefs.outline[outline],
-    userSelect !== undefined && styleRefs.userSelect[userSelect],
-    pointerEvents !== undefined &&
-      resolveResponsiveProp(
-        pointerEvents,
-        styleRefs.pointerEvents,
-        styleRefs.pointerEventsTablet,
-        styleRefs.pointerEventsDesktop,
-        styleRefs.pointerEventsDesktopWide,
       ),
     overflow !== undefined && styleRefs.overflow[overflow],
     position !== undefined && styleRefs.position[position],
