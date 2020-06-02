@@ -12,6 +12,10 @@ import { useLayoutStyles, UseLayoutStylesProps } from './useLayoutStyles'
 import { useBorderStyles, UseBorderStylesProps } from './useBorderStyles'
 import { useGridStyles, UseGridStylesProps } from './useGridStyles'
 import { SafeReactHTMLAttributes } from '../types'
+import {
+  useInteractivityStyles,
+  UseInteractivityStylesProps,
+} from './useInteractivityStyles'
 
 export type BoxProps = {
   component?: React.ElementType
@@ -25,7 +29,8 @@ export type BoxProps = {
   UseColorStylesProps &
   UseBorderStylesProps &
   UseGridStylesProps &
-  SafeReactHTMLAttributes
+  UseInteractivityStylesProps
+SafeReactHTMLAttributes
 
 export const Box = ({
   component,
@@ -153,9 +158,6 @@ export const Box = ({
     width,
     height,
     display,
-    outline,
-    userSelect,
-    pointerEvents,
     overflow,
     position,
   })
@@ -178,6 +180,11 @@ export const Box = ({
     gridColumn,
     gridRow,
   })
+  const interactivityStyles = useInteractivityStyles({
+    outline,
+    pointerEvents,
+    userSelect,
+  })
 
   // ORing undefined will prevent empty string classes in
   // html markup
@@ -190,6 +197,7 @@ export const Box = ({
       layoutStyles,
       borderStyles,
       gridStyles,
+      interactivityStyles,
       className,
     ) || undefined
 
