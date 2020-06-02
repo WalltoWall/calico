@@ -66,7 +66,6 @@ export const gridTemplateColumnsDesktopWide = styleMap((theme) =>
   ),
 )
 
-export type GridTemplateRows = keyof typeof gridTemplateRowsRules
 export const gridTemplateRows = styleMap((theme) =>
   pipe(
     theme.rules.gridTemplateRows,
