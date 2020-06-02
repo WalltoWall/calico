@@ -91,6 +91,10 @@ export const Box = ({
   flex,
 
   backgroundColor,
+  backgroundSize,
+  backgroundPositionX,
+  backgroundPositionY,
+  backgroundRepeat,
 
   fontFamily,
   fontWeight,
@@ -146,6 +150,10 @@ export const Box = ({
   })
   const colorStyles = useBackgroundStyles({
     backgroundColor,
+    backgroundPositionX,
+    backgroundPositionY,
+    backgroundRepeat,
+    backgroundSize,
   })
   const typographyStyles = useTypographyStyles({
     color,
