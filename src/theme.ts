@@ -60,7 +60,9 @@ export const baseTheme: Omit<
   rules: {
     // Layout
     width: {
+      auto: 'auto',
       full: '100%',
+      '1px': '1px',
       '1/12': `${(1 / 12) * 100}%`,
       '2/12': `${(2 / 12) * 100}%`,
       '3/12': `${(3 / 12) * 100}%`,
@@ -72,13 +74,11 @@ export const baseTheme: Omit<
       '9/12': `${(9 / 12) * 100}%`,
       '10/12': `${(10 / 12) * 100}%`,
       '11/12': `${(11 / 12) * 100}%`,
-      '12/12': `${(12 / 12) * 100}%`,
-      auto: 'auto',
     },
     height: {
-      full: '100%',
-      1: '1px',
       auto: 'auto',
+      full: '100%',
+      '1px': '1px',
     },
     display: {
       block: 'block',
