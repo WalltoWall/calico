@@ -5,15 +5,15 @@ import { pipe } from 'fp-ts/es6/pipeable'
 import { createMq } from './createMq'
 import { resolveGrid } from './utils'
 
+type PickPartial<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
+  Partial<Pick<T, K>>
 type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
-// type Theme = typeof baseTheme & {
-//   mediaQueries: Record<(typeof baseTheme)['breakpoints'], string>
-// }
-
 type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
+type RequiredProperties = 'breakpoints' | 'grid'
+type ComputedProperties = 'mediaQueries'
 
-export interface Theme {
+export interface CalicoTheme {
   breakpoints: Record<BreakpointKeys, number>
   mediaQueries: Record<BreakpointKeys, number>
 
@@ -24,9 +24,6 @@ export interface Theme {
 
   fonts: Record<string, any>
   letterSpacings: Record<string, string>
-  borderWidths: Record<string, string>
-  borderStyles: Record<string, string>
-  borderRadii: Record<string, string>
 
   zIndices: Record<string, string>
 
@@ -37,9 +34,15 @@ export interface Theme {
   >
 }
 
-type ProvidedTheme = AtLeast<Theme, 'breakpoints' | 'grid'>
+type CustomCalicoTheme = Omit<
+  AtLeast<CalicoTheme, RequiredProperties>,
+  ComputedProperties
+>
 
-export const baseTheme: Theme = {
+export const baseTheme: Omit<
+  PickPartial<CalicoTheme, RequiredProperties>,
+  ComputedProperties
+> = {
   // Spacing
   space: {},
 
@@ -49,11 +52,6 @@ export const baseTheme: Theme = {
   // Fonts
   fonts: {},
   letterSpacings: {},
-
-  // Borders
-  borderWidths: {},
-  borderStyles: {},
-  borderRadii: {},
 
   // Z-Indicies
   zIndices: {},
@@ -262,10 +260,33 @@ export const baseTheme: Theme = {
       8: '80%',
       auto: 'auto',
     },
+    // Borders
+    borderWidth: {
+      none: 0,
+      '1px': '1px',
+    },
+    borderStyle: {
+      none: 'none',
+      solid: 'solid',
+      dotted: 'dotted',
+      dashed: 'dashed',
+    },
+    borderRadius: {
+      none: 0,
+    },
+
+    // Effects
+    opacity: {
+      0: 0,
+      25: 0.25,
+      50: 0.5,
+      75: 0.75,
+      100: 1,
+    },
   },
 }
 
-export const createCalicoTheme = (theme: ProvidedTheme) => {
+export const createCalicoTheme = (theme: CustomCalicoTheme) => {
   const mediaQueries = pipe(
     theme.breakpoints,
     map((value) => `screen and (min-width: ${value * theme.grid}rem)`),

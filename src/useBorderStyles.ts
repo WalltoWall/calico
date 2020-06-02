@@ -1,48 +1,52 @@
 import clsx from 'clsx'
 
 import * as styleRefs from './useBorderStyles.treat'
-import { Theme } from './theme'
 
-export type Border = keyof Theme['borderWidths']
+export type BorderWidth = keyof typeof styleRefs.borderWidth
 
 export type UseBorderStylesProps = {
-  borderRadius?: keyof typeof styleRefs.borderRadius
-  border?: Border
-  borderTop?: Border
-  borderRight?: Border
-  borderBottom?: Border
-  borderLeft?: Border
-  borderY?: Border
-  borderX?: Border
+  borderColor?: keyof typeof styleRefs.borderColor
+  borderWidth?: BorderWidth
+  borderWidthX?: BorderWidth
+  borderWidthY?: BorderWidth
+  borderTopWidth?: BorderWidth
+  borderRightWidth?: BorderWidth
+  borderBottomWidth?: BorderWidth
+  borderLeftWidth?: BorderWidth
   borderStyle?: keyof typeof styleRefs.borderStyle
+  borderRadius?: keyof typeof styleRefs.borderRadius
 }
 
 export const useBorderStyles = ({
-  borderRadius,
-  border,
-  borderBottom,
-  borderLeft,
-  borderRight,
-  borderTop,
-  borderX,
-  borderY,
+  borderColor,
+  borderWidth,
+  borderWidthY,
+  borderWidthX,
+  borderBottomWidth,
+  borderLeftWidth,
+  borderRightWidth,
+  borderTopWidth,
   borderStyle,
+  borderRadius,
 }: UseBorderStylesProps) => {
-  const resolvedBorderTopWidth = borderTop || borderY || border
-  const resolvedBorderBottomWidth = borderBottom || borderY || border
-  const resolvedBorderLeftWidth = borderLeft || borderX || border
-  const resolvedBorderRightWidth = borderRight || borderX || border
+  const resolvedBorderTopWidth = borderTopWidth || borderWidthY || borderWidth
+  const resolvedBorderBottomWidth =
+    borderBottomWidth || borderWidthY || borderWidth
+  const resolvedBorderLeftWidth = borderLeftWidth || borderWidthX || borderWidth
+  const resolvedBorderRightWidth =
+    borderRightWidth || borderWidthX || borderWidth
 
   return clsx(
-    borderRadius !== undefined && styleRefs.borderRadius[borderRadius],
+    borderColor !== undefined && styleRefs.borderColor[borderColor],
     resolvedBorderTopWidth !== undefined &&
-      styleRefs.borderTop[resolvedBorderTopWidth],
+      styleRefs.borderTopWidth[resolvedBorderTopWidth],
     resolvedBorderBottomWidth !== undefined &&
-      styleRefs.borderBottom[resolvedBorderBottomWidth],
+      styleRefs.borderBottomWidth[resolvedBorderBottomWidth],
     resolvedBorderLeftWidth !== undefined &&
-      styleRefs.borderLeft[resolvedBorderLeftWidth],
+      styleRefs.borderLeftWidth[resolvedBorderLeftWidth],
     resolvedBorderRightWidth !== undefined &&
-      styleRefs.borderRight[resolvedBorderRightWidth],
+      styleRefs.borderRightWidth[resolvedBorderRightWidth],
     borderStyle !== undefined && styleRefs.borderStyle[borderStyle],
+    borderRadius !== undefined && styleRefs.borderRadius[borderRadius],
   )
 }

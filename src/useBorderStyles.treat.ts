@@ -3,23 +3,30 @@ import { pipe } from 'fp-ts/es6/pipeable'
 
 import { mapToProperty } from './utils'
 
-export const borderRadius = styleMap((theme) =>
-  pipe(theme.borderRadii, mapToProperty('borderRadius')),
+export const borderColor = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('borderColor')),
 )
 
-export const borderTop = styleMap((theme) =>
-  pipe(theme.borderWidths, mapToProperty('borderTopWidth')),
+export const borderWidth = styleMap((theme) =>
+  pipe(theme.rules.borderWidth, mapToProperty('borderWidth')),
 )
-export const borderBottom = styleMap((theme) =>
-  pipe(theme.borderWidths, mapToProperty('borderBottomWidth')),
+export const borderTopWidth = styleMap((theme) =>
+  pipe(theme.rules.borderWidth, mapToProperty('borderTopWidth')),
 )
-export const borderLeft = styleMap((theme) =>
-  pipe(theme.borderWidths, mapToProperty('borderLeftWidth')),
+export const borderBottomWidth = styleMap((theme) =>
+  pipe(theme.rules.borderWidth, mapToProperty('borderBottomWidth')),
 )
-export const borderRight = styleMap((theme) =>
-  pipe(theme.borderWidths, mapToProperty('borderRightWidth')),
+export const borderLeftWidth = styleMap((theme) =>
+  pipe(theme.rules.borderWidth, mapToProperty('borderLeftWidth')),
+)
+export const borderRightWidth = styleMap((theme) =>
+  pipe(theme.rules.borderWidth, mapToProperty('borderRightWidth')),
 )
 
 export const borderStyle = styleMap((theme) =>
-  pipe(theme.borderStyles, mapToProperty('borderStyle')),
+  pipe(theme.rules.borderStyle, mapToProperty('borderStyle')),
+)
+
+export const borderRadius = styleMap((theme) =>
+  pipe(theme.rules.borderWidth, mapToProperty('borderRadius')),
 )

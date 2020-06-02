@@ -3,9 +3,9 @@ import clsx from 'clsx'
 import * as styleRefs from './useSpaceStyles.treat'
 import { ResponsiveProp } from './types'
 import { resolveResponsiveProp } from './utils'
-import { Theme } from './theme'
+import { CalicoTheme } from './theme'
 
-export type Space = keyof Theme['space']
+export type Space = keyof CalicoTheme['space']
 export type ResponsiveSpace = ResponsiveProp<Space>
 
 export type UseSpaceStylesProps = {
