@@ -7,6 +7,7 @@ import { resolveGrid } from './utils'
 
 import { sizingRules } from './useSizingStyles'
 import { layoutRules } from './useLayoutStyles'
+import { interactivityRules } from './useInteractivityStyles'
 
 type PickPartial<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
   Partial<Pick<T, K>>
@@ -63,18 +64,7 @@ export const baseTheme: Omit<
   rules: {
     ...sizingRules,
     ...layoutRules,
-
-    // Interactivity
-    outline: {
-      none: 'none',
-    },
-    userSelect: {
-      none: 'none',
-    },
-    pointerEvents: {
-      none: 'none',
-      auto: 'auto',
-    },
+    ...interactivityRules,
 
     // Typography
     fontWeight: {},

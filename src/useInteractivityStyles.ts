@@ -4,6 +4,19 @@ import * as styleRefs from './useInteractivityStyles.treat'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
 
+export const interactivityRules = {
+  outline: {
+    none: 'none',
+  },
+  userSelect: {
+    none: 'none',
+  },
+  pointerEvents: {
+    none: 'none',
+    auto: 'auto',
+  },
+}
+
 export type UseInteractivityStylesProps = {
   outline?: keyof typeof styleRefs.outline
   userSelect?: keyof typeof styleRefs.userSelect
