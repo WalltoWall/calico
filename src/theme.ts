@@ -32,7 +32,7 @@ export interface CalicoTheme {
 
   colors: Record<string, string>
 
-  fonts: Record<string, any>
+  fonts?: Record<string, any>
 
   zIndices: Record<string, string>
 
@@ -57,9 +57,6 @@ export const baseTheme: Omit<
 
   // Colors
   colors: {},
-
-  // Fonts
-  fonts: {},
 
   // Z-Indicies
   zIndices: {},
