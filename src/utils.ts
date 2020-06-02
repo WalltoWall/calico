@@ -9,7 +9,7 @@ import { map, singleton } from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
 import { ResponsiveProp } from './types'
-import { Theme } from './theme'
+import { CalicoTheme } from './theme'
 import { BoxProps } from './Box'
 
 export type NegatableSpace = NonNullable<Exclude<BoxProps['padding'], 'auto'>>
@@ -61,7 +61,7 @@ export const styleSingleton = <
  */
 export const styleSpaceSingleton = <TPropertyName extends keyof Properties>(
   propertyName: TPropertyName,
-  theme: Theme,
+  theme: CalicoTheme,
 ) => (value: string | number) =>
   pipe(
     typeof value === 'number' ? E.right(value) : E.left(value),
@@ -78,8 +78,8 @@ export const styleSpaceSingleton = <TPropertyName extends keyof Properties>(
  * @returns Style assigned to the breakpoint.
  */
 export const makeResponsive = (
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
+  breakpoint: keyof CalicoTheme['breakpoints'],
+  theme: CalicoTheme,
 ) => {
   const minWidth = theme.breakpoints[breakpoint]
 
@@ -124,7 +124,7 @@ export const mapToProperty = <TPropertyName extends keyof Properties>(
  */
 export const mapToSpaceProperty = <TPropertyName extends keyof Properties>(
   propertyName: TPropertyName,
-  theme: Theme,
+  theme: CalicoTheme,
 ) => map(styleSpaceSingleton(propertyName, theme))
 
 /**
@@ -136,8 +136,8 @@ export const mapToSpaceProperty = <TPropertyName extends keyof Properties>(
  * @returns Treat-compatible style map to pass to `styleMap`.
  */
 export const mapToResponsive = (
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
+  breakpoint: keyof CalicoTheme['breakpoints'],
+  theme: CalicoTheme,
 ) => map(makeResponsive(breakpoint, theme))
 
 /**
@@ -150,8 +150,8 @@ export const mapToResponsive = (
  */
 export const mapToResponsiveProperty = (
   propertyName: keyof Properties,
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
+  breakpoint: keyof CalicoTheme['breakpoints'],
+  theme: CalicoTheme,
 ) => flow(mapToProperty(propertyName), mapToResponsive(breakpoint, theme))
 
 /**
@@ -164,8 +164,8 @@ export const mapToResponsiveProperty = (
  */
 export const mapToResponsiveSpaceProperty = (
   propertyName: keyof Properties,
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
+  breakpoint: keyof CalicoTheme['breakpoints'],
+  theme: CalicoTheme,
 ) =>
   flow(
     mapToSpaceProperty(propertyName, theme),
@@ -182,8 +182,8 @@ export const mapToResponsiveSpaceProperty = (
  */
 export const responsiveSpaceMap = (
   propertyName: keyof Properties,
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
+  breakpoint: keyof CalicoTheme['breakpoints'],
+  theme: CalicoTheme,
 ): Record<string | number, Style> =>
   pipe(
     theme.space,

@@ -1,4 +1,4 @@
-import { Theme as CalicoTheme } from '../src/theme'
+import { CalicoTheme } from './theme'
 
 declare module 'treat/theme' {
   export interface Theme extends CalicoTheme {}
