@@ -185,3 +185,12 @@ export const position = styleMap((theme) =>
     O.getOrElseW(() => R.empty),
   ),
 )
+
+export const zIndex = styleMap((theme) =>
+  pipe(
+    theme.rules.zIndex,
+    O.fromNullable,
+    O.map(mapToProperty('zIndex')),
+    O.getOrElseW(() => R.empty),
+  ),
+)

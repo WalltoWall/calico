@@ -28,15 +28,13 @@ export interface CalicoTheme {
   mediaQueries: Record<BreakpointKeys, number>
 
   grid: number
-  space: Record<string | number, string | number>
+  space?: Record<string | number, string | number>
 
-  colors: Record<string, string>
+  colors?: Record<string, string>
 
   fonts?: Record<string, any>
 
-  zIndices: Record<string, string>
-
-  transitionDurations: Record<string, string>
+  transitionDurations?: Record<string, string>
 
   rules: Partial<
     Record<keyof Properties, Record<string | number, string | number>>
@@ -52,18 +50,6 @@ export const baseTheme: Omit<
   PickPartial<CalicoTheme, RequiredProperties>,
   ComputedProperties
 > = {
-  // Spacing
-  space: {},
-
-  // Colors
-  colors: {},
-
-  // Z-Indicies
-  zIndices: {},
-
-  // Transitions
-  transitionDurations: {},
-
   rules: {
     ...sizingRules,
     ...layoutRules,
@@ -80,12 +66,18 @@ export const baseTheme: Omit<
 export const createCalicoTheme = (theme: CustomCalicoTheme) => {
   const mediaQueries = pipe(
     theme.breakpoints,
-    map((value) => `screen and (min-width: ${value * theme.grid}rem)`),
+    map(
+      (value) => `screen and (min-width: ${resolveGrid(theme.grid)(value)}rem)`,
+    ),
   )
 
   const resolvedTheme = {
     ...baseTheme,
     ...theme,
+    rules: {
+      ...baseTheme.rules,
+      ...theme.rules,
+    },
     mediaQueries,
   }
 
