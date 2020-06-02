@@ -23,8 +23,6 @@ export interface Theme {
   colors: Record<string, string>
 
   fonts: Record<string, any>
-  fontWeights: Record<string, number>
-  lineHeights: Record<string, string>
   letterSpacings: Record<string, string>
   borderWidths: Record<string, string>
   borderStyles: Record<string, string>
@@ -50,8 +48,6 @@ export const baseTheme: Theme = {
 
   // Fonts
   fonts: {},
-  fontWeights: {},
-  lineHeights: {},
   letterSpacings: {},
 
   // Borders
@@ -96,16 +92,6 @@ export const baseTheme: Theme = {
       flex: 'flex',
       grid: 'grid',
     },
-    outline: {
-      none: 'none',
-    },
-    userSelect: {
-      none: 'none',
-    },
-    pointerEvents: {
-      none: 'none',
-      auto: 'auto',
-    },
     overflow: {
       auto: 'auto',
       hidden: 'hidden',
@@ -121,11 +107,36 @@ export const baseTheme: Theme = {
       sticky: 'sticky',
     },
 
+    // Interactivity
+    outline: {
+      none: 'none',
+    },
+    userSelect: {
+      none: 'none',
+    },
+    pointerEvents: {
+      none: 'none',
+      auto: 'auto',
+    },
+
+    // Typography
+    fontWeight: {},
+    fontStyle: {
+      normal: 'normal',
+      italic: 'italic',
+    },
+    lineHeight: {},
+    textAlign: {
+      left: 'left',
+      center: 'center',
+      right: 'right',
+    },
     textTransform: {
       uppercase: 'uppercase',
       lowercase: 'lowercase',
       capitalize: 'capitalize',
     },
+    letterSpacing: {},
   },
 }
 

@@ -13,64 +13,50 @@ export const fontFamily = styleMap((theme) =>
 )
 
 export const fontWeight = styleMap((theme) =>
-  pipe(theme.fontWeights, mapToProperty('fontWeight')),
+  pipe(theme.rules.fontWeight, mapToProperty('fontWeight')),
 )
 
-const fontStyleRules = {
-  normal: 'normal',
-  italic: 'italic',
-}
 export const fontStyle = styleMap((theme) =>
-  pipe(fontStyleRules, mapToProperty('fontStyle')),
+  pipe(theme.rules.fontStyle, mapToProperty('fontStyle')),
 )
 
 export const lineHeight = styleMap((theme) =>
-  pipe(theme.lineHeights, mapToProperty('lineHeight')),
+  pipe(theme.rules.lineHeight, mapToProperty('lineHeight')),
 )
 
-const textAlignRules = {
-  left: 'left',
-  center: 'center',
-  right: 'right',
-}
 export const textAlign = styleMap((theme) =>
   pipe(
-    textAlignRules,
+    theme.rules.textAlign,
     mapToProperty('textAlign'),
     mapToResponsive('mobile', theme),
   ),
 )
 export const textAlignTablet = styleMap((theme) =>
   pipe(
-    textAlignRules,
+    theme.rules.textAlign,
     mapToProperty('textAlign'),
     mapToResponsive('tablet', theme),
   ),
 )
 export const textAlignDesktop = styleMap((theme) =>
   pipe(
-    textAlignRules,
+    theme.rules.textAlign,
     mapToProperty('textAlign'),
     mapToResponsive('desktop', theme),
   ),
 )
 export const textAlignDesktopWide = styleMap((theme) =>
   pipe(
-    textAlignRules,
+    theme.rules.textAlign,
     mapToProperty('textAlign'),
     mapToResponsive('desktopWide', theme),
   ),
 )
 
-const textTransformRules = {
-  uppercase: 'uppercase',
-  lowercase: 'lowercase',
-  capitalize: 'capitalize',
-}
 export const textTransform = styleMap((theme) =>
-  pipe(textTransformRules, mapToProperty('textTransform')),
+  pipe(theme.rules.textTransform, mapToProperty('textTransform')),
 )
 
 export const letterSpacing = styleMap((theme) =>
-  pipe(theme.letterSpacings, mapToProperty('letterSpacing')),
+  pipe(theme.rules.letterSpacing, mapToProperty('letterSpacing')),
 )
