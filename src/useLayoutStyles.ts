@@ -27,6 +27,16 @@ export const layoutRules = {
     fixed: 'fixed',
     sticky: 'sticky',
   },
+  zIndex: {
+    auto: 'auto',
+    [-1]: -1,
+    0: 1,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+  },
 }
 
 export type UseLayoutStylesProps = {
@@ -35,6 +45,7 @@ export type UseLayoutStylesProps = {
   overflowX?: keyof typeof styleRefs.overflowX
   overflowY?: keyof typeof styleRefs.overflowY
   position?: keyof typeof styleRefs.position
+  zIndex?: keyof typeof styleRefs.zIndex
 }
 
 export const useLayoutStyles = ({
@@ -43,6 +54,7 @@ export const useLayoutStyles = ({
   overflowX,
   overflowY,
   position,
+  zIndex,
 }: UseLayoutStylesProps) => {
   return clsx(
     display !== undefined &&
@@ -57,5 +69,6 @@ export const useLayoutStyles = ({
     overflowX !== undefined && styleRefs.overflowX[overflowX],
     overflowY !== undefined && styleRefs.overflowY[overflowY],
     position !== undefined && styleRefs.position[position],
+    zIndex !== undefined && styleRefs.zIndex[zIndex],
   )
 }
