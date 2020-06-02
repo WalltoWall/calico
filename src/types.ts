@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { UseSpaceStylesProps } from './useSpaceStyles'
 import { UseLayoutStylesProps } from './useLayoutStyles'
 import { UseBackgroundStylesProps } from './useBackgroundStyles'
@@ -36,3 +38,18 @@ export type PrimitiveStyleProps = MarginProps &
   BorderProps &
   GridProps &
   InteractivityProps
+
+type ConflictingHtmlProps =
+  | 'color'
+  | 'style'
+  | 'className'
+  | 'width'
+  | 'height'
+  | 'css'
+
+export type SafeReactHTMLAttributes = Omit<
+  React.AllHTMLAttributes<'div'>,
+  ConflictingHtmlProps
+> & {
+  loading?: string
+}
