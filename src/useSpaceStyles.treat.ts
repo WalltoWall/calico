@@ -1,7 +1,6 @@
 import { styleMap } from 'treat'
 
 import { responsiveSpaceMap } from './utils'
-import { theme } from './theme'
 
 export const margin = {
   top: styleMap((theme) => responsiveSpaceMap('marginTop', 'mobile', theme)),
