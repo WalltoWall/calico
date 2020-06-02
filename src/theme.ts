@@ -23,7 +23,6 @@ export interface CalicoTheme {
   colors: Record<string, string>
 
   fonts: Record<string, any>
-  letterSpacings: Record<string, string>
 
   zIndices: Record<string, string>
 
@@ -51,7 +50,6 @@ export const baseTheme: Omit<
 
   // Fonts
   fonts: {},
-  letterSpacings: {},
 
   // Z-Indicies
   zIndices: {},
