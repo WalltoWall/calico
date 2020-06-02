@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 
 import * as styleRefs from './useFlexboxStyles.treat'
-import {  resolveResponsiveProp } from './utils'
+import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
 
 export type UseFlexboxStylesProps = {

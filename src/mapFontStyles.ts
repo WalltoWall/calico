@@ -84,9 +84,7 @@ export const basekickFontStyles = (theme: Theme) => ({
   })
 }
 
-export const mapFontStyles = (theme: Theme) => (
-  rule: FontStyleRules,
-) =>
+export const mapFontStyles = (theme: Theme) => (rule: FontStyleRules) =>
   mapWithIndex((breakpoint: keyof Theme['breakpoints'], fontSize: number) => {
     const responsiveRule: BaseKickArgs = {
       ...rule,

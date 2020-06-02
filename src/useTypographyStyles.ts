@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 
 import * as styleRefs from './useTypographyStyles.treat'
-import { ResponsiveProp} from './types'
+import { ResponsiveProp } from './types'
 import { resolveResponsiveProp } from './utils'
 
 export type UseTypographyStylesProps = {

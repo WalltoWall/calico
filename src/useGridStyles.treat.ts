@@ -2,12 +2,17 @@ import { styleMap } from 'treat'
 import { pipe } from 'fp-ts/es6/pipeable'
 
 import { responsiveSpaceMap, mapToResponsiveProperty } from './utils'
-import { theme } from './theme'
 
-export const gap = styleMap(responsiveSpaceMap('gap', 'mobile', theme))
-export const gapTablet = styleMap(responsiveSpaceMap('gap', 'tablet', theme))
-export const gapDesktop = styleMap(responsiveSpaceMap('gap', 'desktop', theme))
-export const gapDesktopWide = styleMap(
+export const gap = styleMap((theme) =>
+  responsiveSpaceMap('gap', 'mobile', theme),
+)
+export const gapTablet = styleMap((theme) =>
+  responsiveSpaceMap('gap', 'tablet', theme),
+)
+export const gapDesktop = styleMap((theme) =>
+  responsiveSpaceMap('gap', 'desktop', theme),
+)
+export const gapDesktopWide = styleMap((theme) =>
   responsiveSpaceMap('gap', 'desktopWide', theme),
 )
 
@@ -17,25 +22,29 @@ export const gridAutoFlowRules = {
   column: 'column',
   columnDense: 'column dense',
 }
-export const gridAutoFlow = pipe(
-  gridAutoFlowRules,
-  mapToResponsiveProperty('gridAutoFlow', 'mobile', theme),
-  styleMap,
+export const gridAutoFlow = styleMap((theme) =>
+  pipe(
+    gridAutoFlowRules,
+    mapToResponsiveProperty('gridAutoFlow', 'mobile', theme),
+  ),
 )
-export const gridAutoFlowTablet = pipe(
-  gridAutoFlowRules,
-  mapToResponsiveProperty('gridAutoFlow', 'tablet', theme),
-  styleMap,
+export const gridAutoFlowTablet = styleMap((theme) =>
+  pipe(
+    gridAutoFlowRules,
+    mapToResponsiveProperty('gridAutoFlow', 'tablet', theme),
+  ),
 )
-export const gridAutoFlowDesktop = pipe(
-  gridAutoFlowRules,
-  mapToResponsiveProperty('gridAutoFlow', 'desktop', theme),
-  styleMap,
+export const gridAutoFlowDesktop = styleMap((theme) =>
+  pipe(
+    gridAutoFlowRules,
+    mapToResponsiveProperty('gridAutoFlow', 'desktop', theme),
+  ),
 )
-export const gridAutoFlowDesktopWide = pipe(
-  gridAutoFlowRules,
-  mapToResponsiveProperty('gridAutoFlow', 'desktopWide', theme),
-  styleMap,
+export const gridAutoFlowDesktopWide = styleMap((theme) =>
+  pipe(
+    gridAutoFlowRules,
+    mapToResponsiveProperty('gridAutoFlow', 'desktopWide', theme),
+  ),
 )
 
 export type GridTemplateColumns = keyof typeof gridTemplateColumnsRules
@@ -54,25 +63,29 @@ const gridTemplateColumnsRules = {
   12: 'repeat(12, minmax(0, 1fr))',
   none: 'none',
 }
-export const gridTemplateColumns = pipe(
-  gridTemplateColumnsRules,
-  mapToResponsiveProperty('gridTemplateColumns', 'mobile', theme),
-  styleMap,
+export const gridTemplateColumns = styleMap((theme) =>
+  pipe(
+    gridTemplateColumnsRules,
+    mapToResponsiveProperty('gridTemplateColumns', 'mobile', theme),
+  ),
 )
-export const gridTemplateColumnsTablet = pipe(
-  gridTemplateColumnsRules,
-  mapToResponsiveProperty('gridTemplateColumns', 'tablet', theme),
-  styleMap,
+export const gridTemplateColumnsTablet = styleMap((theme) =>
+  pipe(
+    gridTemplateColumnsRules,
+    mapToResponsiveProperty('gridTemplateColumns', 'tablet', theme),
+  ),
 )
-export const gridTemplateColumnsDesktop = pipe(
-  gridTemplateColumnsRules,
-  mapToResponsiveProperty('gridTemplateColumns', 'desktop', theme),
-  styleMap,
+export const gridTemplateColumnsDesktop = styleMap((theme) =>
+  pipe(
+    gridTemplateColumnsRules,
+    mapToResponsiveProperty('gridTemplateColumns', 'desktop', theme),
+  ),
 )
-export const gridTemplateColumnsDesktopWide = pipe(
-  gridTemplateColumnsRules,
-  mapToResponsiveProperty('gridTemplateColumns', 'desktopWide', theme),
-  styleMap,
+export const gridTemplateColumnsDesktopWide = styleMap((theme) =>
+  pipe(
+    gridTemplateColumnsRules,
+    mapToResponsiveProperty('gridTemplateColumns', 'desktopWide', theme),
+  ),
 )
 
 export type GridTemplateRows = keyof typeof gridTemplateRowsRules
@@ -85,25 +98,29 @@ const gridTemplateRowsRules = {
   6: 'repeat(6, minmax(0, 1fr))',
   none: 'none',
 }
-export const gridTemplateRows = pipe(
-  gridTemplateRowsRules,
-  mapToResponsiveProperty('gridTemplateRows', 'mobile', theme),
-  styleMap,
+export const gridTemplateRows = styleMap((theme) =>
+  pipe(
+    gridTemplateRowsRules,
+    mapToResponsiveProperty('gridTemplateRows', 'mobile', theme),
+  ),
 )
-export const gridTemplateRowsTablet = pipe(
-  gridTemplateRowsRules,
-  mapToResponsiveProperty('gridTemplateRows', 'tablet', theme),
-  styleMap,
+export const gridTemplateRowsTablet = styleMap((theme) =>
+  pipe(
+    gridTemplateRowsRules,
+    mapToResponsiveProperty('gridTemplateRows', 'tablet', theme),
+  ),
 )
-export const gridTemplateRowsDesktop = pipe(
-  gridTemplateRowsRules,
-  mapToResponsiveProperty('gridTemplateRows', 'desktop', theme),
-  styleMap,
+export const gridTemplateRowsDesktop = styleMap((theme) =>
+  pipe(
+    gridTemplateRowsRules,
+    mapToResponsiveProperty('gridTemplateRows', 'desktop', theme),
+  ),
 )
-export const gridTemplateRowsDesktopWide = pipe(
-  gridTemplateRowsRules,
-  mapToResponsiveProperty('gridTemplateRows', 'desktopWide', theme),
-  styleMap,
+export const gridTemplateRowsDesktopWide = styleMap((theme) =>
+  pipe(
+    gridTemplateRowsRules,
+    mapToResponsiveProperty('gridTemplateRows', 'desktopWide', theme),
+  ),
 )
 
 const gridColumnRules = {
@@ -121,25 +138,23 @@ const gridColumnRules = {
   'span-11': 'span 11 / span 11',
   'span-12': 'span 12 / span 12',
 }
-export const gridColumn = pipe(
-  gridColumnRules,
-  mapToResponsiveProperty('gridColumn', 'mobile', theme),
-  styleMap,
+export const gridColumn = styleMap((theme) =>
+  pipe(gridColumnRules, mapToResponsiveProperty('gridColumn', 'mobile', theme)),
 )
-export const gridColumnTablet = pipe(
-  gridColumnRules,
-  mapToResponsiveProperty('gridColumn', 'tablet', theme),
-  styleMap,
+export const gridColumnTablet = styleMap((theme) =>
+  pipe(gridColumnRules, mapToResponsiveProperty('gridColumn', 'tablet', theme)),
 )
-export const gridColumnDesktop = pipe(
-  gridColumnRules,
-  mapToResponsiveProperty('gridColumn', 'desktop', theme),
-  styleMap,
+export const gridColumnDesktop = styleMap((theme) =>
+  pipe(
+    gridColumnRules,
+    mapToResponsiveProperty('gridColumn', 'desktop', theme),
+  ),
 )
-export const gridColumnDesktopWide = pipe(
-  gridColumnRules,
-  mapToResponsiveProperty('gridColumn', 'desktopWide', theme),
-  styleMap,
+export const gridColumnDesktopWide = styleMap((theme) =>
+  pipe(
+    gridColumnRules,
+    mapToResponsiveProperty('gridColumn', 'desktopWide', theme),
+  ),
 )
 
 export const gridRowRules = {
@@ -151,23 +166,15 @@ export const gridRowRules = {
   'span-5': 'span 5 / span 5',
   'span-6': 'span 6 / span 6',
 }
-export const gridRow = pipe(
-  gridRowRules,
-  mapToResponsiveProperty('gridRow', 'mobile', theme),
-  styleMap,
+export const gridRow = styleMap((theme) =>
+  pipe(gridRowRules, mapToResponsiveProperty('gridRow', 'mobile', theme)),
 )
-export const gridRowTablet = pipe(
-  gridRowRules,
-  mapToResponsiveProperty('gridRow', 'tablet', theme),
-  styleMap,
+export const gridRowTablet = styleMap((theme) =>
+  pipe(gridRowRules, mapToResponsiveProperty('gridRow', 'tablet', theme)),
 )
-export const gridRowDesktop = pipe(
-  gridRowRules,
-  mapToResponsiveProperty('gridRow', 'desktop', theme),
-  styleMap,
+export const gridRowDesktop = styleMap((theme) =>
+  pipe(gridRowRules, mapToResponsiveProperty('gridRow', 'desktop', theme)),
 )
-export const gridRowDesktopWide = pipe(
-  gridRowRules,
-  mapToResponsiveProperty('gridRow', 'desktopWide', theme),
-  styleMap,
+export const gridRowDesktopWide = styleMap((theme) =>
+  pipe(gridRowRules, mapToResponsiveProperty('gridRow', 'desktopWide', theme)),
 )

@@ -4,35 +4,28 @@ import { map } from 'fp-ts/es6/Record'
 
 import { mapToProperty, mapToResponsive } from './utils'
 
-import { theme } from './theme'
-
-export const fontFamily = pipe(
-  theme.fonts,
-  map((font) => font.stack),
-  mapToProperty('fontFamily'),
-  styleMap,
+export const fontFamily = styleMap((theme) =>
+  pipe(
+    theme.fonts,
+    map((font) => font.stack),
+    mapToProperty('fontFamily'),
+  ),
 )
 
-export const fontWeight = pipe(
-  theme.fontWeights,
-  mapToProperty('fontWeight'),
-  styleMap,
+export const fontWeight = styleMap((theme) =>
+  pipe(theme.fontWeights, mapToProperty('fontWeight')),
 )
 
 const fontStyleRules = {
   normal: 'normal',
   italic: 'italic',
 }
-export const fontStyle = pipe(
-  fontStyleRules,
-  mapToProperty('fontStyle'),
-  styleMap,
+export const fontStyle = styleMap((theme) =>
+  pipe(fontStyleRules, mapToProperty('fontStyle')),
 )
 
-export const lineHeight = pipe(
-  theme.lineHeights,
-  mapToProperty('lineHeight'),
-  styleMap,
+export const lineHeight = styleMap((theme) =>
+  pipe(theme.lineHeights, mapToProperty('lineHeight')),
 )
 
 const textAlignRules = {
@@ -40,29 +33,33 @@ const textAlignRules = {
   center: 'center',
   right: 'right',
 }
-export const textAlign = pipe(
-  textAlignRules,
-  mapToProperty('textAlign'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const textAlign = styleMap((theme) =>
+  pipe(
+    textAlignRules,
+    mapToProperty('textAlign'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const textAlignTablet = pipe(
-  textAlignRules,
-  mapToProperty('textAlign'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const textAlignTablet = styleMap((theme) =>
+  pipe(
+    textAlignRules,
+    mapToProperty('textAlign'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const textAlignDesktop = pipe(
-  textAlignRules,
-  mapToProperty('textAlign'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const textAlignDesktop = styleMap((theme) =>
+  pipe(
+    textAlignRules,
+    mapToProperty('textAlign'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const textAlignDesktopWide = pipe(
-  textAlignRules,
-  mapToProperty('textAlign'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const textAlignDesktopWide = styleMap((theme) =>
+  pipe(
+    textAlignRules,
+    mapToProperty('textAlign'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 const textTransformRules = {
@@ -70,14 +67,10 @@ const textTransformRules = {
   lowercase: 'lowercase',
   capitalize: 'capitalize',
 }
-export const textTransform = pipe(
-  textTransformRules,
-  mapToProperty('textTransform'),
-  styleMap,
+export const textTransform = styleMap((theme) =>
+  pipe(textTransformRules, mapToProperty('textTransform')),
 )
 
-export const letterSpacing = pipe(
-  theme.letterSpacings,
-  mapToProperty('letterSpacing'),
-  styleMap,
+export const letterSpacing = styleMap((theme) =>
+  pipe(theme.letterSpacings, mapToProperty('letterSpacing')),
 )

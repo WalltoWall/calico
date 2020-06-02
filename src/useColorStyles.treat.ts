@@ -6,43 +6,30 @@ import {
   mapToResponsive,
   mapToResponsiveProperty,
 } from './utils'
-import { theme } from './theme'
 
-export const backgroundColor = pipe(
-  theme.colors,
-  mapToProperty('backgroundColor'),
-  styleMap,
+export const backgroundColor = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('backgroundColor')),
 )
 
-export const borderColor = pipe(
-  theme.colors,
-  mapToProperty('borderColor'),
-  styleMap,
+export const borderColor = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('borderColor')),
 )
 
-export const color = pipe(
-  theme.colors,
-  mapToProperty('color'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const color = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('color'), mapToResponsive('mobile', theme)),
 )
-export const colorTablet = pipe(
-  theme.colors,
-  mapToProperty('color'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const colorTablet = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('color'), mapToResponsive('tablet', theme)),
 )
-export const colorDesktop = pipe(
-  theme.colors,
-  mapToProperty('color'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const colorDesktop = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('color'), mapToResponsive('desktop', theme)),
 )
-export const colorDesktopWide = pipe(
-  theme.colors,
-  mapToProperty('color'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const colorDesktopWide = styleMap((theme) =>
+  pipe(
+    theme.colors,
+    mapToProperty('color'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 export type Opacity = keyof typeof opacityRules
@@ -53,23 +40,15 @@ const opacityRules = {
   75: '0.75',
   100: '1',
 }
-export const opacity = pipe(
-  opacityRules,
-  mapToResponsiveProperty('opacity', 'mobile', theme),
-  styleMap,
+export const opacity = styleMap((theme) =>
+  pipe(opacityRules, mapToResponsiveProperty('opacity', 'mobile', theme)),
 )
-export const opacityTablet = pipe(
-  opacityRules,
-  mapToResponsiveProperty('opacity', 'tablet', theme),
-  styleMap,
+export const opacityTablet = styleMap((theme) =>
+  pipe(opacityRules, mapToResponsiveProperty('opacity', 'tablet', theme)),
 )
-export const opacityDesktop = pipe(
-  opacityRules,
-  mapToResponsiveProperty('opacity', 'desktop', theme),
-  styleMap,
+export const opacityDesktop = styleMap((theme) =>
+  pipe(opacityRules, mapToResponsiveProperty('opacity', 'desktop', theme)),
 )
-export const opacityDesktopWide = pipe(
-  opacityRules,
-  mapToResponsiveProperty('opacity', 'desktopWide', theme),
-  styleMap,
+export const opacityDesktopWide = styleMap((theme) =>
+  pipe(opacityRules, mapToResponsiveProperty('opacity', 'desktopWide', theme)),
 )

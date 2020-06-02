@@ -1,153 +1,149 @@
+import { Properties } from 'csstype'
+import { map } from 'fp-ts/es6/Record'
+import { pipe } from 'fp-ts/es6/pipeable'
+
 import { createMq } from './createMq'
+import { resolveGrid } from './utils'
 
-const grid = 0.25
+type AtLeast<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
-const breakpoints = {
-  mobile: 0,
-  tablet: 192,
-  desktop: 320,
-  desktopWide: 360,
-} as const
+// type Theme = typeof baseTheme & {
+//   mediaQueries: Record<(typeof baseTheme)['breakpoints'], string>
+// }
 
-const mediaQueries = (Object.keys(
-  breakpoints,
-) as (keyof typeof breakpoints)[]).reduce((acc, key) => {
-  acc[key] = `screen and (min-width: ${breakpoints[key] * grid}rem)`
-  return acc
-}, {} as Record<keyof typeof breakpoints, string>)
+type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 
-export type Theme = typeof theme
+export interface Theme {
+  breakpoints: Record<BreakpointKeys, number>
+  mediaQueries: Record<BreakpointKeys, number>
 
-export const theme = {
-  // Sizes
-  breakpoints,
-  sizes: breakpoints,
-  mediaQueries,
+  grid: number
+  space: Record<string | number, string | number>
 
+  colors: Record<string, string>
+
+  fonts: Record<string, any>
+  fontWeights: Record<string, number>
+  lineHeights: Record<string, string>
+  letterSpacings: Record<string, string>
+  borderWidths: Record<string, string>
+  borderStyles: Record<string, string>
+  borderRadii: Record<string, string>
+
+  zIndices: Record<string, string>
+
+  transitionDurations: Record<string, string>
+
+  rules: Partial<
+    Record<keyof Properties, Record<string | number, string | number>>
+  >
+}
+
+type ProvidedTheme = AtLeast<Theme, 'breakpoints' | 'grid'>
+
+export const baseTheme: Theme = {
   // Spacing
-  grid,
-  space: {
-    [-16]: -16,
-    [-15]: -15,
-    [-14]: -14,
-    [-13]: -13,
-    [-12]: -12,
-    [-11]: -11,
-    [-10]: -10,
-    [-9]: -9,
-    [-8]: -8,
-    [-7]: -7,
-    [-6]: -6,
-    [-5]: -5,
-    [-4]: -4,
-    [-3]: -3,
-    [-2]: -2,
-    [-1]: -1,
-    0: 0,
-    auto: 'auto',
-    1: 1,
-    2: 2,
-    3: 3,
-    4: 4,
-    5: 5,
-    6: 6,
-    7: 7,
-    8: 8,
-    9: 9,
-    10: 10,
-    11: 11,
-    12: 12,
-    13: 13,
-    14: 14,
-    15: 15,
-    16: 16,
-  },
+  space: {},
 
   // Colors
-  colors: {
-    white: '#fff',
-
-    'gray.10': '#102336',
-    'gray.20': '#1E3852',
-    'gray.50': '#758493',
-
-    'green.50': '#52DDA3',
-
-    'teal.50': '#6AA09D',
-
-    'orange.60': '#D59D62',
-    'orange.80': '#FFD0B5',
-  },
+  colors: {},
 
   // Fonts
-  fonts: {
-    sans: {
-      stack: '"Ilisarniq", system-ui',
-      baseFontHeight: 11.25,
-      descenderHeightScale: 0.04,
-      capHeightScale: 0.675,
-    },
-    serif: {
-      stack: '"F37 Bobby", serif',
-      baseFontHeight: 11.15,
-      descenderHeightScale: 0.15,
-      capHeightScale: 0.705,
-    },
-  },
-  fontWeights: {
-    thin: 200,
-    light: 300,
-    normal: 400,
-    medium: 500,
-    semibold: 600,
-    bold: 700,
-    heavy: 800,
-    black: 900,
-  },
-  lineHeights: {
-    solid: 1,
-    title: 1,
-    titleWide: 1.25,
-    copy: 1.5,
-  },
-  letterSpacings: {
-    none: '0',
-    s: '0.05em',
-    m: '0.1em',
-    l: '0.2em',
-  },
+  fonts: {},
+  fontWeights: {},
+  lineHeights: {},
+  letterSpacings: {},
 
   // Borders
-  borderWidths: {
-    1: '1px',
-    2: '2px',
-  },
-  borderStyles: {
-    solid: 'solid',
-  },
-  borderRadii: {
-    xs: 2,
-    sm: 4,
-    md: 6,
-    lg: 8,
-    full: '50%',
-  },
+  borderWidths: {},
+  borderStyles: {},
+  borderRadii: {},
 
   // Z-Indicies
-  zIndices: {
-    base: 0,
-  },
+  zIndices: {},
 
   // Transitions
-  transitionDurations: {
-    slow: 300,
-    normal: 200,
-    fast: 100,
-  },
-} as const
+  transitionDurations: {},
 
-export const styleMq = createMq(
-  Object.values(breakpoints)
-    .filter(Boolean)
-    .map((bp) => `${bp * 4}px`),
-)
+  rules: {
+    // Layout
+    width: {
+      full: '100%',
+      '1/12': `${(1 / 12) * 100}%`,
+      '2/12': `${(2 / 12) * 100}%`,
+      '3/12': `${(3 / 12) * 100}%`,
+      '4/12': `${(4 / 12) * 100}%`,
+      '5/12': `${(5 / 12) * 100}%`,
+      '6/12': `${(6 / 12) * 100}%`,
+      '7/12': `${(7 / 12) * 100}%`,
+      '8/12': `${(8 / 12) * 100}%`,
+      '9/12': `${(9 / 12) * 100}%`,
+      '10/12': `${(10 / 12) * 100}%`,
+      '11/12': `${(11 / 12) * 100}%`,
+      '12/12': `${(12 / 12) * 100}%`,
+      auto: 'auto',
+    },
+    height: {
+      full: '100%',
+      1: '1px',
+      auto: 'auto',
+    },
+    display: {
+      block: 'block',
+      inline: 'inline',
+      none: 'none',
+      inlineBlock: 'inline-block',
+      flex: 'flex',
+      grid: 'grid',
+    },
+    outline: {
+      none: 'none',
+    },
+    userSelect: {
+      none: 'none',
+    },
+    pointerEvents: {
+      none: 'none',
+      auto: 'auto',
+    },
+    overflow: {
+      auto: 'auto',
+      hidden: 'hidden',
+      scroll: 'scroll',
+      scrollX: 'scrollX',
+      scrollY: 'scrollY',
+    },
+    position: {
+      static: 'static',
+      relative: 'relative',
+      absolute: 'absolute',
+      fixed: 'fixed',
+      sticky: 'sticky',
+    },
+
+    textTransform: {
+      uppercase: 'uppercase',
+      lowercase: 'lowercase',
+      capitalize: 'capitalize',
+    },
+  },
+}
+
+export const createCalicoTheme = (theme: ProvidedTheme) => {
+  const mediaQueries = pipe(
+    theme.breakpoints,
+    map((value) => `screen and (min-width: ${value * theme.grid}rem)`),
+  )
+
+  const resolvedTheme = {
+    ...baseTheme,
+    ...theme,
+    mediaQueries,
+  }
+
+  const mq = createMq(
+    Object.values(theme.breakpoints).map(resolveGrid(theme.grid)),
+  )
+
+  return { theme: resolvedTheme, mq }
+}

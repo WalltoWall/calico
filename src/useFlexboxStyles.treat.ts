@@ -2,7 +2,6 @@ import { styleMap } from 'treat'
 import { pipe } from 'fp-ts/es6/pipeable'
 
 import { mapToProperty, mapToResponsive } from './utils'
-import { theme } from './theme'
 
 export const alignItemsRules = {
   center: 'center',
@@ -10,29 +9,33 @@ export const alignItemsRules = {
   end: 'flex-end',
   baseline: 'baseline',
 }
-export const alignItems = pipe(
-  alignItemsRules,
-  mapToProperty('alignItems'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const alignItems = styleMap((theme) =>
+  pipe(
+    alignItemsRules,
+    mapToProperty('alignItems'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const alignItemsTablet = pipe(
-  alignItemsRules,
-  mapToProperty('alignItems'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const alignItemsTablet = styleMap((theme) =>
+  pipe(
+    alignItemsRules,
+    mapToProperty('alignItems'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const alignItemsDesktop = pipe(
-  alignItemsRules,
-  mapToProperty('alignItems'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const alignItemsDesktop = styleMap((theme) =>
+  pipe(
+    alignItemsRules,
+    mapToProperty('alignItems'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const alignItemsDesktopWide = pipe(
-  alignItemsRules,
-  mapToProperty('alignItems'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const alignItemsDesktopWide = styleMap((theme) =>
+  pipe(
+    alignItemsRules,
+    mapToProperty('alignItems'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 const alignContentRules = {
@@ -41,29 +44,33 @@ const alignContentRules = {
   end: 'flex-end',
   baseline: 'baseline',
 }
-export const alignContent = pipe(
-  alignContentRules,
-  mapToProperty('alignContent'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const alignContent = styleMap((theme) =>
+  pipe(
+    alignContentRules,
+    mapToProperty('alignContent'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const alignContentTablet = pipe(
-  alignContentRules,
-  mapToProperty('alignContent'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const alignContentTablet = styleMap((theme) =>
+  pipe(
+    alignContentRules,
+    mapToProperty('alignContent'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const alignContentDesktop = pipe(
-  alignContentRules,
-  mapToProperty('alignContent'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const alignContentDesktop = styleMap((theme) =>
+  pipe(
+    alignContentRules,
+    mapToProperty('alignContent'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const alignContentDesktopWide = pipe(
-  alignContentRules,
-  mapToProperty('alignContent'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const alignContentDesktopWide = styleMap((theme) =>
+  pipe(
+    alignContentRules,
+    mapToProperty('alignContent'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 const alignSelfRules = {
@@ -72,29 +79,33 @@ const alignSelfRules = {
   end: 'flex-end',
   baseline: 'baseline',
 }
-export const alignSelf = pipe(
-  alignSelfRules,
-  mapToProperty('alignSelf'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const alignSelf = styleMap((theme) =>
+  pipe(
+    alignSelfRules,
+    mapToProperty('alignSelf'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const alignSelfTablet = pipe(
-  alignSelfRules,
-  mapToProperty('alignSelf'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const alignSelfTablet = styleMap((theme) =>
+  pipe(
+    alignSelfRules,
+    mapToProperty('alignSelf'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const alignSelfDesktop = pipe(
-  alignSelfRules,
-  mapToProperty('alignSelf'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const alignSelfDesktop = styleMap((theme) =>
+  pipe(
+    alignSelfRules,
+    mapToProperty('alignSelf'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const alignSelfDesktopWide = pipe(
-  alignSelfRules,
-  mapToProperty('alignSelf'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const alignSelfDesktopWide = styleMap((theme) =>
+  pipe(
+    alignSelfRules,
+    mapToProperty('alignSelf'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 export const justifyItemsRules = {
@@ -102,29 +113,33 @@ export const justifyItemsRules = {
   start: 'flex-start',
   end: 'flex-end',
 }
-export const justifyItems = pipe(
-  justifyItemsRules,
-  mapToProperty('justifyItems'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const justifyItems = styleMap((theme) =>
+  pipe(
+    justifyItemsRules,
+    mapToProperty('justifyItems'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const justifyItemsTablet = pipe(
-  justifyItemsRules,
-  mapToProperty('justifyItems'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const justifyItemsTablet = styleMap((theme) =>
+  pipe(
+    justifyItemsRules,
+    mapToProperty('justifyItems'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const justifyItemsDesktop = pipe(
-  justifyItemsRules,
-  mapToProperty('justifyItems'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const justifyItemsDesktop = styleMap((theme) =>
+  pipe(
+    justifyItemsRules,
+    mapToProperty('justifyItems'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const justifyItemsDesktopWide = pipe(
-  justifyItemsRules,
-  mapToProperty('justifyItems'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const justifyItemsDesktopWide = styleMap((theme) =>
+  pipe(
+    justifyItemsRules,
+    mapToProperty('justifyItems'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 export const justifyContentRules = {
@@ -133,29 +148,33 @@ export const justifyContentRules = {
   end: 'flex-end',
   spaceBetween: 'space-between',
 }
-export const justifyContent = pipe(
-  justifyContentRules,
-  mapToProperty('justifyContent'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const justifyContent = styleMap((theme) =>
+  pipe(
+    justifyContentRules,
+    mapToProperty('justifyContent'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const justifyContentTablet = pipe(
-  justifyContentRules,
-  mapToProperty('justifyContent'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const justifyContentTablet = styleMap((theme) =>
+  pipe(
+    justifyContentRules,
+    mapToProperty('justifyContent'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const justifyContentDesktop = pipe(
-  justifyContentRules,
-  mapToProperty('justifyContent'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const justifyContentDesktop = styleMap((theme) =>
+  pipe(
+    justifyContentRules,
+    mapToProperty('justifyContent'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const justifyContentDesktopWide = pipe(
-  justifyContentRules,
-  mapToProperty('justifyContent'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const justifyContentDesktopWide = styleMap((theme) =>
+  pipe(
+    justifyContentRules,
+    mapToProperty('justifyContent'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 const justifySelfRules = {
@@ -163,36 +182,42 @@ const justifySelfRules = {
   start: 'flex-start',
   end: 'flex-end',
 }
-export const justifySelf = pipe(
-  justifySelfRules,
-  mapToProperty('justifySelf'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const justifySelf = styleMap((theme) =>
+  pipe(
+    justifySelfRules,
+    mapToProperty('justifySelf'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const justifySelfTablet = pipe(
-  justifySelfRules,
-  mapToProperty('justifySelf'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const justifySelfTablet = styleMap((theme) =>
+  pipe(
+    justifySelfRules,
+    mapToProperty('justifySelf'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const justifySelfDesktop = pipe(
-  justifySelfRules,
-  mapToProperty('justifySelf'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const justifySelfDesktop = styleMap((theme) =>
+  pipe(
+    justifySelfRules,
+    mapToProperty('justifySelf'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const justifySelfDesktopWide = pipe(
-  justifySelfRules,
-  mapToProperty('justifySelf'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const justifySelfDesktopWide = styleMap((theme) =>
+  pipe(
+    justifySelfRules,
+    mapToProperty('justifySelf'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 const flexWrapRules = {
   wrap: 'wrap',
   nowrap: 'nowrap',
 }
-export const flexWrap = pipe(flexWrapRules, mapToProperty('flexWrap'), styleMap)
+export const flexWrap = styleMap((theme) =>
+  pipe(flexWrapRules, mapToProperty('flexWrap')),
+)
 
 const flexDirectionRules = {
   row: 'row',
@@ -200,51 +225,55 @@ const flexDirectionRules = {
   column: 'column',
   columnReverse: 'column-reverse',
 }
-export const flexDirection = pipe(
-  flexDirectionRules,
-  mapToProperty('flexDirection'),
-  mapToResponsive('mobile', theme),
-  styleMap,
+export const flexDirection = styleMap((theme) =>
+  pipe(
+    flexDirectionRules,
+    mapToProperty('flexDirection'),
+    mapToResponsive('mobile', theme),
+  ),
 )
-export const flexDirectionTablet = pipe(
-  flexDirectionRules,
-  mapToProperty('flexDirection'),
-  mapToResponsive('tablet', theme),
-  styleMap,
+export const flexDirectionTablet = styleMap((theme) =>
+  pipe(
+    flexDirectionRules,
+    mapToProperty('flexDirection'),
+    mapToResponsive('tablet', theme),
+  ),
 )
-export const flexDirectionDesktop = pipe(
-  flexDirectionRules,
-  mapToProperty('flexDirection'),
-  mapToResponsive('desktop', theme),
-  styleMap,
+export const flexDirectionDesktop = styleMap((theme) =>
+  pipe(
+    flexDirectionRules,
+    mapToProperty('flexDirection'),
+    mapToResponsive('desktop', theme),
+  ),
 )
-export const flexDirectionDesktopWide = pipe(
-  flexDirectionRules,
-  mapToProperty('flexDirection'),
-  mapToResponsive('desktopWide', theme),
-  styleMap,
+export const flexDirectionDesktopWide = styleMap((theme) =>
+  pipe(
+    flexDirectionRules,
+    mapToProperty('flexDirection'),
+    mapToResponsive('desktopWide', theme),
+  ),
 )
 
 const flexGrowRules = {
   0: 0,
   1: 1,
 }
-export const flexGrow = pipe(flexGrowRules, mapToProperty('flexGrow'), styleMap)
+export const flexGrow = styleMap((theme) =>
+  pipe(flexGrowRules, mapToProperty('flexGrow')),
+)
 
 const flexShrinkRules = {
   0: 0,
   1: 1,
 }
-export const flexShrink = pipe(
-  flexShrinkRules,
-  mapToProperty('flexShrink'),
-  styleMap,
+export const flexShrink = styleMap((theme) =>
+  pipe(flexShrinkRules, mapToProperty('flexShrink')),
 )
 
 const flexRules = {
   equal0: '1 1 0px',
 }
-export const flex = pipe(flexRules, mapToProperty('flex'), styleMap)
+export const flex = styleMap((theme) => pipe(flexRules, mapToProperty('flex')))
 
 const flexBasisRules = {
   0: '0px',
@@ -258,8 +287,6 @@ const flexBasisRules = {
   8: '80%',
   auto: 'auto',
 }
-export const flexBasis = pipe(
-  flexBasisRules,
-  mapToProperty('flexBasis'),
-  styleMap,
+export const flexBasis = styleMap((theme) =>
+  pipe(flexBasisRules, mapToProperty('flexBasis')),
 )
