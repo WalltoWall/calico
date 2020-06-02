@@ -2,6 +2,29 @@ import clsx from 'clsx'
 
 import * as styleRefs from './useBackgroundStyles.treat'
 
+export const backgroundRules = {
+  backgroundSize: {
+    cover: 'cover',
+    contain: 'contain',
+  },
+  backgroundPositionX: {
+    left: 'left',
+    center: 'center',
+    right: 'right',
+  },
+  backgroundPositionY: {
+    top: 'top',
+    center: 'center',
+    bottom: 'bottom',
+  },
+  backgroundRepeat: {
+    repeat: 'repeat',
+    'repeat-x': 'repeat-x',
+    'repeat-y': 'repeat-y',
+    'no-repeat': 'no-repeat',
+  },
+}
+
 export type UseBackgroundStylesProps = {
   backgroundColor?: keyof typeof styleRefs.backgroundColor
   backgroundSize?: keyof typeof styleRefs.backgroundSize

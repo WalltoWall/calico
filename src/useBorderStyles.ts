@@ -2,8 +2,23 @@ import clsx from 'clsx'
 
 import * as styleRefs from './useBorderStyles.treat'
 
-export type BorderWidth = keyof typeof styleRefs.borderWidth
+export const borderRules = {
+  borderWidth: {
+    none: 0,
+    '1px': '1px',
+  },
+  borderStyle: {
+    none: 'none',
+    solid: 'solid',
+    dotted: 'dotted',
+    dashed: 'dashed',
+  },
+  borderRadius: {
+    none: 0,
+  },
+}
 
+export type BorderWidth = keyof typeof styleRefs.borderWidth
 export type UseBorderStylesProps = {
   borderColor?: keyof typeof styleRefs.borderColor
   borderWidth?: BorderWidth
