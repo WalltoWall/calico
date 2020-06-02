@@ -28,28 +28,28 @@ documentation.
 ## API
 
 - Components
-  - [`Box`][box] -- Component that accepts atomic styles as props and maps them
+  - [`Box`][box] — Component that accepts atomic styles as props and maps them
     to `className`s,
 - Hooks
-  - [`useBackgroundStyles`][usebackgroundstyles] -- React hook to resolve
+  - [`useBackgroundStyles`][usebackgroundstyles] — React hook to resolve
     background-related atomic CSS styles to `className`s.
-  - [`useBorderStyles`][useborderstyles] -- React hook to resolve border related
+  - [`useBorderStyles`][useborderstyles] — React hook to resolve border related
     atomic CSS styles to `className`s.
-  - [`useEffectStyles`][useeffectstyles] -- React hook to resolve `opacity` and
+  - [`useEffectStyles`][useeffectstyles] — React hook to resolve `opacity` and
     `boxShadow` atomic CSS styles to `className`s.
-  - [`useFlexboxStyles`][useflexboxstyles] -- React hook to resolve Flexbox
+  - [`useFlexboxStyles`][useflexboxstyles] — React hook to resolve Flexbox
     related atomic CSS styles to `className`s.
-  - [`useGridStyles`][usegridstyles] -- React hook to resolve Grid related
-    atomic CSS styles to `className`s.
-  - [`useInteractivityStyles`][useinteractivitystyles] -- React hook to resolve
+  - [`useGridStyles`][usegridstyles] — React hook to resolve Grid related atomic
+    CSS styles to `className`s.
+  - [`useInteractivityStyles`][useinteractivitystyles] — React hook to resolve
     interactivity related atomic CSS styles to `className`s.
-  - [`useLayoutStyles`][uselayoutstyles] -- React hook to resolve layout related
+  - [`useLayoutStyles`][uselayoutstyles] — React hook to resolve layout related
     atomic CSS styles to `className`s.
-  - [`useSizingStyles`][uselayoutstyles] -- React hook to resolve sizing related
+  - [`useSizingStyles`][uselayoutstyles] — React hook to resolve sizing related
     atomic CSS styles to `className`s.
-  - [`useSpaceStyles`][usespacestyles] -- React hook to resolve space related
+  - [`useSpaceStyles`][usespacestyles] — React hook to resolve space related
     atomic CSS styles to `className`s.
-  - [`useTypographyStyles`][usetypographystyles] -- React hook to resolve
+  - [`useTypographyStyles`][usetypographystyles] — React hook to resolve
     typography related atomic CSS styles to `className`s.
 
 [box]: ./src/Box.tsx
