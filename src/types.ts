@@ -4,6 +4,7 @@ import { UseColorStylesProps } from './useColorStyles'
 import { UseFlexboxStylesProps } from './useFlexboxStyles'
 import { UseBorderStylesProps } from './useBorderStyles'
 import { UseGridStylesProps } from './useGridStyles'
+import { UseInteractivityStylesProps } from './useInteractivityStyles'
 
 export type ResponsiveProp<AtomName> =
   | AtomName
@@ -26,10 +27,12 @@ type ColorProps = Omit<UseColorStylesProps, 'borderColor'>
 type FlexProps = UseFlexboxStylesProps
 type BorderProps = Pick<UseBorderStylesProps, 'borderRadius'>
 type GridProps = UseGridStylesProps
+type InteractivityProps = UseInteractivityStylesProps
 
 export type PrimitiveStyleProps = MarginProps &
   LayoutProps &
   ColorProps &
   FlexProps &
   BorderProps &
-  GridProps
+  GridProps &
+  InteractivityProps
