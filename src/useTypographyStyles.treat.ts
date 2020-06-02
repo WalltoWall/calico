@@ -12,6 +12,23 @@ export const fontFamily = styleMap((theme) =>
   ),
 )
 
+export const color = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('color'), mapToResponsive('mobile', theme)),
+)
+export const colorTablet = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('color'), mapToResponsive('tablet', theme)),
+)
+export const colorDesktop = styleMap((theme) =>
+  pipe(theme.colors, mapToProperty('color'), mapToResponsive('desktop', theme)),
+)
+export const colorDesktopWide = styleMap((theme) =>
+  pipe(
+    theme.colors,
+    mapToProperty('color'),
+    mapToResponsive('desktopWide', theme),
+  ),
+)
+
 export const fontWeight = styleMap((theme) =>
   pipe(theme.rules.fontWeight, mapToProperty('fontWeight')),
 )

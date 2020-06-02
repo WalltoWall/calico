@@ -1,7 +1,10 @@
 import React from 'react'
 import clsx from 'clsx'
 
-import { useColorStyles, UseColorStylesProps } from './useColorStyles'
+import {
+  useBackgroundStyles,
+  UseBackgroundStylesProps,
+} from './useBackgroundStyles'
 import { UseSpaceStylesProps, useSpaceStyles } from './useSpaceStyles'
 import { useFlexboxStyles, UseFlexboxStylesProps } from './useFlexboxStyles'
 import {
@@ -12,11 +15,11 @@ import { useLayoutStyles, UseLayoutStylesProps } from './useLayoutStyles'
 import { useBorderStyles, UseBorderStylesProps } from './useBorderStyles'
 import { useGridStyles, UseGridStylesProps } from './useGridStyles'
 import { useEffectStyles, UseEffectStylesProps } from './useEffectStyles'
-import { SafeReactHTMLAttributes } from '../types'
 import {
   useInteractivityStyles,
   UseInteractivityStylesProps,
 } from './useInteractivityStyles'
+import { SafeReactHTMLAttributes } from '../types'
 
 export type BoxProps = {
   component?: React.ElementType
@@ -27,7 +30,7 @@ export type BoxProps = {
   UseSpaceStylesProps &
   UseFlexboxStylesProps &
   UseTypographyStylesProps &
-  UseColorStylesProps &
+  UseBackgroundStylesProps &
   UseBorderStylesProps &
   UseGridStylesProps &
   UseInteractivityStylesProps &
@@ -51,10 +54,10 @@ export const Box = ({
   borderWidth,
   borderWidthX,
   borderWidthY,
-  borderWidthBottom,
-  borderWidthLeft,
-  borderWidthTop,
-  borderWidthRight,
+  borderBottomWidth,
+  borderLeftWidth,
+  borderTopWidth,
+  borderRightWidth,
   borderStyle,
   borderRadius,
 
@@ -88,7 +91,6 @@ export const Box = ({
   flex,
 
   backgroundColor,
-  color,
 
   fontFamily,
   fontWeight,
@@ -97,6 +99,7 @@ export const Box = ({
   textAlign,
   textTransform,
   letterSpacing,
+  color,
 
   width,
   height,
@@ -141,12 +144,11 @@ export const Box = ({
     flex,
     flexBasis,
   })
-  const colorStyles = useColorStyles({
+  const colorStyles = useBackgroundStyles({
     backgroundColor,
-    color,
-    borderColor,
   })
   const typographyStyles = useTypographyStyles({
+    color,
     fontFamily,
     fontWeight,
     fontStyle,
@@ -167,10 +169,9 @@ export const Box = ({
     borderWidth,
     borderWidthX,
     borderWidthY,
-    borderWidthBottom,
-    borderWidthLeft,
-    borderWidthTop,
-    borderWidthRight,
+    borderBottomWidth,
+    borderTopWidth,
+    borderLeftWidth,
     borderStyle,
     borderRadius,
   })

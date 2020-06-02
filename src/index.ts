@@ -1,7 +1,7 @@
 export { Box, BoxProps } from './Box'
 
 export { useBorderStyles } from './useBorderStyles'
-export { useColorStyles } from './useColorStyles'
+export { useBackgroundStyles } from './useBackgroundStyles'
 export { useFlexboxStyles } from './useFlexboxStyles'
 export { useGridStyles } from './useGridStyles'
 export { useLayoutStyles } from './useLayoutStyles'

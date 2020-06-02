@@ -1,6 +1,6 @@
 import { UseSpaceStylesProps } from './useSpaceStyles'
 import { UseLayoutStylesProps } from './useLayoutStyles'
-import { UseColorStylesProps } from './useColorStyles'
+import { UseBackgroundStylesProps } from './useBackgroundStyles'
 import { UseFlexboxStylesProps } from './useFlexboxStyles'
 import { UseBorderStylesProps } from './useBorderStyles'
 import { UseGridStylesProps } from './useGridStyles'
@@ -23,7 +23,7 @@ type MarginProps = Pick<
   | 'marginBottom'
 >
 type LayoutProps = Omit<UseLayoutStylesProps, 'height' | 'width' | 'maxWidth'>
-type ColorProps = Omit<UseColorStylesProps, 'borderColor'>
+type ColorProps = Omit<UseBackgroundStylesProps, 'borderColor'>
 type FlexProps = UseFlexboxStylesProps
 type BorderProps = Pick<UseBorderStylesProps, 'borderRadius'>
 type GridProps = UseGridStylesProps

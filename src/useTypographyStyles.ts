@@ -12,6 +12,7 @@ export type UseTypographyStylesProps = {
   textAlign?: ResponsiveProp<keyof typeof styleRefs.textAlign>
   textTransform?: keyof typeof styleRefs.textTransform
   letterSpacing?: keyof typeof styleRefs.letterSpacing
+  color?: ResponsiveProp<keyof typeof styleRefs.color>
 }
 
 export const useTypographyStyles = ({
@@ -22,6 +23,7 @@ export const useTypographyStyles = ({
   textAlign,
   textTransform,
   letterSpacing,
+  color,
 }: UseTypographyStylesProps) => {
   return clsx(
     fontFamily !== undefined && styleRefs.fontFamily[fontFamily],
@@ -38,5 +40,13 @@ export const useTypographyStyles = ({
       ),
     textTransform !== undefined && styleRefs.textTransform[textTransform],
     letterSpacing !== undefined && styleRefs.letterSpacing[letterSpacing],
+    color !== undefined &&
+      resolveResponsiveProp(
+        color,
+        styleRefs.color,
+        styleRefs.colorTablet,
+        styleRefs.colorDesktop,
+        styleRefs.colorDesktopWide,
+      ),
   )
 }
