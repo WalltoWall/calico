@@ -8,6 +8,7 @@ import { resolveGrid } from './utils'
 import { sizingRules } from './useSizingStyles'
 import { layoutRules } from './useLayoutStyles'
 import { interactivityRules } from './useInteractivityStyles'
+import { typographyRules } from './useTypographyStyles'
 
 type PickPartial<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
   Partial<Pick<T, K>>
@@ -65,25 +66,9 @@ export const baseTheme: Omit<
     ...sizingRules,
     ...layoutRules,
     ...interactivityRules,
+    ...typographyRules,
 
     // Typography
-    fontWeight: {},
-    fontStyle: {
-      normal: 'normal',
-      italic: 'italic',
-    },
-    lineHeight: {},
-    textAlign: {
-      left: 'left',
-      center: 'center',
-      right: 'right',
-    },
-    textTransform: {
-      uppercase: 'uppercase',
-      lowercase: 'lowercase',
-      capitalize: 'capitalize',
-    },
-    letterSpacing: {},
 
     // Grid
     gridAutoFlow: {

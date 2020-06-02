@@ -4,6 +4,26 @@ import * as styleRefs from './useTypographyStyles.treat'
 import { ResponsiveProp } from './types'
 import { resolveResponsiveProp } from './utils'
 
+export const typographyRules = {
+  fontWeight: {},
+  fontStyle: {
+    normal: 'normal',
+    italic: 'italic',
+  },
+  lineHeight: {},
+  textAlign: {
+    left: 'left',
+    center: 'center',
+    right: 'right',
+  },
+  textTransform: {
+    uppercase: 'uppercase',
+    lowercase: 'lowercase',
+    capitalize: 'capitalize',
+  },
+  letterSpacing: {},
+}
+
 export type UseTypographyStylesProps = {
   fontFamily?: keyof typeof styleRefs.fontFamily
   fontWeight?: keyof typeof styleRefs.fontWeight
