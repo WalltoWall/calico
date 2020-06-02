@@ -6,6 +6,7 @@ import { createMq } from './createMq'
 import { resolveGrid } from './utils'
 
 import { sizingRules } from './useSizingStyles'
+import { layoutRules } from './useLayoutStyles'
 
 type PickPartial<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>> &
   Partial<Pick<T, K>>
@@ -61,29 +62,7 @@ export const baseTheme: Omit<
 
   rules: {
     ...sizingRules,
-
-    display: {
-      block: 'block',
-      inline: 'inline',
-      none: 'none',
-      inlineBlock: 'inline-block',
-      flex: 'flex',
-      grid: 'grid',
-    },
-    overflow: {
-      auto: 'auto',
-      hidden: 'hidden',
-      scroll: 'scroll',
-      scrollX: 'scrollX',
-      scrollY: 'scrollY',
-    },
-    position: {
-      static: 'static',
-      relative: 'relative',
-      absolute: 'absolute',
-      fixed: 'fixed',
-      sticky: 'sticky',
-    },
+    ...layoutRules,
 
     // Interactivity
     outline: {

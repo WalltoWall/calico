@@ -4,6 +4,31 @@ import * as styleRefs from './useLayoutStyles.treat'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
 
+export const layoutRules = {
+  display: {
+    block: 'block',
+    inline: 'inline',
+    none: 'none',
+    inlineBlock: 'inline-block',
+    flex: 'flex',
+    grid: 'grid',
+  },
+  overflow: {
+    auto: 'auto',
+    hidden: 'hidden',
+    scroll: 'scroll',
+    scrollX: 'scrollX',
+    scrollY: 'scrollY',
+  },
+  position: {
+    static: 'static',
+    relative: 'relative',
+    absolute: 'absolute',
+    fixed: 'fixed',
+    sticky: 'sticky',
+  },
+}
+
 export type UseLayoutStylesProps = {
   display?: ResponsiveProp<keyof typeof styleRefs.display>
   overflow?: keyof typeof styleRefs.overflow
