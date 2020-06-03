@@ -1,6 +1,9 @@
 import { Style } from 'treat'
+import { Theme } from 'treat/theme'
 import { Properties } from 'csstype'
 import * as E from 'fp-ts/es6/Either'
+import * as O from 'fp-ts/es6/Option'
+import * as R from 'fp-ts/es6/Record'
 import { Semigroup } from 'fp-ts/es6/Semigroup'
 import { eqNumber } from 'fp-ts/es6/Eq'
 import { flow, identity } from 'fp-ts/es6/function'
@@ -9,10 +12,10 @@ import { map, singleton } from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
 import { ResponsiveProp } from './types'
-import { CalicoTheme } from './theme'
 import { BoxProps } from './Box'
 
 export type NegatableSpace = NonNullable<Exclude<BoxProps['padding'], 'auto'>>
+
 /**
  * Converts a given space value to it's negative equivalent.
  *
@@ -61,7 +64,7 @@ export const styleSingleton = <
  */
 export const styleSpaceSingleton = <TPropertyName extends keyof Properties>(
   propertyName: TPropertyName,
-  theme: CalicoTheme,
+  theme: Theme,
 ) => (value: string | number) =>
   pipe(
     typeof value === 'number' ? E.right(value) : E.left(value),
@@ -78,8 +81,8 @@ export const styleSpaceSingleton = <TPropertyName extends keyof Properties>(
  * @returns Style assigned to the breakpoint.
  */
 export const makeResponsive = (
-  breakpoint: keyof CalicoTheme['breakpoints'],
-  theme: CalicoTheme,
+  breakpoint: keyof Theme['breakpoints'],
+  theme: Theme,
 ) => {
   const minWidth = theme.breakpoints[breakpoint]
 
@@ -124,7 +127,7 @@ export const mapToProperty = <TPropertyName extends keyof Properties>(
  */
 export const mapToSpaceProperty = <TPropertyName extends keyof Properties>(
   propertyName: TPropertyName,
-  theme: CalicoTheme,
+  theme: Theme,
 ) => map(styleSpaceSingleton(propertyName, theme))
 
 /**
@@ -136,8 +139,8 @@ export const mapToSpaceProperty = <TPropertyName extends keyof Properties>(
  * @returns Treat-compatible style map to pass to `styleMap`.
  */
 export const mapToResponsive = (
-  breakpoint: keyof CalicoTheme['breakpoints'],
-  theme: CalicoTheme,
+  breakpoint: keyof Theme['breakpoints'],
+  theme: Theme,
 ) => map(makeResponsive(breakpoint, theme))
 
 /**
@@ -150,8 +153,8 @@ export const mapToResponsive = (
  */
 export const mapToResponsiveProperty = (
   propertyName: keyof Properties,
-  breakpoint: keyof CalicoTheme['breakpoints'],
-  theme: CalicoTheme,
+  breakpoint: keyof Theme['breakpoints'],
+  theme: Theme,
 ) => flow(mapToProperty(propertyName), mapToResponsive(breakpoint, theme))
 
 /**
@@ -164,8 +167,8 @@ export const mapToResponsiveProperty = (
  */
 export const mapToResponsiveSpaceProperty = (
   propertyName: keyof Properties,
-  breakpoint: keyof CalicoTheme['breakpoints'],
-  theme: CalicoTheme,
+  breakpoint: keyof Theme['breakpoints'],
+  theme: Theme,
 ) =>
   flow(
     mapToSpaceProperty(propertyName, theme),
@@ -182,12 +185,14 @@ export const mapToResponsiveSpaceProperty = (
  */
 export const responsiveSpaceMap = (
   propertyName: keyof Properties,
-  breakpoint: keyof CalicoTheme['breakpoints'],
-  theme: CalicoTheme,
+  breakpoint: keyof Theme['breakpoints'],
+  theme: Theme,
 ): Record<string | number, Style> =>
   pipe(
     theme.space,
-    mapToResponsiveSpaceProperty(propertyName, breakpoint, theme),
+    O.fromNullable,
+    O.map(mapToResponsiveSpaceProperty(propertyName, breakpoint, theme)),
+    O.getOrElseW(() => R.empty),
   )
 
 /**
@@ -272,3 +277,6 @@ export const semigroupResponsiveStyle: Semigroup<Style> = {
     },
   }),
 }
+
+export const buildMediaQuery = (theme: Theme, size: number) =>
+  `screen and (min-width: ${resolveGrid(theme.grid)(size)}rem)`

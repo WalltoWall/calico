@@ -2,7 +2,7 @@ import { Style } from 'treat'
 import { mapWithIndex } from 'fp-ts/es6/Record'
 
 import { makeResponsive } from './utils'
-import { CalicoTheme } from './theme'
+import { FinalCalicoTheme } from './createCalicoTheme'
 
 interface BaseKickOptions {
   typeSizeModifier: number
@@ -51,8 +51,8 @@ export const basekick = ({
 }
 
 type FontStyleRules = {
-  fontFamily: keyof CalicoTheme['fonts']
-  fontSize: Partial<Record<keyof CalicoTheme['breakpoints'], number>>
+  fontFamily: keyof FinalCalicoTheme['fonts']
+  fontSize: Partial<Record<keyof FinalCalicoTheme['breakpoints'], number>>
   lineHeightScale: number
 }
 
@@ -61,7 +61,7 @@ type BaseKickArgs = Omit<FontStyleRules, 'fontSize'> & {
   fontSize: number
 }
 
-export const basekickFontStyles = (theme: CalicoTheme) => ({
+export const basekickFontStyles = (theme: FinalCalicoTheme) => ({
   fontFamily,
   fontSize,
   lineHeightScale,
@@ -84,9 +84,11 @@ export const basekickFontStyles = (theme: CalicoTheme) => ({
   })
 }
 
-export const mapFontStyles = (theme: CalicoTheme) => (rule: FontStyleRules) =>
+export const mapFontStyles = (theme: FinalCalicoTheme) => (
+  rule: FontStyleRules,
+) =>
   mapWithIndex(
-    (breakpoint: keyof CalicoTheme['breakpoints'], fontSize: number) => {
+    (breakpoint: keyof FinalCalicoTheme['breakpoints'], fontSize: number) => {
       const responsiveRule: BaseKickArgs = {
         ...rule,
         fontSize,
@@ -96,4 +98,4 @@ export const mapFontStyles = (theme: CalicoTheme) => (rule: FontStyleRules) =>
 
       return makeResponsive(breakpoint, theme)(baseKickStyles)
     },
-  )(rule.fontSize as Record<keyof CalicoTheme['breakpoints'], number>)
+  )(rule.fontSize as Record<keyof FinalCalicoTheme['breakpoints'], number>)

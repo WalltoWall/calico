@@ -1,9 +1,11 @@
 import clsx from 'clsx'
+import { useStyles } from 'react-treat'
 
-import * as styleRefs from './useGridStyles.treat'
 import { ResponsiveSpace } from './useSpaceStyles'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
+
+import * as styleRefs from './useGridStyles.treat'
 
 export const gridRules = {
   gridAutoFlow: {
@@ -60,7 +62,7 @@ export const gridRules = {
     'span-5': 'span 5 / span 5',
     'span-6': 'span 6 / span 6',
   },
-}
+} as const
 
 export type UseGridStylesProps = {
   gap?: ResponsiveSpace
@@ -81,54 +83,56 @@ export const useGridStyles = ({
   gridColumn,
   gridRow,
 }: UseGridStylesProps) => {
+  const styles = useStyles(styleRefs)
+
   return clsx(
     gap !== undefined &&
       resolveResponsiveProp(
         gap,
-        styleRefs.gap,
-        styleRefs.gapTablet,
-        styleRefs.gapDesktop,
-        styleRefs.gapDesktopWide,
+        styles.gap,
+        styles.gapTablet,
+        styles.gapDesktop,
+        styles.gapDesktopWide,
       ),
     gridAutoFlow !== undefined &&
       resolveResponsiveProp(
         gridAutoFlow,
-        styleRefs.gridAutoFlow,
-        styleRefs.gridAutoFlowTablet,
-        styleRefs.gridAutoFlowDesktop,
-        styleRefs.gridAutoFlowDesktopWide,
+        styles.gridAutoFlow,
+        styles.gridAutoFlowTablet,
+        styles.gridAutoFlowDesktop,
+        styles.gridAutoFlowDesktopWide,
       ),
     gridTemplateColumns !== undefined &&
       resolveResponsiveProp<string | number>(
         gridTemplateColumns,
-        styleRefs.gridTemplateColumns,
-        styleRefs.gridTemplateColumnsTablet,
-        styleRefs.gridTemplateColumnsDesktop,
-        styleRefs.gridTemplateColumnsDesktopWide,
+        styles.gridTemplateColumns,
+        styles.gridTemplateColumnsTablet,
+        styles.gridTemplateColumnsDesktop,
+        styles.gridTemplateColumnsDesktopWide,
       ),
     gridTemplateRows !== undefined &&
       resolveResponsiveProp<string | number>(
         gridTemplateRows,
-        styleRefs.gridTemplateRows,
-        styleRefs.gridTemplateRowsTablet,
-        styleRefs.gridTemplateRowsDesktop,
-        styleRefs.gridTemplateRowsDesktopWide,
+        styles.gridTemplateRows,
+        styles.gridTemplateRowsTablet,
+        styles.gridTemplateRowsDesktop,
+        styles.gridTemplateRowsDesktopWide,
       ),
     gridColumn !== undefined &&
       resolveResponsiveProp(
         gridColumn,
-        styleRefs.gridColumn,
-        styleRefs.gridColumnTablet,
-        styleRefs.gridColumnDesktop,
-        styleRefs.gridColumnDesktopWide,
+        styles.gridColumn,
+        styles.gridColumnTablet,
+        styles.gridColumnDesktop,
+        styles.gridColumnDesktopWide,
       ),
     gridRow !== undefined &&
       resolveResponsiveProp(
         gridRow,
-        styleRefs.gridRow,
-        styleRefs.gridRowTablet,
-        styleRefs.gridRowDesktop,
-        styleRefs.gridRowDesktopWide,
+        styles.gridRow,
+        styles.gridRowTablet,
+        styles.gridRowDesktop,
+        styles.gridRowDesktopWide,
       ),
   )
 }

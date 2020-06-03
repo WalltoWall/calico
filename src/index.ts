@@ -13,5 +13,10 @@ export { useTypographyStyles } from './useTypographyStyles'
 
 export { mapFontStyles } from './mapFontStyles'
 export { createMq } from './createMq'
+export {
+  createCalicoTheme,
+  baseCalicoTheme,
+  CalicoTheme,
+} from './createCalicoTheme'
 
 export * from './types'

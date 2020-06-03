@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useStyles } from 'react-treat'
 
 import * as styleRefs from './useBorderStyles.treat'
 
@@ -16,7 +17,7 @@ export const borderRules = {
   borderRadius: {
     none: 0,
   },
-}
+} as const
 
 export type BorderWidth = keyof typeof styleRefs.borderWidth
 export type UseBorderStylesProps = {
@@ -44,6 +45,8 @@ export const useBorderStyles = ({
   borderStyle,
   borderRadius,
 }: UseBorderStylesProps) => {
+  const styles = useStyles(styleRefs)
+
   const resolvedBorderTopWidth = borderTopWidth || borderWidthY || borderWidth
   const resolvedBorderBottomWidth =
     borderBottomWidth || borderWidthY || borderWidth
@@ -52,16 +55,16 @@ export const useBorderStyles = ({
     borderRightWidth || borderWidthX || borderWidth
 
   return clsx(
-    borderColor !== undefined && styleRefs.borderColor[borderColor],
+    borderColor !== undefined && styles.borderColor[borderColor],
     resolvedBorderTopWidth !== undefined &&
-      styleRefs.borderTopWidth[resolvedBorderTopWidth],
+      styles.borderTopWidth[resolvedBorderTopWidth],
     resolvedBorderBottomWidth !== undefined &&
-      styleRefs.borderBottomWidth[resolvedBorderBottomWidth],
+      styles.borderBottomWidth[resolvedBorderBottomWidth],
     resolvedBorderLeftWidth !== undefined &&
-      styleRefs.borderLeftWidth[resolvedBorderLeftWidth],
+      styles.borderLeftWidth[resolvedBorderLeftWidth],
     resolvedBorderRightWidth !== undefined &&
-      styleRefs.borderRightWidth[resolvedBorderRightWidth],
-    borderStyle !== undefined && styleRefs.borderStyle[borderStyle],
-    borderRadius !== undefined && styleRefs.borderRadius[borderRadius],
+      styles.borderRightWidth[resolvedBorderRightWidth],
+    borderStyle !== undefined && styles.borderStyle[borderStyle],
+    borderRadius !== undefined && styles.borderRadius[borderRadius],
   )
 }

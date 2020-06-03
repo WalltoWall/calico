@@ -1,11 +1,22 @@
 import clsx from 'clsx'
+import { useStyles } from 'react-treat'
 
-import * as styleRefs from './useTypographyStyles.treat'
 import { ResponsiveProp } from './types'
 import { resolveResponsiveProp } from './utils'
 
+import * as styleRefs from './useTypographyStyles.treat'
+
 export const typographyRules = {
-  fontWeight: {},
+  fontWeight: {
+    thin: 200,
+    light: 300,
+    normal: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    heavy: 800,
+    black: 900,
+  },
   fontStyle: {
     normal: 'normal',
     italic: 'italic',
@@ -21,8 +32,11 @@ export const typographyRules = {
     lowercase: 'lowercase',
     capitalize: 'capitalize',
   },
-  letterSpacing: {},
-}
+  letterSpacing: {
+    normal: 'normal',
+    none: 0,
+  },
+} as const
 
 export type UseTypographyStylesProps = {
   fontFamily?: keyof typeof styleRefs.fontFamily
@@ -45,28 +59,30 @@ export const useTypographyStyles = ({
   letterSpacing,
   color,
 }: UseTypographyStylesProps) => {
+  const styles = useStyles(styleRefs)
+
   return clsx(
-    fontFamily !== undefined && styleRefs.fontFamily[fontFamily],
-    fontWeight !== undefined && styleRefs.fontWeight[fontWeight],
-    fontStyle !== undefined && styleRefs.fontStyle[fontStyle],
-    lineHeight !== undefined && styleRefs.lineHeight[lineHeight],
+    fontFamily !== undefined && styles.fontFamily[fontFamily],
+    fontWeight !== undefined && styles.fontWeight[fontWeight],
+    fontStyle !== undefined && styles.fontStyle[fontStyle],
+    lineHeight !== undefined && styles.lineHeight[lineHeight],
     textAlign !== undefined &&
       resolveResponsiveProp(
         textAlign,
-        styleRefs.textAlign,
-        styleRefs.textAlignTablet,
-        styleRefs.textAlignDesktop,
-        styleRefs.textAlignDesktopWide,
+        styles.textAlign,
+        styles.textAlignTablet,
+        styles.textAlignDesktop,
+        styles.textAlignDesktopWide,
       ),
-    textTransform !== undefined && styleRefs.textTransform[textTransform],
-    letterSpacing !== undefined && styleRefs.letterSpacing[letterSpacing],
+    textTransform !== undefined && styles.textTransform[textTransform],
+    letterSpacing !== undefined && styles.letterSpacing[letterSpacing],
     color !== undefined &&
       resolveResponsiveProp(
         color,
-        styleRefs.color,
-        styleRefs.colorTablet,
-        styleRefs.colorDesktop,
-        styleRefs.colorDesktopWide,
+        styles.color,
+        styles.colorTablet,
+        styles.colorDesktop,
+        styles.colorDesktopWide,
       ),
   )
 }

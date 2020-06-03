@@ -1,8 +1,10 @@
 import clsx from 'clsx'
+import { useStyles } from 'react-treat'
 
-import * as styleRefs from './useLayoutStyles.treat'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
+
+import * as styleRefs from './useSizingStyles.treat'
 
 export const sizingRules = {
   width: {
@@ -26,11 +28,11 @@ export const sizingRules = {
     full: '100%',
     '1px': '1px',
   },
-}
+} as const
 
 export type UseSizingStylesProps = {
   width?: ResponsiveProp<keyof typeof styleRefs.width>
-  maxWidth?: ResponsiveProp<keyof typeof styleRefs.maxWidth>
+  maxWidth?: keyof typeof styleRefs.maxWidth
   height?: ResponsiveProp<keyof typeof styleRefs.height>
 }
 
@@ -39,30 +41,25 @@ export const useSizingStyles = ({
   maxWidth,
   height,
 }: UseSizingStylesProps) => {
+  const styles = useStyles(styleRefs)
+
   return clsx(
     width !== undefined &&
       resolveResponsiveProp(
         width,
-        styleRefs.width,
-        styleRefs.widthTablet,
-        styleRefs.widthDesktop,
-        styleRefs.widthDesktopWide,
+        styles.width,
+        styles.widthTablet,
+        styles.widthDesktop,
+        styles.widthDesktopWide,
       ),
-    maxWidth !== undefined &&
-      resolveResponsiveProp(
-        maxWidth,
-        styleRefs.maxWidth,
-        styleRefs.maxWidthTablet,
-        styleRefs.maxWidthDesktop,
-        styleRefs.maxWidthDesktopWide,
-      ),
+    maxWidth !== undefined && styles.maxWidth[maxWidth],
     height !== undefined &&
       resolveResponsiveProp<string | number>(
         height,
-        styleRefs.height,
-        styleRefs.heightTablet,
-        styleRefs.heightDesktop,
-        styleRefs.heightDesktopWide,
+        styles.height,
+        styles.heightTablet,
+        styles.heightDesktop,
+        styles.heightDesktopWide,
       ),
   )
 }

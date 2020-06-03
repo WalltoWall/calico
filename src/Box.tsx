@@ -20,7 +20,11 @@ import {
   UseInteractivityStylesProps,
 } from './useInteractivityStyles'
 import { useSizingStyles, UseSizingStylesProps } from './useSizingStyles'
-import { SafeReactHTMLAttributes } from '../types'
+import {
+  useTransitionStyles,
+  UseTransitionStylesProps,
+} from './useTransitionStyles'
+import { SafeReactHTMLAttributes } from './types'
 
 export type BoxProps = {
   component?: React.ElementType
@@ -36,8 +40,9 @@ export type BoxProps = {
   UseGridStylesProps &
   UseInteractivityStylesProps &
   UseEffectStylesProps &
-  UseSizingStylesProps
-SafeReactHTMLAttributes
+  UseSizingStylesProps &
+  UseTransitionStylesProps &
+  SafeReactHTMLAttributes
 
 export const Box = ({
   component,
@@ -119,8 +124,16 @@ export const Box = ({
   overflowX,
   overflowY,
   position,
+  top,
+  right,
+  bottom,
+  left,
+  zIndex,
 
   opacity,
+
+  transitionDuration,
+  transitionTimingFunction,
 
   ...htmlProps
 }: BoxProps) => {
@@ -177,6 +190,11 @@ export const Box = ({
     overflowX,
     overflowY,
     position,
+    top,
+    right,
+    bottom,
+    left,
+    zIndex,
   })
   const borderStyles = useBorderStyles({
     borderColor,
@@ -210,6 +228,10 @@ export const Box = ({
     maxWidth,
     height,
   })
+  const transitionStyles = useTransitionStyles({
+    transitionDuration,
+    transitionTimingFunction,
+  })
 
   // ORing undefined will prevent empty string classes in
   // html markup
@@ -225,6 +247,7 @@ export const Box = ({
       interactivityStyles,
       effectStyles,
       sizingStyles,
+      transitionStyles,
       className,
     ) || undefined
 

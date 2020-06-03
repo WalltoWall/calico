@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useStyles } from 'react-treat'
 
 import * as styleRefs from './useBackgroundStyles.treat'
 
@@ -23,7 +24,7 @@ export const backgroundRules = {
     'repeat-y': 'repeat-y',
     'no-repeat': 'no-repeat',
   },
-}
+} as const
 
 export type UseBackgroundStylesProps = {
   backgroundColor?: keyof typeof styleRefs.backgroundColor
@@ -40,14 +41,15 @@ export const useBackgroundStyles = ({
   backgroundPositionX,
   backgroundRepeat,
 }: UseBackgroundStylesProps) => {
+  const styles = useStyles(styleRefs)
+
   return clsx(
-    backgroundColor !== undefined && styleRefs.backgroundColor[backgroundColor],
-    backgroundSize !== undefined && styleRefs.backgroundSize[backgroundSize],
+    backgroundColor !== undefined && styles.backgroundColor[backgroundColor],
+    backgroundSize !== undefined && styles.backgroundSize[backgroundSize],
     backgroundPositionX !== undefined &&
-      styleRefs.backgroundPositionX[backgroundPositionX],
+      styles.backgroundPositionX[backgroundPositionX],
     backgroundPositionY !== undefined &&
-      styleRefs.backgroundPositionY[backgroundPositionY],
-    backgroundRepeat !== undefined &&
-      styleRefs.backgroundRepeat[backgroundRepeat],
+      styles.backgroundPositionY[backgroundPositionY],
+    backgroundRepeat !== undefined && styles.backgroundRepeat[backgroundRepeat],
   )
 }

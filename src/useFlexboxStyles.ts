@@ -1,26 +1,31 @@
 import clsx from 'clsx'
+import { useStyles } from 'react-treat'
 
-import * as styleRefs from './useFlexboxStyles.treat'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
+
+import * as styleRefs from './useFlexboxStyles.treat'
 
 export const flexboxRules = {
   alignItems: {
     center: 'center',
     start: 'flex-start',
     end: 'flex-end',
+    stretch: 'stretch',
     baseline: 'baseline',
   },
   alignContent: {
     center: 'center',
     start: 'flex-start',
     end: 'flex-end',
+    stretch: 'stretch',
     baseline: 'baseline',
   },
   alignSelf: {
     center: 'center',
     start: 'flex-start',
     end: 'flex-end',
+    stretch: 'stretch',
     baseline: 'baseline',
   },
   justifyItems: {
@@ -72,7 +77,7 @@ export const flexboxRules = {
     8: '80%',
     auto: 'auto',
   },
-}
+} as const
 
 export type UseFlexboxStylesProps = {
   alignItems?: ResponsiveProp<keyof typeof styleRefs.alignItems>
@@ -103,67 +108,69 @@ export const useFlexboxStyles = ({
   flex,
   flexBasis,
 }: UseFlexboxStylesProps) => {
+  const styles = useStyles(styleRefs)
+
   return clsx(
     alignItems !== undefined &&
       resolveResponsiveProp(
         alignItems,
-        styleRefs.alignItems,
-        styleRefs.alignItemsTablet,
-        styleRefs.alignItemsDesktop,
-        styleRefs.alignItemsDesktopWide,
+        styles.alignItems,
+        styles.alignItemsTablet,
+        styles.alignItemsDesktop,
+        styles.alignItemsDesktopWide,
       ),
     alignContent !== undefined &&
       resolveResponsiveProp(
         alignContent,
-        styleRefs.alignContent,
-        styleRefs.alignContentTablet,
-        styleRefs.alignContentDesktop,
-        styleRefs.alignContentDesktopWide,
+        styles.alignContent,
+        styles.alignContentTablet,
+        styles.alignContentDesktop,
+        styles.alignContentDesktopWide,
       ),
     alignSelf !== undefined &&
       resolveResponsiveProp(
         alignSelf,
-        styleRefs.alignSelf,
-        styleRefs.alignSelfTablet,
-        styleRefs.alignSelfDesktop,
-        styleRefs.alignSelfDesktopWide,
+        styles.alignSelf,
+        styles.alignSelfTablet,
+        styles.alignSelfDesktop,
+        styles.alignSelfDesktopWide,
       ),
     justifyItems !== undefined &&
       resolveResponsiveProp(
         justifyItems,
-        styleRefs.justifyItems,
-        styleRefs.justifyItemsTablet,
-        styleRefs.justifyItemsDesktop,
-        styleRefs.justifyItemsDesktopWide,
+        styles.justifyItems,
+        styles.justifyItemsTablet,
+        styles.justifyItemsDesktop,
+        styles.justifyItemsDesktopWide,
       ),
     justifyContent !== undefined &&
       resolveResponsiveProp(
         justifyContent,
-        styleRefs.justifyContent,
-        styleRefs.justifyContentTablet,
-        styleRefs.justifyContentDesktop,
-        styleRefs.justifyContentDesktopWide,
+        styles.justifyContent,
+        styles.justifyContentTablet,
+        styles.justifyContentDesktop,
+        styles.justifyContentDesktopWide,
       ),
     justifySelf !== undefined &&
       resolveResponsiveProp(
         justifySelf,
-        styleRefs.justifySelf,
-        styleRefs.justifySelfTablet,
-        styleRefs.justifySelfDesktop,
-        styleRefs.justifySelfDesktopWide,
+        styles.justifySelf,
+        styles.justifySelfTablet,
+        styles.justifySelfDesktop,
+        styles.justifySelfDesktopWide,
       ),
-    flexWrap !== undefined && styleRefs.flexWrap[flexWrap],
+    flexWrap !== undefined && styles.flexWrap[flexWrap],
     flexDirection !== undefined &&
       resolveResponsiveProp(
         flexDirection,
-        styleRefs.flexDirection,
-        styleRefs.flexDirectionTablet,
-        styleRefs.flexDirectionDesktop,
-        styleRefs.flexDirectionDesktopWide,
+        styles.flexDirection,
+        styles.flexDirectionTablet,
+        styles.flexDirectionDesktop,
+        styles.flexDirectionDesktopWide,
       ),
-    flexGrow !== undefined && styleRefs.flexGrow[flexGrow],
-    flexShrink !== undefined && styleRefs.flexShrink[flexShrink],
-    flex !== undefined && styleRefs.flex[flex],
-    flexBasis !== undefined && styleRefs.flexBasis[flexBasis],
+    flexGrow !== undefined && styles.flexGrow[flexGrow],
+    flexShrink !== undefined && styles.flexShrink[flexShrink],
+    flex !== undefined && styles.flex[flex],
+    flexBasis !== undefined && styles.flexBasis[flexBasis],
   )
 }

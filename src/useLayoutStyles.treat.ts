@@ -5,116 +5,6 @@ import { pipe } from 'fp-ts/es6/pipeable'
 
 import { mapToProperty, mapToResponsive } from './utils'
 
-export const width = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('width')),
-    O.map(mapToResponsive('mobile', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const widthTablet = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('width')),
-    O.map(mapToResponsive('tablet', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const widthDesktop = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('width')),
-    O.map(mapToResponsive('desktop', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const widthDesktopWide = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('width')),
-    O.map(mapToResponsive('desktopWide', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const maxWidth = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('maxWidth')),
-    O.map(mapToResponsive('mobile', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const maxWidthTablet = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('maxWidth')),
-    O.map(mapToResponsive('tablet', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const maxWidthDesktop = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('maxWidth')),
-    O.map(mapToResponsive('desktop', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const maxWidthDesktopWide = styleMap((theme) =>
-  pipe(
-    theme.rules.width,
-    O.fromNullable,
-    O.map(mapToProperty('maxWidth')),
-    O.map(mapToResponsive('desktopWide', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-
-export const height = styleMap((theme) =>
-  pipe(
-    theme.rules.height,
-    O.fromNullable,
-    O.map(mapToProperty('height')),
-    O.map(mapToResponsive('mobile', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const heightTablet = styleMap((theme) =>
-  pipe(
-    theme.rules.height,
-    O.fromNullable,
-    O.map(mapToProperty('height')),
-    O.map(mapToResponsive('tablet', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const heightDesktop = styleMap((theme) =>
-  pipe(
-    theme.rules.height,
-    O.fromNullable,
-    O.map(mapToProperty('height')),
-    O.map(mapToResponsive('desktop', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-export const heightDesktopWide = styleMap((theme) =>
-  pipe(
-    theme.rules.height,
-    O.fromNullable,
-    O.map(mapToProperty('height')),
-    O.map(mapToResponsive('desktopWide', theme)),
-    O.getOrElseW(() => R.empty),
-  ),
-)
-
 export const display = styleMap((theme) =>
   pipe(
     theme.rules.display,
@@ -182,6 +72,182 @@ export const position = styleMap((theme) =>
     theme.rules.position,
     O.fromNullable,
     O.map(mapToProperty('position')),
+    O.map(mapToResponsive('mobile', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const positionTablet = styleMap((theme) =>
+  pipe(
+    theme.rules.position,
+    O.fromNullable,
+    O.map(mapToProperty('position')),
+    O.map(mapToResponsive('tablet', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const positionDesktop = styleMap((theme) =>
+  pipe(
+    theme.rules.position,
+    O.fromNullable,
+    O.map(mapToProperty('position')),
+    O.map(mapToResponsive('desktop', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const positionDesktopWide = styleMap((theme) =>
+  pipe(
+    theme.rules.position,
+    O.fromNullable,
+    O.map(mapToProperty('position')),
+    O.map(mapToResponsive('desktopWide', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+
+export const top = styleMap((theme) =>
+  pipe(
+    theme.rules.top,
+    O.fromNullable,
+    O.map(mapToProperty('top')),
+    O.map(mapToResponsive('mobile', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const topTablet = styleMap((theme) =>
+  pipe(
+    theme.rules.top,
+    O.fromNullable,
+    O.map(mapToProperty('top')),
+    O.map(mapToResponsive('tablet', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const topDesktop = styleMap((theme) =>
+  pipe(
+    theme.rules.top,
+    O.fromNullable,
+    O.map(mapToProperty('top')),
+    O.map(mapToResponsive('desktop', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const topDesktopWide = styleMap((theme) =>
+  pipe(
+    theme.rules.top,
+    O.fromNullable,
+    O.map(mapToProperty('top')),
+    O.map(mapToResponsive('desktopWide', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+
+export const right = styleMap((theme) =>
+  pipe(
+    theme.rules.right,
+    O.fromNullable,
+    O.map(mapToProperty('right')),
+    O.map(mapToResponsive('mobile', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const rightTablet = styleMap((theme) =>
+  pipe(
+    theme.rules.right,
+    O.fromNullable,
+    O.map(mapToProperty('right')),
+    O.map(mapToResponsive('tablet', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const rightDesktop = styleMap((theme) =>
+  pipe(
+    theme.rules.right,
+    O.fromNullable,
+    O.map(mapToProperty('right')),
+    O.map(mapToResponsive('desktop', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const rightDesktopWide = styleMap((theme) =>
+  pipe(
+    theme.rules.right,
+    O.fromNullable,
+    O.map(mapToProperty('right')),
+    O.map(mapToResponsive('desktopWide', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+
+export const bottom = styleMap((theme) =>
+  pipe(
+    theme.rules.bottom,
+    O.fromNullable,
+    O.map(mapToProperty('bottom')),
+    O.map(mapToResponsive('mobile', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const bottomTablet = styleMap((theme) =>
+  pipe(
+    theme.rules.bottom,
+    O.fromNullable,
+    O.map(mapToProperty('bottom')),
+    O.map(mapToResponsive('tablet', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const bottomDesktop = styleMap((theme) =>
+  pipe(
+    theme.rules.bottom,
+    O.fromNullable,
+    O.map(mapToProperty('bottom')),
+    O.map(mapToResponsive('desktop', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const bottomDesktopWide = styleMap((theme) =>
+  pipe(
+    theme.rules.bottom,
+    O.fromNullable,
+    O.map(mapToProperty('bottom')),
+    O.map(mapToResponsive('desktopWide', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+
+export const left = styleMap((theme) =>
+  pipe(
+    theme.rules.left,
+    O.fromNullable,
+    O.map(mapToProperty('left')),
+    O.map(mapToResponsive('mobile', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const leftTablet = styleMap((theme) =>
+  pipe(
+    theme.rules.left,
+    O.fromNullable,
+    O.map(mapToProperty('left')),
+    O.map(mapToResponsive('tablet', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const leftDesktop = styleMap((theme) =>
+  pipe(
+    theme.rules.left,
+    O.fromNullable,
+    O.map(mapToProperty('left')),
+    O.map(mapToResponsive('desktop', theme)),
+    O.getOrElseW(() => R.empty),
+  ),
+)
+export const leftDesktopWide = styleMap((theme) =>
+  pipe(
+    theme.rules.left,
+    O.fromNullable,
+    O.map(mapToProperty('left')),
+    O.map(mapToResponsive('desktopWide', theme)),
     O.getOrElseW(() => R.empty),
   ),
 )

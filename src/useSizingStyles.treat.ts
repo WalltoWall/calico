@@ -41,9 +41,10 @@ export const widthDesktopWide = styleMap((theme) =>
     O.getOrElseW(() => R.empty),
   ),
 )
+
 export const maxWidth = styleMap((theme) =>
   pipe(
-    theme.rules.width,
+    theme.rules.maxWidth,
     O.fromNullable,
     O.map(mapToProperty('maxWidth')),
     O.map(mapToResponsive('mobile', theme)),
@@ -52,7 +53,7 @@ export const maxWidth = styleMap((theme) =>
 )
 export const maxWidthTablet = styleMap((theme) =>
   pipe(
-    theme.rules.width,
+    theme.rules.maxWidth,
     O.fromNullable,
     O.map(mapToProperty('maxWidth')),
     O.map(mapToResponsive('tablet', theme)),
@@ -61,7 +62,7 @@ export const maxWidthTablet = styleMap((theme) =>
 )
 export const maxWidthDesktop = styleMap((theme) =>
   pipe(
-    theme.rules.width,
+    theme.rules.maxWidth,
     O.fromNullable,
     O.map(mapToProperty('maxWidth')),
     O.map(mapToResponsive('desktop', theme)),
@@ -70,7 +71,7 @@ export const maxWidthDesktop = styleMap((theme) =>
 )
 export const maxWidthDesktopWide = styleMap((theme) =>
   pipe(
-    theme.rules.width,
+    theme.rules.maxWidth,
     O.fromNullable,
     O.map(mapToProperty('maxWidth')),
     O.map(mapToResponsive('desktopWide', theme)),

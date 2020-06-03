@@ -3,21 +3,16 @@
   "version": "0.1.0",
   "description": "React components for using atmoically generated styles via props.",
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.modern.js",
-  "typings": "dist/index.d.ts",
+  "main": "src/index.js",
+  "module": "src/index.js",
   "sideEffects": false,
   "files": [
-    "dist",
     "src"
   ],
   "scripts": {
     "clean": "rimraf ./dist",
-    "start": "yarn clean && microbundle watch -f modern,cjs --jsx React.createElement",
-    "build": "yarn clean && microbundle build -f modern,cjs --jsx React.createElement",
     "format": "prettier --write '{src,docs}/**/*.{ts,tsx,md}'",
     "test": "jest",
-    "prepare": "yarn build",
     "release": "standard-version"
   },
   "homepage": "https://github.com/walltowall/calico",
@@ -26,7 +21,7 @@
     "url": "https://github.com/walltowall/calico.git"
   },
   "keywords": [
-    "React",
+    "react",
     "components",
     "static",
     "atomic",
@@ -38,7 +33,6 @@
     "fp-ts": "^2.6.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.10.1",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@types/jest": "^25.2.3",
@@ -46,7 +40,6 @@
     "csstype": "^2.6.10",
     "husky": "^4.2.5",
     "jest": "^26.0.1",
-    "microbundle": "^0.12.0",
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "rimraf": "^3.0.2",
@@ -58,6 +51,7 @@
   },
   "peerDependencies": {
     "react": ">=16.8",
+    "react-treat": ">=1.4.0",
     "treat": ">=1.4.0"
   },
   "prettier": {
@@ -66,11 +60,6 @@
     "trailingComma": "all",
     "proseWrap": "always",
     "printWidth": 80
-  },
-  "babel": {
-    "plugins": [
-      "@babel/plugin-proposal-optional-chaining"
-    ]
   },
   "husky": {
     "hooks": {

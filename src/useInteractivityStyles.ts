@@ -1,8 +1,10 @@
 import clsx from 'clsx'
+import { useStyles } from 'react-treat'
 
-import * as styleRefs from './useInteractivityStyles.treat'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
+
+import * as styleRefs from './useInteractivityStyles.treat'
 
 export const interactivityRules = {
   outline: {
@@ -15,7 +17,7 @@ export const interactivityRules = {
     none: 'none',
     auto: 'auto',
   },
-}
+} as const
 
 export type UseInteractivityStylesProps = {
   outline?: keyof typeof styleRefs.outline
@@ -28,16 +30,18 @@ export const useInteractivityStyles = ({
   userSelect,
   pointerEvents,
 }: UseInteractivityStylesProps) => {
+  const styles = useStyles(styleRefs)
+
   return clsx(
-    outline !== undefined && styleRefs.outline[outline],
-    userSelect !== undefined && styleRefs.userSelect[userSelect],
+    outline !== undefined && styles.outline[outline],
+    userSelect !== undefined && styles.userSelect[userSelect],
     pointerEvents !== undefined &&
       resolveResponsiveProp(
         pointerEvents,
-        styleRefs.pointerEvents,
-        styleRefs.pointerEventsTablet,
-        styleRefs.pointerEventsDesktop,
-        styleRefs.pointerEventsDesktopWide,
+        styles.pointerEvents,
+        styles.pointerEventsTablet,
+        styles.pointerEventsDesktop,
+        styles.pointerEventsDesktopWide,
       ),
   )
 }
