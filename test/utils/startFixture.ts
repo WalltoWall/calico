@@ -1,3 +1,4 @@
+import path from 'path'
 import { AddressInfo } from 'net'
 import webpack, { Configuration } from 'webpack'
 import mergeWebpackConfigs from 'webpack-merge'
@@ -14,7 +15,7 @@ const defaultConfig: Configuration = {
   mode: 'production',
   output: { path: '/' },
   resolve: {
-    extensions: ['.tsx', '.ts'],
+    extensions: ['.js', '.json', '.tsx', '.ts'],
     alias: {
       'fp-ts/es6': 'fp-ts/lib',
     },
@@ -22,14 +23,15 @@ const defaultConfig: Configuration = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(js|ts|tsx)$/,
+        include: [path.resolve(__dirname, 'node_modules/fp-ts')],
         use: [
           {
             loader: 'babel-loader',
             options: {
               babelrc: false,
               presets: [
-                ['@babel/preset-env', { modules: false }],
+                '@babel/preset-env',
                 '@babel/preset-react',
                 '@babel/preset-typescript',
               ],
