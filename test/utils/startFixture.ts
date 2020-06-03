@@ -4,14 +4,20 @@ import mergeWebpackConfigs from 'webpack-merge'
 import { createFsFromVolume, Volume, IFs } from 'memfs'
 import mimeTypes from 'mime-types'
 import express from 'express'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+//@ts-ignore
 import TreatPlugin from 'treat/webpack-plugin'
 
 const inMemoryFs = createFsFromVolume(new Volume())
 
 const defaultConfig: Configuration = {
+  mode: 'production',
   output: { path: '/' },
   resolve: {
     extensions: ['.tsx', '.ts'],
+    alias: {
+      'fp-ts/es6': 'fp-ts/lib',
+    },
   },
   module: {
     rules: [
@@ -34,7 +40,7 @@ const defaultConfig: Configuration = {
       },
     ],
   },
-  plugins: [new TreatPlugin()],
+  plugins: [new HtmlWebpackPlugin(), new TreatPlugin()],
 }
 
 const buildFiles = (config: Configuration): Promise<IFs> =>

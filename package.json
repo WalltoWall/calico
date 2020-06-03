@@ -33,6 +33,9 @@
     "fp-ts": "^2.6.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1",
+    "@babel/preset-typescript": "^7.10.1",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@types/expect-puppeteer": "^4.4.3",
@@ -45,8 +48,11 @@
     "@types/react-dom": "^16.9.8",
     "@types/webpack": "^4.41.17",
     "@types/webpack-merge": "^4.1.5",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-treat": "^1.1.0",
     "csstype": "^2.6.10",
     "express": "^4.17.1",
+    "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "jest-puppeteer": "^4.4.0",

@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom'
 
 import { Box } from '../src/Box'
 
-const App = () => {
-  return <Box />
-}
+const App = () => <Box id="main" />
 
 ReactDOM.render(
   <App />,

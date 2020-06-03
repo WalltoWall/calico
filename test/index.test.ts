@@ -1,14 +1,23 @@
 import { startFixture, FixtureServer } from './utils/startFixture'
+import { getStyles } from './utils/getStyles'
 
 let server: FixtureServer
 
-beforeAll(async () => {
-  server = await startFixture({
-    entry: require.resolve('./fixture.tsx'),
+describe('Help', () => {
+  beforeAll(async () => {
+    server = await startFixture({
+      entry: require.resolve('./fixture.tsx'),
+    })
+    await page.goto(server.url)
   })
-  await page.goto(server.url)
-})
 
-afterAll(() => {
-  server.close()
+  test('it should apply styles correctly', async () => {
+    const styles = await getStyles(page, '#main')
+
+    console.log(styles)
+  })
+
+  afterAll(() => {
+    server.close()
+  })
 })
