@@ -11,12 +11,14 @@ export { useSizingStyles } from './useSizingStyles'
 export { useSpaceStyles } from './useSpaceStyles'
 export { useTypographyStyles } from './useTypographyStyles'
 
-export { mapFontStyles } from './mapFontStyles'
+export { mapFontsets } from './mapFontsets'
 export { createMq } from './createMq'
 export {
   createCalicoTheme,
   baseCalicoTheme,
   CalicoTheme,
 } from './createCalicoTheme'
+
+export { resolveGrid } from './utils'
 
 export * from './types'

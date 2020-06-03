@@ -1,8 +1,10 @@
 import { Style } from 'treat'
-import { mapWithIndex } from 'fp-ts/es6/Record'
+import { Theme } from 'treat/theme'
+import * as R from 'fp-ts/es6/Record'
 
-import { makeResponsive } from './utils'
-import { FinalCalicoTheme } from './createCalicoTheme'
+import { makeResponsive, semigroupResponsiveStyle } from './utils'
+import { CalicoTheme } from './createCalicoTheme'
+import { pipe } from 'fp-ts/es6/pipeable'
 
 interface BaseKickOptions {
   typeSizeModifier: number
@@ -50,18 +52,18 @@ export const basekick = ({
   }
 }
 
-type FontStyleRules = {
-  fontFamily: keyof FinalCalicoTheme['fonts']
-  fontSize: Partial<Record<keyof FinalCalicoTheme['breakpoints'], number>>
+interface Fontset {
+  fontFamily: keyof Theme['fonts']
+  fontSize: Record<keyof CalicoTheme['breakpoints'], number>
   lineHeightScale: number
 }
 
-type BaseKickArgs = Omit<FontStyleRules, 'fontSize'> & {
+type BaseKickArgs = Omit<Fontset, 'fontSize'> & {
   baseFontSize?: number
   fontSize: number
 }
 
-export const basekickFontStyles = (theme: FinalCalicoTheme) => ({
+export const basekickFontStyles = (theme: CalicoTheme) => ({
   fontFamily,
   fontSize,
   lineHeightScale,
@@ -84,18 +86,24 @@ export const basekickFontStyles = (theme: FinalCalicoTheme) => ({
   })
 }
 
-export const mapFontStyles = (theme: FinalCalicoTheme) => (
-  rule: FontStyleRules,
+const responsiveBasekickFontset = (theme: CalicoTheme) => (fontset: Fontset) =>
+  pipe(
+    fontset.fontSize,
+    R.mapWithIndex((breakpoint, fontSize) =>
+      pipe(
+        { ...fontset, fontSize } as BaseKickArgs,
+        basekickFontStyles(theme),
+        makeResponsive(breakpoint, theme),
+      ),
+    ),
+  )
+
+export const mapFontsets = <K extends string>(
+  theme: CalicoTheme,
+  fontsets: Record<K, Fontset>,
 ) =>
-  mapWithIndex(
-    (breakpoint: keyof FinalCalicoTheme['breakpoints'], fontSize: number) => {
-      const responsiveRule: BaseKickArgs = {
-        ...rule,
-        fontSize,
-      }
-
-      const baseKickStyles = basekickFontStyles(theme)(responsiveRule)
-
-      return makeResponsive(breakpoint, theme)(baseKickStyles)
-    },
-  )(rule.fontSize as Record<keyof FinalCalicoTheme['breakpoints'], number>)
+  pipe(
+    fontsets,
+    R.map(responsiveBasekickFontset(theme)),
+    R.map(R.reduce({} as Style, semigroupResponsiveStyle.concat)),
+  )
