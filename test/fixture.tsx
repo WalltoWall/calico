@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 
 import { Box } from '../src/Box'
 
-const App = () => React.createElement(Box, { id: 'main' })
+const App = () => <Box id="main" />
 
 ReactDOM.render(
-  React.createElement(App),
+  <App />,
   document.body.appendChild(document.createElement('div')),
 )
