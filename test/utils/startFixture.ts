@@ -1,15 +1,13 @@
 import path from 'path'
 import { AddressInfo } from 'net'
+import MemoryFS from 'memory-fs'
 import webpack, { Configuration } from 'webpack'
 import mergeWebpackConfigs from 'webpack-merge'
-import { createFsFromVolume, Volume, IFs } from 'memfs'
 import mimeTypes from 'mime-types'
 import express from 'express'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 //@ts-ignore
 import TreatPlugin from 'treat/webpack-plugin'
-
-const inMemoryFs = createFsFromVolume(new Volume())
 
 const defaultConfig: Configuration = {
   mode: 'production',
@@ -24,14 +22,18 @@ const defaultConfig: Configuration = {
     rules: [
       {
         test: /\.(js|ts|tsx)$/,
-        include: [path.resolve(__dirname, 'node_modules/fp-ts')],
+        include: [
+          path.resolve(__dirname, '../../src'),
+          path.resolve(__dirname, '../../test'),
+          /node_modules\/fp-ts/,
+        ],
         use: [
           {
             loader: 'babel-loader',
             options: {
               babelrc: false,
               presets: [
-                '@babel/preset-env',
+                ['@babel/preset-env', { modules: false }],
                 '@babel/preset-react',
                 '@babel/preset-typescript',
               ],
@@ -45,18 +47,18 @@ const defaultConfig: Configuration = {
   plugins: [new HtmlWebpackPlugin(), new TreatPlugin()],
 }
 
-const buildFiles = (config: Configuration): Promise<IFs> =>
+const buildFiles = (config: Configuration): Promise<MemoryFS> =>
   new Promise((resolve, reject) => {
     const bundler = webpack(mergeWebpackConfigs(defaultConfig, config))
-    //@ts-ignore
-    bundler.outputFileSystem = inMemoryFs
+    const outputFileSystem = new MemoryFS()
+    bundler.outputFileSystem = outputFileSystem
 
     bundler.run((error, stats) => {
       if (error) reject(error)
       if (stats.hasErrors())
         reject(new Error(stats.toString({ errorDetails: true })))
 
-      resolve(inMemoryFs)
+      resolve(outputFileSystem)
     })
   })
 
@@ -65,7 +67,7 @@ export interface FixtureServer {
   close: () => void
 }
 
-const startServer = (fs: IFs): Promise<FixtureServer> =>
+const startServer = (fs: MemoryFS): Promise<FixtureServer> =>
   new Promise((resolve) => {
     const app = express()
 
