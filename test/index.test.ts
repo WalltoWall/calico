@@ -6,7 +6,7 @@ let server: FixtureServer
 describe('Help', () => {
   beforeAll(async () => {
     server = await startFixture({
-      entry: require.resolve('./fixture.tsx'),
+      entry: require.resolve('./fixtures/App.tsx'),
     })
     await page.goto(server.url)
   })

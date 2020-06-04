@@ -11,7 +11,6 @@ export const getStyles = async (page: Page, selector: string) => {
     nodeId: doc.root.nodeId,
     selector,
   })) as any
-  await jestPuppeteer.debug()
 
   const styleForSingleNode = (await client.send('CSS.getMatchedStylesForNode', {
     nodeId,
