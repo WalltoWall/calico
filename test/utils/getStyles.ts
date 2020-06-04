@@ -1,6 +1,6 @@
 import { Page } from 'puppeteer'
 
-export const getStyles = async (page: Page, selector: any) => {
+export const getStyles = async (page: Page, selector: string) => {
   const client = await page.target().createCDPSession()
 
   await client.send('DOM.enable')
@@ -11,6 +11,7 @@ export const getStyles = async (page: Page, selector: any) => {
     nodeId: doc.root.nodeId,
     selector,
   })) as any
+  await jestPuppeteer.debug()
 
   const styleForSingleNode = (await client.send('CSS.getMatchedStylesForNode', {
     nodeId,
@@ -19,7 +20,7 @@ export const getStyles = async (page: Page, selector: any) => {
   return styleForSingleNode.matchedCSSRules.reduce((prev: any, curr: any) => {
     const styles = Object.assign(
       //@ts-ignore
-      ...curr.rule.style.cssProperties.map((rule) => ({
+      ...curr.rule.style.cssProperties.map((rule: any) => ({
         [rule.name]: rule.value,
       })),
     )
