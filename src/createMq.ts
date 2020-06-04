@@ -1,5 +1,5 @@
 import { SimplePseudos } from 'csstype'
-import { style, Style } from 'treat'
+import { Style } from 'treat'
 
 type PlainStyle = string | number
 type StyleArray = PlainStyle[] | readonly PlainStyle[]
@@ -113,7 +113,7 @@ export const createMq = (breakpoints: string[]) => {
       }
     }
 
-    return style(newObj)
+    return newObj
   }
 
   return mq

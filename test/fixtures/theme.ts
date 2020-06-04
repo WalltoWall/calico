@@ -49,6 +49,9 @@ export const theme = createCalicoTheme({
       large: '75rem',
       xlarge: '90rem',
     },
+    lineHeight: {
+      solid: 1,
+    },
     letterSpacing: {
       ...baseCalicoTheme.rules.letterSpacing,
       s: '0.05em',
