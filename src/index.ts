@@ -9,6 +9,7 @@ export { useInteractivityStyles } from './useInteractivityStyles'
 export { useLayoutStyles } from './useLayoutStyles'
 export { useSizingStyles } from './useSizingStyles'
 export { useSpaceStyles } from './useSpaceStyles'
+export { useTransitionStyles } from './useTransitionStyles'
 export { useTypographyStyles } from './useTypographyStyles'
 
 export { mapFontsets } from './mapFontsets'
