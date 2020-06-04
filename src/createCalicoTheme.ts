@@ -25,6 +25,7 @@ export interface CreateCalicoThemeInput {
 
   colors?: Record<string, string>
 
+  baseFontSize?: number
   fonts?: Record<
     string,
     {
@@ -44,6 +45,7 @@ export interface CreateCalicoThemeInput {
 }
 
 export const baseCalicoTheme = {
+  baseFontSize: 16,
   rules: {
     ...backgroundRules,
     ...borderRules,

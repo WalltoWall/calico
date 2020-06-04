@@ -133,3 +133,12 @@ export const letterSpacing = styleMap((theme) =>
     O.getOrElseW(() => R.empty),
   ),
 )
+
+export const listStyle = styleMap((theme) =>
+  pipe(
+    theme.rules.listStyle,
+    O.fromNullable,
+    O.map(mapToProperty('listStyle')),
+    O.getOrElseW(() => R.empty),
+  ),
+)

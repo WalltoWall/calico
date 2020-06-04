@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "React components for using atmoically generated styles via props.",
   "license": "MIT",
-  "main": "src/index.js",
-  "module": "src/index.js",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "sideEffects": false,
   "files": [
     "src"
