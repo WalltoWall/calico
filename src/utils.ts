@@ -12,20 +12,6 @@ import { map, singleton } from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
 import { ResponsiveProp } from './types'
-import { BoxProps } from './Box'
-
-export type NegatableSpace = NonNullable<Exclude<BoxProps['padding'], 'auto'>>
-
-/**
- * Converts a given space value to it's negative equivalent.
- *
- * @param space The space value to negate.
- * @returns The negative equivalent space value.
- */
-export const negateSpace = (space: NegatableSpace) =>
-  Array.isArray(space)
-    ? (space.map((val) => -1 * val) as typeof space)
-    : ((-1 * (space as number)) as typeof space)
 
 /**
  * Converts a grid measurement based in `rem` to an actual `rem`.

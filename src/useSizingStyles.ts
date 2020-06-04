@@ -32,7 +32,7 @@ export const sizingRules = {
 
 export type UseSizingStylesProps = {
   width?: ResponsiveProp<keyof typeof styleRefs.width>
-  maxWidth?: keyof typeof styleRefs.maxWidth
+  maxWidth?: ResponsiveProp<keyof typeof styleRefs.maxWidth>
   height?: ResponsiveProp<keyof typeof styleRefs.height>
 }
 
@@ -43,6 +43,8 @@ export const useSizingStyles = ({
 }: UseSizingStylesProps) => {
   const styles = useStyles(styleRefs)
 
+  console.log(maxWidth)
+
   return clsx(
     width !== undefined &&
       resolveResponsiveProp(
@@ -52,7 +54,14 @@ export const useSizingStyles = ({
         styles.widthDesktop,
         styles.widthDesktopWide,
       ),
-    maxWidth !== undefined && styles.maxWidth[maxWidth],
+    maxWidth !== undefined &&
+      resolveResponsiveProp(
+        maxWidth,
+        styles.maxWidth,
+        styles.maxWidthTablet,
+        styles.maxWidthDesktop,
+        styles.maxWidthDesktopWide,
+      ),
     height !== undefined &&
       resolveResponsiveProp<string | number>(
         height,
