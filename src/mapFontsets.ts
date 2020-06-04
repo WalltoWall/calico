@@ -1,6 +1,7 @@
 import { Style } from 'treat'
 import { Theme } from 'treat/theme'
 import * as R from 'fp-ts/es6/Record'
+import * as O from 'fp-ts/es6/Option'
 
 import { makeResponsive, semigroupResponsiveStyle } from './utils'
 import { CalicoTheme } from './createCalicoTheme'
@@ -54,7 +55,7 @@ export const basekick = ({
 
 interface Fontset {
   fontFamily: keyof Theme['fonts']
-  fontSize: Record<keyof CalicoTheme['breakpoints'], number>
+  fontSize: Partial<Record<keyof CalicoTheme['breakpoints'], number>>
   lineHeightScale: number
 }
 
@@ -67,24 +68,28 @@ export const basekickFontStyles = (theme: CalicoTheme) => ({
   fontFamily,
   fontSize,
   lineHeightScale,
-}: BaseKickArgs): Style => {
-  const baseFontSize = 16
-  const fontDefinition = theme.fonts[fontFamily]
+}: BaseKickArgs): Style =>
+  pipe(
+    theme.fonts,
+    O.fromNullable,
+    O.chain((fonts) => R.lookup(fontFamily, fonts)),
+    O.map((fontStack) => {
+      const lineHeight =
+        (lineHeightScale * fontStack.baseFontHeight * fontSize) /
+        theme.grid /
+        theme.baseFontSize
 
-  const lineHeight =
-    (lineHeightScale * fontDefinition.baseFontHeight * fontSize) /
-    theme.grid /
-    baseFontSize
-
-  return basekick({
-    typeSizeModifier: fontSize,
-    baseFontSize,
-    descenderHeightScale: fontDefinition.descenderHeightScale,
-    typeRowSpan: lineHeight,
-    gridRowHeight: theme.grid * 16,
-    capHeight: fontDefinition.capHeightScale,
-  })
-}
+      return basekick({
+        typeSizeModifier: fontSize,
+        baseFontSize: theme.baseFontSize,
+        descenderHeightScale: fontStack.descenderHeightScale,
+        typeRowSpan: lineHeight,
+        gridRowHeight: theme.grid * 16,
+        capHeight: fontStack.capHeightScale,
+      })
+    }),
+    O.getOrElseW(() => R.empty),
+  )
 
 const responsiveBasekickFontset = (theme: CalicoTheme) => (fontset: Fontset) =>
   pipe(
@@ -95,7 +100,10 @@ const responsiveBasekickFontset = (theme: CalicoTheme) => (fontset: Fontset) =>
         basekickFontStyles(theme),
         makeResponsive(breakpoint, theme),
       ),
-    ),
+    ) as (
+      fa: Partial<Record<keyof CalicoTheme['breakpoints'], number | undefined>>,
+    ) => Record<keyof CalicoTheme['breakpoints'], Style>,
+    // Manually typing `R.mapWithIndex` is required to support Partial records.
   )
 
 export const mapFontsets = <K extends string>(
