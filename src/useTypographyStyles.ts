@@ -36,6 +36,11 @@ export const typographyRules = {
     normal: 'normal',
     none: 0,
   },
+  listStyle: {
+    none: 'none',
+    disc: 'disc',
+    decimal: 'decimal',
+  },
 } as const
 
 export type UseTypographyStylesProps = {
@@ -47,6 +52,7 @@ export type UseTypographyStylesProps = {
   textTransform?: keyof typeof styleRefs.textTransform
   letterSpacing?: keyof typeof styleRefs.letterSpacing
   color?: ResponsiveProp<keyof typeof styleRefs.color>
+  listStyle?: keyof typeof styleRefs.listStyle
 }
 
 export const useTypographyStyles = ({
@@ -58,6 +64,7 @@ export const useTypographyStyles = ({
   textTransform,
   letterSpacing,
   color,
+  listStyle,
 }: UseTypographyStylesProps) => {
   const styles = useStyles(styleRefs)
 
@@ -76,6 +83,7 @@ export const useTypographyStyles = ({
       ),
     textTransform !== undefined && styles.textTransform[textTransform],
     letterSpacing !== undefined && styles.letterSpacing[letterSpacing],
+    listStyle !== undefined && styles.listStyle[listStyle],
     color !== undefined &&
       resolveResponsiveProp(
         color,
