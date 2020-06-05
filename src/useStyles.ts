@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { Theme } from 'treat/theme'
 import { useStyles as useTreatStyles } from 'react-treat'
 
-import { _resolveResponsiveProp } from './utils'
+import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
 import * as treatStyleRefs from './useStyles.treat'
 
@@ -19,7 +19,7 @@ export const useStyles = (props: UseStylesProps) => {
     if (!value) continue
 
     styleArr.push(
-      _resolveResponsiveProp<string | number>(
+      resolveResponsiveProp<string | number>(
         value,
         styleRefs.styles[key as keyof Theme['rules']],
       ),
