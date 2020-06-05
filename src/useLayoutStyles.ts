@@ -16,6 +16,7 @@ export const layoutRules = {
     inlineFlex: 'inline-flex',
     grid: 'grid',
     inlineGrid: 'inline-grid',
+    listItem: 'list-item',
   },
   overflow: {
     auto: 'auto',

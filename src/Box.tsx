@@ -111,6 +111,7 @@ export const Box = ({
   textTransform,
   letterSpacing,
   color,
+  listStyle,
 
   width,
   maxWidth,
@@ -183,6 +184,7 @@ export const Box = ({
     textAlign,
     textTransform,
     letterSpacing,
+    listStyle,
   })
   const layoutStyles = useLayoutStyles({
     display,
