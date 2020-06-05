@@ -20,6 +20,10 @@ export {
   CalicoTheme,
 } from './createCalicoTheme'
 
-export { resolveGrid } from './utils'
+export {
+  resolveGrid,
+  resolveResponsiveProp,
+  normalizeResponsiveProp,
+} from './utils'
 
 export * from './types'
