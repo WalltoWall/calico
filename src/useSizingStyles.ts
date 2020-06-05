@@ -43,8 +43,6 @@ export const useSizingStyles = ({
 }: UseSizingStylesProps) => {
   const styles = useStyles(styleRefs)
 
-  console.log(maxWidth)
-
   return clsx(
     width !== undefined &&
       resolveResponsiveProp(
