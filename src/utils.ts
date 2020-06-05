@@ -256,9 +256,11 @@ export const resolveResponsiveProp = <Keys extends string | number>(
 export const _resolveResponsiveProp = <
   Keys extends string | number = string | number
 >(
-  value: ResponsiveProp<Keys>,
+  value: ResponsiveProp<Keys> | undefined,
   atoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
 ) => {
+  console.log({ value, atoms })
+  if (value === undefined) return
   if (typeof value === 'string') return atoms.mobile[value]
 
   const [

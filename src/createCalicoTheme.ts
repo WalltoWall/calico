@@ -4,16 +4,16 @@ import { pipe } from 'fp-ts/es6/pipeable'
 
 import { resolveGrid } from './utils'
 
-import { backgroundRules } from './useBackgroundStyles'
-import { borderRules } from './useBorderStyles'
-import { effectRules } from './useEffectStyles'
-import { flexboxRules } from './useFlexboxStyles'
-import { gridRules } from './useGridStyles'
-import { interactivityRules } from './useInteractivityStyles'
-import { layoutRules } from './useLayoutStyles'
-import { sizingRules } from './useSizingStyles'
-import { transitionRules } from './useTransitionStyles'
-import { typographyRules } from './useTypographyStyles'
+import { backgroundRules } from './backgroundRules'
+import { borderRules } from './borderRules'
+import { effectRules } from './effectRules'
+import { flexboxRules } from './flexboxRules'
+import { gridRules } from './gridRules'
+import { interactivityRules } from './interactivityRules'
+import { layoutRules } from './layoutRules'
+import { sizingRules } from './sizingRules'
+import { transitionRules } from './transitionRules'
+import { typographyRules } from './typographyRules'
 
 type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 
@@ -21,9 +21,6 @@ export interface CreateCalicoThemeInput {
   breakpoints: Record<BreakpointKeys, number>
 
   grid: number
-  space?: Record<string | number, string | number>
-
-  colors?: Record<string, string>
 
   baseFontSize?: number
   fonts?: Record<
@@ -39,12 +36,8 @@ export interface CreateCalicoThemeInput {
   rules?: {
     [P in keyof StandardProperties]?: Record<
       string | number,
-      NonNullable<StandardProperties[P]>
+      NonNullable<StandardProperties<string | number>[P]>
     >
-  }
-
-  variants?: {
-    [P in keyof StandardProperties]?: Partial<Record<'responsive', boolean>>
   }
 }
 
@@ -61,13 +54,6 @@ export const baseCalicoTheme = {
     ...sizingRules,
     ...transitionRules,
     ...typographyRules,
-  },
-  variants: {
-    color: {
-      responsive: true,
-      hover: true,
-      focus: true,
-    },
   },
 } as const
 
@@ -88,10 +74,6 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
     rules: {
       ...baseCalicoTheme.rules,
       ...theme.rules,
-    },
-    variants: {
-      ...baseCalicoTheme.variants,
-      ...theme.variants,
     },
   } as const
 }

@@ -11,7 +11,7 @@ beforeAll(async () => {
   await page.goto(server.url)
 })
 
-test('useBackgroundStyles', async () => {
+test('background props', async () => {
   const styles = await getStyles(page, '#background')
 
   expect(styles).toEqual({
@@ -25,7 +25,7 @@ test('useBackgroundStyles', async () => {
   })
 })
 
-test('useBorderStyles', async () => {
+test('border props', async () => {
   const styles = await getStyles(page, '#border')
 
   expect(styles).toEqual({
@@ -39,6 +39,7 @@ test('useBorderStyles', async () => {
     'border-bottom-width': '1px',
     'border-left-width': '1px',
     'border-right-width': '1px',
+    'border-width': '1px',
     'border-style': 'solid',
     'border-top-style': 'solid',
     'border-right-style': 'solid',
@@ -52,7 +53,7 @@ test('useBorderStyles', async () => {
   })
 })
 
-test.only('useEffectStyles', async () => {
+test('effect props', async () => {
   const styles = await getStyles(page, '#effect')
 
   expect(styles).toEqual({
@@ -61,7 +62,7 @@ test.only('useEffectStyles', async () => {
   })
 })
 
-test('useFlexboxStyles', async () => {
+test('flexbox props', async () => {
   const styles = await getStyles(page, '#flexbox')
 
   expect(styles).toEqual({
@@ -80,7 +81,7 @@ test('useFlexboxStyles', async () => {
   })
 })
 
-test('useGridStyles', async () => {
+test('grid props', async () => {
   const styles = await getStyles(page, '#grid')
 
   expect(styles).toEqual({
@@ -100,7 +101,7 @@ test('useGridStyles', async () => {
   })
 })
 
-test('useInteractivityStyles', async () => {
+test('interactivity props', async () => {
   const styles = await getStyles(page, '#interactivity')
 
   expect(styles).toEqual({
@@ -117,7 +118,7 @@ test('useInteractivityStyles', async () => {
   })
 })
 
-test('useLayoutStyles', async () => {
+test('layout props', async () => {
   const styles = await getStyles(page, '#layout')
 
   expect(styles).toEqual({
@@ -134,7 +135,7 @@ test('useLayoutStyles', async () => {
   })
 })
 
-test('useSizingStyles', async () => {
+test('sizing props', async () => {
   const styles = await getStyles(page, '#sizing')
 
   expect(styles).toEqual({
@@ -145,23 +146,25 @@ test('useSizingStyles', async () => {
   })
 })
 
-test('useSpaceStyles', async () => {
+test('space props', async () => {
   const styles = await getStyles(page, '#space')
 
   expect(styles).toEqual({
     ...defaultBoxStyles,
-    'margin-bottom': '.25rem',
-    'margin-left': '.25rem',
-    'margin-right': '.25rem',
-    'margin-top': '.25rem',
-    'padding-bottom': '.25rem',
-    'padding-left': '.25rem',
-    'padding-right': '.25rem',
-    'padding-top': '.25rem',
+    margin: '.25rem',
+    'margin-bottom': '0.25rem',
+    'margin-left': '0.25rem',
+    'margin-right': '0.25rem',
+    'margin-top': '0.25rem',
+    padding: '.25rem',
+    'padding-bottom': '0.25rem',
+    'padding-left': '0.25rem',
+    'padding-right': '0.25rem',
+    'padding-top': '0.25rem',
   })
 })
 
-test('useTransitionStyles', async () => {
+test('transition props', async () => {
   const styles = await getStyles(page, '#transition')
 
   expect(styles).toEqual({
@@ -171,7 +174,7 @@ test('useTransitionStyles', async () => {
   })
 })
 
-test('useTypographyStyles', async () => {
+test('typography props', async () => {
   const styles = await getStyles(page, '#typography')
 
   expect(styles).toEqual({

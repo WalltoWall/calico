@@ -1,20 +1,30 @@
 import clsx from 'clsx'
+import { Theme } from 'treat/theme'
 import { useStyles as useTreatStyles } from 'react-treat'
-import { StandardProperties } from 'csstype'
 
 import { _resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
-
-import * as styleRefs from './useStyles.treat'
+import * as treatStyleRefs from './useStyles.treat'
 
 export type UseStylesProps = {
-  [K in keyof StandardProperties]: ResponsiveProp<
-    keyof typeof styleRefs.styles[K]['mobile']
-  >
+  [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
 }
 
 export const useStyles = (props: UseStylesProps) => {
-  const styles = useTreatStyles(styleRefs)
+  const styleRefs = useTreatStyles(treatStyleRefs)
 
-  return clsx()
+  let styleArr = []
+  for (const key in props) {
+    const value = props[key as keyof Theme['rules']]
+    if (!value) continue
+
+    styleArr.push(
+      _resolveResponsiveProp<string | number>(
+        value,
+        styleRefs.styles[key as keyof Theme['rules']],
+      ),
+    )
+  }
+
+  return clsx(styleArr)
 }
