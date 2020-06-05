@@ -52,7 +52,7 @@ test('useBorderStyles', async () => {
   })
 })
 
-test('useEffectStyles', async () => {
+test.only('useEffectStyles', async () => {
   const styles = await getStyles(page, '#effect')
 
   expect(styles).toEqual({

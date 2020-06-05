@@ -63,14 +63,21 @@ export const theme = createCalicoTheme({
       normal: '200ms',
       fast: '100ms',
     },
+    opacity: {
+      ...baseCalicoTheme.rules.opacity,
+      foo: 'bar',
+    },
   },
 
   variants: {
     maxWidth: {
       responsive: true,
     },
-    color: {
+    display: {
       responsive: true,
+    },
+    opacity: {
+      responsive: false,
     },
   },
 })

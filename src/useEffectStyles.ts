@@ -1,7 +1,8 @@
 import clsx from 'clsx'
+import { Theme } from 'treat/theme'
 import { useStyles } from 'react-treat'
 
-import { resolveResponsiveProp } from './utils'
+import { _resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
 
 import * as styleRefs from './useEffectStyles.treat'
@@ -17,7 +18,7 @@ export const effectRules = {
 } as const
 
 export type UseEffectStylesProps = {
-  opacity?: ResponsiveProp<keyof typeof styleRefs.opacity>
+  opacity?: ResponsiveProp<keyof Theme['rules']['opacity']>
 }
 
 export const useEffectStyles = ({ opacity }: UseEffectStylesProps) => {
@@ -25,12 +26,6 @@ export const useEffectStyles = ({ opacity }: UseEffectStylesProps) => {
 
   return clsx(
     opacity !== undefined &&
-      resolveResponsiveProp(
-        opacity,
-        styles.opacity,
-        styles.opacityTablet,
-        styles.opacityDesktop,
-        styles.opacityDesktopWide,
-      ),
+      _resolveResponsiveProp<string | number>(opacity, styles.opacity),
   )
 }

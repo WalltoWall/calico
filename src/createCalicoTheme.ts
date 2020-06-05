@@ -1,4 +1,4 @@
-import { Properties } from 'csstype'
+import { StandardProperties } from 'csstype'
 import { map } from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
@@ -37,10 +37,14 @@ export interface CreateCalicoThemeInput {
   >
 
   rules?: {
-    [P in keyof Properties]?: Record<
+    [P in keyof StandardProperties]?: Record<
       string | number,
-      NonNullable<Properties[P]>
+      NonNullable<StandardProperties[P]>
     >
+  }
+
+  variants?: {
+    [P in keyof StandardProperties]?: Partial<Record<'responsive', boolean>>
   }
 }
 
@@ -58,6 +62,13 @@ export const baseCalicoTheme = {
     ...transitionRules,
     ...typographyRules,
   },
+  variants: {
+    color: {
+      responsive: true,
+      hover: true,
+      focus: true,
+    },
+  },
 } as const
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
@@ -67,9 +78,7 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
 ) => {
   const mediaQueries = pipe(
     theme.breakpoints,
-    map(
-      (value) => `screen and (min-width: ${resolveGrid(theme.grid)(value)}rem)`,
-    ),
+    map((value) => `screen and (min-width: ${resolveGrid(theme.grid)(value)})`),
   )
 
   return {
@@ -79,6 +88,10 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
     rules: {
       ...baseCalicoTheme.rules,
       ...theme.rules,
+    },
+    variants: {
+      ...baseCalicoTheme.variants,
+      ...theme.variants,
     },
   } as const
 }

@@ -253,6 +253,31 @@ export const resolveResponsiveProp = <Keys extends string | number>(
   )
 }
 
+export const _resolveResponsiveProp = <
+  Keys extends string | number = string | number
+>(
+  value: ResponsiveProp<Keys>,
+  atoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
+) => {
+  if (typeof value === 'string') return atoms.mobile[value]
+
+  const [
+    mobileValue,
+    tabletValue,
+    desktopValue,
+    desktopWideValue,
+  ] = normalizeResponsiveProp(value)
+
+  return (
+    atoms.mobile[mobileValue] +
+    (tabletValue !== mobileValue ? ' ' + atoms.tablet[tabletValue] : '') +
+    (desktopValue !== tabletValue ? ' ' + atoms.desktop[desktopValue] : '') +
+    (desktopWideValue !== desktopValue
+      ? ' ' + atoms.desktopWide[desktopWideValue]
+      : '')
+  )
+}
+
 export const semigroupResponsiveStyle: Semigroup<Style> = {
   concat: (x, y) => ({
     ...x,
@@ -266,3 +291,49 @@ export const semigroupResponsiveStyle: Semigroup<Style> = {
 
 export const buildMediaQuery = (theme: Theme, size: number) =>
   `screen and (min-width: ${resolveGrid(theme.grid)(size)}rem)`
+
+export function mapFromOptionalTheme<A extends ReadonlyArray<unknown>, B>(
+  ab: (...a: A) => B,
+): (...a: A) => B
+export function mapFromOptionalTheme<A extends ReadonlyArray<unknown>, B, C>(
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+): (...a: A) => C
+export function mapFromOptionalTheme(ab: Function, bc?: Function): unknown {
+  switch (arguments.length) {
+    case 1: {
+      return flow(
+        O.fromNullable,
+        //@ts-ignore
+        O.map(flow(ab)),
+        O.getOrElseW(() => R.empty),
+      )
+    }
+    case 2: {
+      return flow(
+        O.fromNullable,
+        //@ts-ignore
+        O.map(flow(ab, bc)),
+        O.getOrElseW(() => R.empty),
+      )
+    }
+    default: {
+      throw new Error()
+    }
+  }
+}
+
+export const responsiveStyle = (theme: Theme) => (
+  styleMap: Record<string, Style>,
+) => {
+  return pipe(
+    theme.mediaQueries,
+    map((mediaQuery) =>
+      pipe(
+        styleMap,
+        map((style) => R.singleton(mediaQuery, style)),
+        map((value) => R.singleton('@media', value)),
+      ),
+    ),
+  )
+}
