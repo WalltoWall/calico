@@ -67,9 +67,7 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
 ) => {
   const mediaQueries = pipe(
     theme.breakpoints,
-    map(
-      (value) => `screen and (min-width: ${resolveGrid(theme.grid)(value)}rem)`,
-    ),
+    map((value) => `screen and (min-width: ${resolveGrid(theme.grid)(value)})`),
   )
 
   return {
