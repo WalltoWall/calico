@@ -1,5 +1,5 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { TreatProvider } from 'react-treat'
 
 import { Box } from '../../src/Box'
@@ -21,7 +21,7 @@ const App = () => (
       borderStyle="solid"
       borderRadius="none"
     />
-    <Box id="effect" opacity="25" />
+    <Box id="effect" opacity={25} />
     <Box
       id="flexbox"
       alignItems="center"
@@ -32,18 +32,18 @@ const App = () => (
       justifySelf="end"
       flexWrap="nowrap"
       flexDirection="row"
-      flexGrow="0"
-      flexShrink="0"
+      flexGrow={0}
+      flexShrink={0}
       flexBasis="auto"
     />
     <Box
       id="grid"
       gridAutoFlow="row"
-      gridTemplateColumns="1"
-      gridTemplateRows="1"
+      gridTemplateColumns={1}
+      gridTemplateRows={1}
       gridColumn="auto"
       gridRow="auto"
-      gap="1"
+      gap={1}
     />
     <Box
       id="interactivity"
@@ -56,14 +56,14 @@ const App = () => (
       display="flex"
       overflow="hidden"
       position="relative"
-      top="0"
-      right="0"
-      left="0"
-      bottom="0"
-      zIndex="2"
+      top={0}
+      right={0}
+      left={0}
+      bottom={0}
+      zIndex={2}
     />
     <Box id="sizing" width="auto" height="full" maxWidth="small" />
-    <Box id="space" margin="1" padding="1" />
+    <Box id="space" margin={1} padding={1} />
     <Box
       id="transition"
       transitionTimingFunction="easeIn"
