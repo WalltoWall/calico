@@ -1,4 +1,5 @@
-export { Box, BoxProps } from './Box'
+export { Box } from './Box'
+export type { BoxProps } from './Box'
 
 export { useBackgroundStyles } from './useBackgroundStyles'
 export { useBorderStyles } from './useBorderStyles'
@@ -14,11 +15,8 @@ export { useTypographyStyles } from './useTypographyStyles'
 
 export { mapFontsets } from './mapFontsets'
 export { createMq } from './createMq'
-export {
-  createCalicoTheme,
-  baseCalicoTheme,
-  CalicoTheme,
-} from './createCalicoTheme'
+export { createCalicoTheme, baseCalicoTheme } from './createCalicoTheme'
+export type { CalicoTheme } from './createCalicoTheme'
 
 export {
   resolveGrid,
