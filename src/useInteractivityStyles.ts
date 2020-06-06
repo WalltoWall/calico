@@ -17,18 +17,29 @@ export const interactivityRules = {
     none: 'none',
     auto: 'auto',
   },
+  cursor: {
+    auto: 'auto',
+    default: 'default',
+    pointer: 'pointer',
+    wait: 'wait',
+    text: 'text',
+    move: 'move',
+    notAllowed: 'not-allowed',
+  },
 } as const
 
 export type UseInteractivityStylesProps = {
   outline?: keyof typeof styleRefs.outline
   userSelect?: keyof typeof styleRefs.userSelect
   pointerEvents?: ResponsiveProp<keyof typeof styleRefs.pointerEvents>
+  cursor?: keyof typeof styleRefs.cursor
 }
 
 export const useInteractivityStyles = ({
   outline,
   userSelect,
   pointerEvents,
+  cursor,
 }: UseInteractivityStylesProps) => {
   const styles = useStyles(styleRefs)
 
@@ -43,5 +54,6 @@ export const useInteractivityStyles = ({
         styles.pointerEventsDesktop,
         styles.pointerEventsDesktopWide,
       ),
+    cursor !== undefined && styles.cursor[cursor],
   )
 }

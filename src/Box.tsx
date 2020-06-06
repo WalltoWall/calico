@@ -121,6 +121,7 @@ export const Box = ({
   outline,
   userSelect,
   pointerEvents,
+  cursor,
   overflow,
   overflowX,
   overflowY,
@@ -221,6 +222,7 @@ export const Box = ({
     outline,
     pointerEvents,
     userSelect,
+    cursor,
   })
   const effectStyles = useEffectStyles({
     opacity,

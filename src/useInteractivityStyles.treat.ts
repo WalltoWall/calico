@@ -59,3 +59,12 @@ export const pointerEventsDesktopWide = styleMap((theme) =>
     O.getOrElseW(() => R.empty),
   ),
 )
+
+export const cursor = styleMap((theme) =>
+  pipe(
+    theme.rules.cursor,
+    O.fromNullable,
+    O.map(mapToProperty('cursor')),
+    O.getOrElseW(() => R.empty),
+  ),
+)
