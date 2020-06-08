@@ -204,11 +204,12 @@ test('typography props', async () => {
   `)
 })
 
-test.only('hover prop', async () => {
-  const styles = await getStyles(page, '#hover')
+test('hover prop', async () => {
+  const styles = await getStyles(page, '#hover', 'hover')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
+      "color": "#fff",
       "display": "block",
     }
   `)

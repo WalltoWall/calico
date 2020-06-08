@@ -1,6 +1,10 @@
 import { Page } from 'puppeteer'
 
-export const getStyles = async (page: Page, selector: string) => {
+export const getStyles = async (
+  page: Page,
+  selector: string,
+  pseudoState?: string,
+) => {
   const client = await page.target().createCDPSession()
 
   await client.send('DOM.enable')
@@ -11,6 +15,13 @@ export const getStyles = async (page: Page, selector: string) => {
     nodeId: doc.root.nodeId,
     selector,
   })) as any
+
+  if (pseudoState) {
+    await client.send('CSS.forcePseudoState', {
+      nodeId,
+      forcedPseudoClasses: [pseudoState],
+    })
+  }
 
   const styleForSingleNode = (await client.send('CSS.getMatchedStylesForNode', {
     nodeId,

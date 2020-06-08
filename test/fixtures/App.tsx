@@ -7,7 +7,7 @@ import { theme } from './theme.treat'
 
 const App = () => (
   <>
-    {/* <Box
+    <Box
       id="background"
       backgroundSize="cover"
       backgroundPositionX="left"
@@ -78,7 +78,7 @@ const App = () => (
       textTransform="uppercase"
       letterSpacing="normal"
       color="white"
-    /> */}
+    />
     <Box
       id="hover"
       hover={{
