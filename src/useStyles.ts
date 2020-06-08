@@ -56,15 +56,15 @@ export const useHoverStyles = (props: UseHoverProps = {}) => {
   return clsx(resolveClassNames(props, styleRefs.hoverStyles))
 }
 
-type FocusProps = {
-  [K in keyof Theme['variants']]?: NonNullable<
-    Theme['variants'][K]
-  >['focus'] extends true
-    ? ResponsiveProp<keyof Theme['rules'][K]>
-    : never
-}
-
-export type UseFocusProps = NotUndefOrNever<FocusProps>
+export type UseFocusProps = NotUndefOrNever<
+  {
+    [K in keyof Theme['variants']]?: NonNullable<
+      Theme['variants'][K]
+    >['focus'] extends true
+      ? ResponsiveProp<keyof Theme['rules'][K]>
+      : never
+  }
+>
 
 export const useFocusStyles = (props: UseFocusProps = {}) => {
   const styleRefs = useTreatStyles(treatStyleRefs)
