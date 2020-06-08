@@ -84,4 +84,9 @@ export const theme = createCalicoTheme({
       fast: '100ms',
     },
   },
+  variants: {
+    display: {
+      hover: true,
+    },
+  },
 })
