@@ -35,12 +35,12 @@ export const useStyles = (props: UseStylesProps = {}) => {
   return clsx(resolveClassNames(props, styleRefs.styles))
 }
 
-type NotUndefined<T extends {}> = Pick<
+type NotUndefOrNever<T extends {}> = Pick<
   T,
   { [K in keyof T]: T[K] extends undefined | never ? never : K }[keyof T]
 >
 
-export type UseHoverProps = NotUndefined<
+export type UseHoverProps = NotUndefOrNever<
   {
     [K in keyof Theme['variants']]?: NonNullable<
       Theme['variants'][K]
@@ -64,7 +64,7 @@ type FocusProps = {
     : never
 }
 
-export type UseFocusProps = NotUndefined<FocusProps>
+export type UseFocusProps = NotUndefOrNever<FocusProps>
 
 export const useFocusStyles = (props: UseFocusProps = {}) => {
   const styleRefs = useTreatStyles(treatStyleRefs)
