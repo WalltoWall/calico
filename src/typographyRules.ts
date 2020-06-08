@@ -34,3 +34,10 @@ export const typographyRules = {
     decimal: 'decimal',
   },
 } as const
+
+export const typographyVariants = {
+  color: {
+    hover: true,
+    focus: true,
+  },
+}

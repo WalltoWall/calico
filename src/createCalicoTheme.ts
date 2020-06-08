@@ -13,7 +13,7 @@ import { interactivityRules } from './interactivityRules'
 import { layoutRules } from './layoutRules'
 import { sizingRules } from './sizingRules'
 import { transitionRules } from './transitionRules'
-import { typographyRules } from './typographyRules'
+import { typographyRules, typographyVariants } from './typographyRules'
 
 type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 
@@ -39,6 +39,11 @@ export interface CreateCalicoThemeInput {
       NonNullable<StandardProperties<string | number>[P]>
     >
   }
+  variants?: {
+    [P in keyof StandardProperties]?: Partial<
+      Record<'hover' | 'focus', boolean>
+    >
+  }
 }
 
 export const baseCalicoTheme = {
@@ -54,6 +59,9 @@ export const baseCalicoTheme = {
     ...sizingRules,
     ...transitionRules,
     ...typographyRules,
+  },
+  variants: {
+    ...typographyVariants,
   },
 } as const
 
@@ -74,6 +82,10 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
     rules: {
       ...baseCalicoTheme.rules,
       ...theme.rules,
+    },
+    variants: {
+      ...baseCalicoTheme.variants,
+      ...theme.variants,
     },
   } as const
 }

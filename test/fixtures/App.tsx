@@ -78,6 +78,12 @@ const App = () => (
       textTransform="uppercase"
       letterSpacing="normal"
     />
+    {/* <Box
+      id="hover"
+      hover={{
+        colors: 'white',
+      }}
+    /> */}
   </>
 )
 

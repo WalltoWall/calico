@@ -9,6 +9,8 @@ export type BoxProps = {
   children?: React.ReactNode
   className?: string
   style?: React.CSSProperties
+
+  hover?: UseStylesProps
 } & UseStylesProps &
   SafeReactHTMLAttributes
 
@@ -17,6 +19,9 @@ export const Box = ({
   children,
   className,
   style,
+
+  // Variants
+  hover,
 
   // Layout
   display,

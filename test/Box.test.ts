@@ -203,6 +203,12 @@ test('typography props', async () => {
   `)
 })
 
+// test('hover prop', async () => {
+//   const styles = await getStyles(page, '#hover')
+
+//   expect(styles).toMatchInlineSnapshot()
+// })
+
 afterAll(() => {
   server.close()
 })

@@ -147,6 +147,8 @@ export const resolveResponsiveProp = <
   value: ResponsiveProp<Keys> | undefined,
   atoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
 ) => {
+  console.log({ value, atoms })
+
   if (value === undefined) return
   if (typeof value === 'string') return atoms.mobile[value]
 
@@ -218,6 +220,22 @@ export const responsiveStyle = (theme: Theme) => (
       pipe(
         styleMap,
         map((style) => R.singleton(mediaQuery, style)),
+        map((value) => R.singleton('@media', value)),
+      ),
+    ),
+  )
+}
+
+export const variantResponsiveStyle = (theme: Theme) => (variant: string) => (
+  styleMap: Record<string, Style>,
+) => {
+  return pipe(
+    theme.mediaQueries,
+    map((mediaQuery) =>
+      pipe(
+        styleMap,
+        map((style) => R.singleton(variant, style)),
+        map((variantStyle) => R.singleton(mediaQuery, variantStyle)),
         map((value) => R.singleton('@media', value)),
       ),
     ),

@@ -4,27 +4,39 @@ import { useStyles as useTreatStyles } from 'react-treat'
 
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
+
 import * as treatStyleRefs from './useStyles.treat'
 
 export type UseStylesProps = {
   [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
 }
 
-export const useStyles = (props: UseStylesProps) => {
-  const styleRefs = useTreatStyles(treatStyleRefs)
+const resolveClassNames = (props: UseStylesProps, styles: any) => {
+  let resolvedClassNames: (string | undefined)[] = []
 
-  let styleArr = []
   for (const key in props) {
     const value = props[key as keyof Theme['rules']]
     if (!value) continue
 
-    styleArr.push(
+    resolvedClassNames.push(
       resolveResponsiveProp<string | number>(
         value,
-        styleRefs.styles[key as keyof Theme['rules']],
+        styles[key as keyof Theme['rules']],
       ),
     )
   }
 
-  return clsx(styleArr)
+  return resolvedClassNames
+}
+
+export const useStyles = (props: UseStylesProps = {}) => {
+  const styleRefs = useTreatStyles(treatStyleRefs)
+
+  return clsx(resolveClassNames(props, styleRefs.styles))
+}
+
+export const useHoverStyles = (props: UseStylesProps = {}) => {
+  const styleRefs = useTreatStyles(treatStyleRefs)
+
+  return clsx(resolveClassNames(props, styleRefs.hoverStyles))
 }
