@@ -37,3 +37,18 @@ export const hoverStyles = styleTree((theme) =>
     R.map(R.map(styleMap)),
   ),
 )
+
+export const focusStyles = styleTree((theme) =>
+  pipe(
+    theme.rules as Required<typeof theme.rules>,
+    R.filterWithIndex((ruleName) => Boolean(theme.variants[ruleName]?.hover)),
+    R.mapWithIndex((ruleName: keyof typeof theme.variants, rule) =>
+      pipe(
+        rule,
+        mapFromOptionalTheme(mapToProperty(ruleName)),
+        variantResponsiveStyle(theme)(':focus'),
+      ),
+    ),
+    R.map(R.map(styleMap)),
+  ),
+)

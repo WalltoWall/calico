@@ -2,7 +2,12 @@ import React from 'react'
 import clsx from 'clsx'
 
 import { SafeReactHTMLAttributes } from './types'
-import { UseStylesProps, useStyles, useHoverStyles } from './useStyles'
+import {
+  UseStylesProps,
+  useStyles,
+  useHoverStyles,
+  useFocusStyles,
+} from './useStyles'
 
 export type BoxProps = {
   component?: React.ElementType
@@ -11,6 +16,7 @@ export type BoxProps = {
   style?: React.CSSProperties
 
   hover?: UseStylesProps
+  focus?: UseStylesProps
 } & UseStylesProps &
   SafeReactHTMLAttributes
 
@@ -22,6 +28,7 @@ export const Box = ({
 
   // Variants
   hover,
+  focus,
 
   // Layout
   display,
@@ -262,13 +269,15 @@ export const Box = ({
     userSelect,
   })
   const hoverClassNames = useHoverStyles(hover)
+  const focusClassNames = useFocusStyles(focus)
 
   const Tag = component ?? 'div'
 
   return (
     <Tag
       className={
-        clsx(resolvedClassNames, hoverClassNames, className) || undefined
+        clsx(resolvedClassNames, hoverClassNames, focusClassNames, className) ||
+        undefined
       }
       style={style}
       {...htmlProps}

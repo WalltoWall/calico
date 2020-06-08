@@ -85,6 +85,12 @@ const App = () => (
         color: 'white',
       }}
     />
+    <Box
+      id="focus"
+      focus={{
+        color: 'white',
+      }}
+    />
   </>
 )
 

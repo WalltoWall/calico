@@ -40,3 +40,9 @@ export const useHoverStyles = (props: UseStylesProps = {}) => {
 
   return clsx(resolveClassNames(props, styleRefs.hoverStyles))
 }
+
+export const useFocusStyles = (props: UseStylesProps = {}) => {
+  const styleRefs = useTreatStyles(treatStyleRefs)
+
+  return clsx(resolveClassNames(props, styleRefs.focusStyles))
+}

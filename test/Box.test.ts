@@ -215,6 +215,20 @@ test('hover prop', async () => {
   `)
 })
 
+test('focus prop', async () => {
+  const styles = await getStyles(page, '#focus', 'focus')
+
+  expect(styles).toMatchInlineSnapshot(`
+    Object {
+      "color": "#fff",
+      "display": "block",
+      "outline-color": "-webkit-focus-ring-color",
+      "outline-style": "auto",
+      "outline-width": "1px",
+    }
+  `)
+})
+
 afterAll(() => {
   server.close()
 })
