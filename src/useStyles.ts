@@ -35,13 +35,38 @@ export const useStyles = (props: UseStylesProps = {}) => {
   return clsx(resolveClassNames(props, styleRefs.styles))
 }
 
-export const useHoverStyles = (props: UseStylesProps = {}) => {
+type NotUndefined<T extends {}> = Pick<
+  T,
+  { [K in keyof T]: T[K] extends undefined | never ? never : K }[keyof T]
+>
+
+export type UseHoverProps = NotUndefined<
+  {
+    [K in keyof Theme['variants']]?: NonNullable<
+      Theme['variants'][K]
+    >['hover'] extends true
+      ? ResponsiveProp<keyof Theme['rules'][K]>
+      : never
+  }
+>
+
+export const useHoverStyles = (props: UseHoverProps = {}) => {
   const styleRefs = useTreatStyles(treatStyleRefs)
 
   return clsx(resolveClassNames(props, styleRefs.hoverStyles))
 }
 
-export const useFocusStyles = (props: UseStylesProps = {}) => {
+type FocusProps = {
+  [K in keyof Theme['variants']]?: NonNullable<
+    Theme['variants'][K]
+  >['focus'] extends true
+    ? ResponsiveProp<keyof Theme['rules'][K]>
+    : never
+}
+
+export type UseFocusProps = NotUndefined<FocusProps>
+
+export const useFocusStyles = (props: UseFocusProps = {}) => {
   const styleRefs = useTreatStyles(treatStyleRefs)
 
   return clsx(resolveClassNames(props, styleRefs.focusStyles))

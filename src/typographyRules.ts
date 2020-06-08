@@ -40,4 +40,4 @@ export const typographyVariants = {
     hover: true,
     focus: true,
   },
-}
+} as const

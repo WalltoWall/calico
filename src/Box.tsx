@@ -7,6 +7,8 @@ import {
   useStyles,
   useHoverStyles,
   useFocusStyles,
+  UseHoverProps,
+  UseFocusProps,
 } from './useStyles'
 
 export type BoxProps = {
@@ -15,8 +17,8 @@ export type BoxProps = {
   className?: string
   style?: React.CSSProperties
 
-  hover?: UseStylesProps
-  focus?: UseStylesProps
+  hover?: UseHoverProps
+  focus?: UseFocusProps
 } & UseStylesProps &
   SafeReactHTMLAttributes
 
