@@ -1,3 +1,4 @@
+import util from 'util'
 import * as R from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
@@ -49,7 +50,7 @@ export const theme = createCalicoTheme({
   },
 
   rules: {
-    colors,
+    color: colors,
     borderColor: colors,
 
     margin: space,
@@ -93,7 +94,6 @@ export const theme = createCalicoTheme({
 })
 
 const styleMap = jest.fn((x) => {
-  console.log(x)
   return x
 })
 
@@ -114,5 +114,5 @@ export const hoverStyles = pipe(
 )
 
 test.only('test', () => {
-  console.log(hoverStyles)
+  console.log(util.inspect(hoverStyles, false, null, true))
 })

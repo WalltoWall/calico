@@ -192,6 +192,7 @@ test('typography props', async () => {
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
+      "color": "#fff",
       "display": "block",
       "font-style": "italic",
       "font-weight": "200",
@@ -203,11 +204,15 @@ test('typography props', async () => {
   `)
 })
 
-// test('hover prop', async () => {
-//   const styles = await getStyles(page, '#hover')
+test.only('hover prop', async () => {
+  const styles = await getStyles(page, '#hover')
 
-//   expect(styles).toMatchInlineSnapshot()
-// })
+  expect(styles).toMatchInlineSnapshot(`
+    Object {
+      "display": "block",
+    }
+  `)
+})
 
 afterAll(() => {
   server.close()

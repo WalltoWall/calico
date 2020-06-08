@@ -43,7 +43,7 @@ export const theme = createCalicoTheme({
   },
 
   rules: {
-    colors,
+    color: colors,
     borderColor: colors,
 
     margin: space,

@@ -41,7 +41,7 @@ export interface CreateCalicoThemeInput {
   }
   variants?: {
     [P in keyof StandardProperties]?: Partial<
-      Record<'hover' | 'focus', boolean>
+      Record<'hover' | 'focus' | 'responsive', boolean>
     >
   }
 }

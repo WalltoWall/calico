@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 
 import { SafeReactHTMLAttributes } from './types'
-import { UseStylesProps, useStyles } from './useStyles'
+import { UseStylesProps, useStyles, useHoverStyles } from './useStyles'
 
 export type BoxProps = {
   component?: React.ElementType
@@ -261,12 +261,15 @@ export const Box = ({
     resize,
     userSelect,
   })
+  const hoverClassNames = useHoverStyles(hover)
 
   const Tag = component ?? 'div'
 
   return (
     <Tag
-      className={clsx(resolvedClassNames, className) || undefined}
+      className={
+        clsx(resolvedClassNames, hoverClassNames, className) || undefined
+      }
       style={style}
       {...htmlProps}
     >
