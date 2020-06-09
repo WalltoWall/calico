@@ -4,7 +4,6 @@ import { Properties } from 'csstype'
 import * as O from 'fp-ts/es6/Option'
 import * as R from 'fp-ts/es6/Record'
 import { Semigroup } from 'fp-ts/es6/Semigroup'
-import { eqNumber } from 'fp-ts/es6/Eq'
 import { flow } from 'fp-ts/es6/function'
 import { fold } from 'fp-ts/es6/boolean'
 import { map, singleton } from 'fp-ts/es6/Record'
@@ -38,19 +37,16 @@ export const makeResponsive = (
   breakpoint: keyof Theme['breakpoints'],
   theme: Theme,
 ) => {
-  const minWidth = theme.breakpoints[breakpoint]
+  const mediaQuery = theme.mediaQueries[breakpoint]
 
   return (styles: Style) =>
     pipe(
-      eqNumber.equals(minWidth, 0),
+      // TODO: Probably a better way to do this
+      mediaQuery.startsWith('0'),
       fold<Style>(
         () =>
-          pipe(
-            singleton(
-              `screen and (min-width: ${resolveGrid(theme.grid)(minWidth)})`,
-              styles,
-            ),
-            (mediaStyles) => singleton('@media', mediaStyles),
+          pipe(singleton(mediaQuery, styles), (mediaStyles) =>
+            singleton('@media', mediaStyles),
           ),
         () => styles,
       ),
