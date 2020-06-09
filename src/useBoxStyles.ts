@@ -7,14 +7,14 @@ import { ResponsiveProp } from './types'
 
 import * as treatStyleRefs from './useBoxStyles.treat'
 
-type BaseBoxStylesProps = {
-  [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
-}
-
 type NotUndefOrNever<T extends {}> = Pick<
   T,
   { [K in keyof T]: T[K] extends undefined | never ? never : K }[keyof T]
 >
+
+type BaseBoxStylesProps = {
+  [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
+}
 
 type BoxHoverProp = NotUndefOrNever<
   {
