@@ -12,8 +12,6 @@ type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 export interface CreateCalicoThemeInput {
   breakpoints: Record<BreakpointKeys, string>
 
-  grid: number
-
   baseFontSize?: number
   fonts?: Record<
     string,
@@ -49,7 +47,6 @@ export const baseCalicoTheme = {
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
 
-// TODO: Remove grid
 export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
   theme: T,
 ) => {

@@ -76,7 +76,7 @@ export const basekickFontStyles = (theme: CalicoTheme) => ({
     O.map((fontStack) => {
       const lineHeight =
         (lineHeightScale * fontStack.baseFontHeight * fontSize) /
-        theme.grid /
+        0.25 /
         theme.baseFontSize
 
       return basekick({
@@ -84,7 +84,7 @@ export const basekickFontStyles = (theme: CalicoTheme) => ({
         baseFontSize: theme.baseFontSize,
         descenderHeightScale: fontStack.descenderHeightScale,
         typeRowSpan: lineHeight,
-        gridRowHeight: theme.grid * 16,
+        gridRowHeight: 0.25 * 16,
         capHeight: fontStack.capHeightScale,
       })
     }),

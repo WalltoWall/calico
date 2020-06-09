@@ -11,9 +11,6 @@ export const theme = createCalicoTheme({
     desktopWide: '90rem',
   },
 
-  // Spacing
-  grid: 0.25,
-
   space: {
     auto: 'auto',
     [-2]: '-0.5rem',
