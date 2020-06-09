@@ -13,18 +13,6 @@ import { pipe } from 'fp-ts/es6/pipeable'
 import { ResponsiveProp } from './types'
 
 /**
- * Converts a grid measurement based in `rem` to an actual `rem`.
- *
- * @param grid Grid size relative to `1rem`.
- * @param amount Amount of grid units for the measurement.
- *
- * @returns `rem` value.
- */
-export const resolveGrid = (grid: number) => (amount: number) => {
-  return `${grid * amount}rem`
-}
-
-/**
  * Creates a Style with a single property.
  *
  * @param propertyName CSS property to which `value` will be assigned.

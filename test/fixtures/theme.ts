@@ -2,35 +2,34 @@ import { baseCalicoTheme, createCalicoTheme } from '../../src'
 
 export type Theme = typeof theme
 
-const space = {
-  auto: 'auto',
-  [-2]: '-0.5rem',
-  [-1.5]: '-0.5rem',
-  [-1]: '-0.25rem',
-  [-0.5]: '-0.125rem',
-  0: 0,
-  0.5: '0.125rem',
-  1: '0.25rem',
-  1.5: '0.375rem',
-  2: '0.5rem',
-}
-
-const colors = {
-  white: '#fff',
-  black: '#000',
-}
-
 export const theme = createCalicoTheme({
   // Sizes
   breakpoints: {
-    mobile: 0,
-    tablet: 192,
-    desktop: 300,
-    desktopWide: 360,
+    mobile: '0rem',
+    tablet: '48rem',
+    desktop: '75rem',
+    desktopWide: '90rem',
   },
 
   // Spacing
   grid: 0.25,
+
+  space: {
+    auto: 'auto',
+    [-2]: '-0.5rem',
+    [-1.5]: '-0.5rem',
+    [-1]: '-0.25rem',
+    [-0.5]: '-0.125rem',
+    0: 0,
+    0.5: '0.125rem',
+    1: '0.25rem',
+    1.5: '0.375rem',
+    2: '0.5rem',
+  },
+  colors: {
+    white: '#fff',
+    black: '#000',
+  },
 
   // Fonts
   fonts: {
@@ -43,26 +42,6 @@ export const theme = createCalicoTheme({
   },
 
   rules: {
-    color: colors,
-    borderColor: colors,
-
-    margin: space,
-    marginTop: space,
-    marginBottom: space,
-    marginLeft: space,
-    marginRight: space,
-    padding: space,
-    paddingTop: space,
-    paddingBottom: space,
-    paddingLeft: space,
-    paddingRight: space,
-
-    fontFamily: {
-      sans: 'system-ui',
-    },
-
-    gap: space,
-
     maxWidth: {
       small: '48rem',
       medium: '60rem',
@@ -82,11 +61,6 @@ export const theme = createCalicoTheme({
       slow: '300ms',
       normal: '200ms',
       fast: '100ms',
-    },
-  },
-  variants: {
-    display: {
-      hover: true,
     },
   },
 })

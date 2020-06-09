@@ -1,17 +1,17 @@
 import clsx from 'clsx'
 import { Theme } from 'treat/theme'
-import { useStyles as useTreatStyles } from 'react-treat'
+import { useStyles } from 'react-treat'
 
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
 
-import * as treatStyleRefs from './useStyles.treat'
+import * as treatStyleRefs from './useBoxStyles.treat'
 
-export type UseStylesProps = {
+type UseBaseBoxStylesProps = {
   [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
 }
 
-const resolveClassNames = (props: UseStylesProps, styles: any) => {
+const resolveClassNames = (props: UseBaseBoxStylesProps, styles: any) => {
   let resolvedClassNames: (string | undefined)[] = []
 
   for (const key in props) {
@@ -29,8 +29,8 @@ const resolveClassNames = (props: UseStylesProps, styles: any) => {
   return resolvedClassNames
 }
 
-export const useStyles = (props: UseStylesProps = {}) => {
-  const styleRefs = useTreatStyles(treatStyleRefs)
+const useBaseBoxStyles = (props: UseBaseBoxStylesProps = {}) => {
+  const styleRefs = useStyles(treatStyleRefs)
 
   return clsx(resolveClassNames(props, styleRefs.styles))
 }
@@ -40,7 +40,7 @@ type NotUndefOrNever<T extends {}> = Pick<
   { [K in keyof T]: T[K] extends undefined | never ? never : K }[keyof T]
 >
 
-export type UseHoverProps = NotUndefOrNever<
+type BoxHoverProp = NotUndefOrNever<
   {
     [K in keyof Theme['variants']]?: NonNullable<
       Theme['variants'][K]
@@ -50,13 +50,13 @@ export type UseHoverProps = NotUndefOrNever<
   }
 >
 
-export const useHoverStyles = (props: UseHoverProps = {}) => {
-  const styleRefs = useTreatStyles(treatStyleRefs)
+const useHoverStyles = (props: BoxHoverProp = {}) => {
+  const styleRefs = useStyles(treatStyleRefs)
 
   return clsx(resolveClassNames(props, styleRefs.hoverStyles))
 }
 
-export type UseFocusProps = NotUndefOrNever<
+type BoxFocusProp = NotUndefOrNever<
   {
     [K in keyof Theme['variants']]?: NonNullable<
       Theme['variants'][K]
@@ -66,8 +66,21 @@ export type UseFocusProps = NotUndefOrNever<
   }
 >
 
-export const useFocusStyles = (props: UseFocusProps = {}) => {
-  const styleRefs = useTreatStyles(treatStyleRefs)
+const useFocusStyles = (props: BoxFocusProp = {}) => {
+  const styleRefs = useStyles(treatStyleRefs)
 
   return clsx(resolveClassNames(props, styleRefs.focusStyles))
+}
+
+export type UseBoxStylesProps = {
+  hover?: BoxHoverProp
+  focus?: BoxFocusProp
+} & UseBaseBoxStylesProps
+
+export const useBoxStyles = ({ hover, focus, ...props }: UseBoxStylesProps) => {
+  const baseClassNames = useBaseBoxStyles(props)
+  const hoverClassNames = useHoverStyles(hover)
+  const focusClassNames = useFocusStyles(focus)
+
+  return clsx(baseClassNames, hoverClassNames, focusClassNames)
 }

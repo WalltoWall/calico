@@ -2,24 +2,14 @@ import React from 'react'
 import clsx from 'clsx'
 
 import { SafeReactHTMLAttributes } from './types'
-import {
-  UseStylesProps,
-  useStyles,
-  useHoverStyles,
-  useFocusStyles,
-  UseHoverProps,
-  UseFocusProps,
-} from './useStyles'
+import { UseBoxStylesProps, useBoxStyles } from './useBoxStyles'
 
 export type BoxProps = {
   component?: React.ElementType
   children?: React.ReactNode
   className?: string
   style?: React.CSSProperties
-
-  hover?: UseHoverProps
-  focus?: UseFocusProps
-} & UseStylesProps &
+} & UseBoxStylesProps &
   SafeReactHTMLAttributes
 
 export const Box = ({
@@ -163,7 +153,10 @@ export const Box = ({
 
   ...htmlProps
 }: BoxProps) => {
-  const resolvedClassNames = useStyles({
+  const resolvedClassNames = useBoxStyles({
+    hover,
+    focus,
+
     display,
     objectFit,
     objectPosition,
@@ -270,17 +263,12 @@ export const Box = ({
     resize,
     userSelect,
   })
-  const hoverClassNames = useHoverStyles(hover)
-  const focusClassNames = useFocusStyles(focus)
 
   const Tag = component ?? 'div'
 
   return (
     <Tag
-      className={
-        clsx(resolvedClassNames, hoverClassNames, focusClassNames, className) ||
-        undefined
-      }
+      className={clsx(resolvedClassNames, className) || undefined}
       style={style}
       {...htmlProps}
     >
