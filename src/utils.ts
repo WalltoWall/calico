@@ -131,8 +131,6 @@ export const resolveResponsiveProp = <
   value: ResponsiveProp<Keys> | undefined,
   atoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
 ) => {
-  console.log({ value, atoms })
-
   if (value === undefined) return
   if (typeof value === 'string') return atoms.mobile[value]
 
