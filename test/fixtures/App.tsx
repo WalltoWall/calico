@@ -9,85 +9,119 @@ const App = () => (
   <>
     <Box
       id="background"
-      backgroundSize="cover"
-      backgroundPositionX="left"
-      backgroundPositionY="top"
-      backgroundRepeat="repeat"
+      styles={{
+        backgroundSize: 'cover',
+        backgroundPositionX: 'left',
+        backgroundPositionY: 'top',
+        backgroundRepeat: 'repeat',
+      }}
     />
     <Box
       id="border"
-      borderColor="white"
-      borderWidth="1px"
-      borderStyle="solid"
-      borderRadius="none"
+      styles={{
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: 'none',
+      }}
     />
-    <Box id="effect" opacity={25} />
+    <Box
+      id="effect"
+      styles={{
+        opacity: 25,
+      }}
+    />
     <Box
       id="flexbox"
-      alignItems="center"
-      alignContent="start"
-      alignSelf="end"
-      justifyItems="center"
-      justifyContent="start"
-      justifySelf="end"
-      flexWrap="nowrap"
-      flexDirection="row"
-      flexGrow={0}
-      flexShrink={0}
-      flexBasis="auto"
+      styles={{
+        alignItems: 'center',
+        alignContent: 'start',
+        alignSelf: 'end',
+        justifyItems: 'center',
+        justifyContent: 'start',
+        justifySelf: 'end',
+        flexWrap: 'nowrap',
+        flexDirection: 'row',
+        flexGrow: 0,
+        flexShrink: 0,
+        flexBasis: 'auto',
+      }}
     />
     <Box
       id="grid"
-      gridAutoFlow="row"
-      gridTemplateColumns={1}
-      gridTemplateRows={1}
-      gridColumn="auto"
-      gridRow="auto"
-      gap={1}
+      styles={{
+        gridAutoFlow: 'row',
+        gridTemplateColumns: 1,
+        gridTemplateRows: 1,
+        gridColumn: 'auto',
+        gridRow: 'auto',
+        gap: 1,
+      }}
     />
     <Box
       id="interactivity"
-      outline="none"
-      userSelect="none"
-      pointerEvents="none"
+      styles={{
+        outline: 'none',
+        userSelect: 'none',
+        pointerEvents: 'none',
+      }}
     />
     <Box
       id="layout"
-      display="flex"
-      overflow="hidden"
-      position="relative"
-      top={0}
-      right={0}
-      left={0}
-      bottom={0}
-      zIndex={2}
+      styles={{
+        display: 'flex',
+        overflow: 'hidden',
+        position: 'relative',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
+        zIndex: 2,
+      }}
     />
-    <Box id="sizing" width="auto" height="full" maxWidth="small" />
-    <Box id="space" margin={1} padding={1} />
+    <Box
+      id="sizing"
+      styles={{
+        width: 'auto',
+        height: 'full',
+        maxWidth: 'small',
+      }}
+    />
+    <Box
+      id="space"
+      styles={{
+        margin: 1,
+        padding: 1,
+      }}
+    />
     <Box
       id="transition"
-      transitionTimingFunction="easeIn"
-      transitionDuration="normal"
+      styles={{
+        transitionTimingFunction: 'easeIn',
+        transitionDuration: 'normal',
+      }}
     />
     <Box
       id="typography"
-      fontWeight="thin"
-      fontStyle="italic"
-      lineHeight="solid"
-      textAlign="center"
-      textTransform="uppercase"
-      letterSpacing="normal"
-      color="white"
+      styles={{
+        fontWeight: 'thin',
+        fontStyle: 'italic',
+        lineHeight: 'solid',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        letterSpacing: 'normal',
+        color: 'white',
+      }}
     />
     <Box
       id="hover"
-      hover={{
+      hoverStyles={{
         color: 'white',
       }}
     />
     <Box
       id="focus"
-      focus={{
+      focusStyles={{
         color: 'white',
       }}
     />

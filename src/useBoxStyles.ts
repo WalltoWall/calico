@@ -57,16 +57,21 @@ const resolveClassNames = (
 }
 
 export type UseBoxStylesProps = {
-  hover?: BoxHoverProp
-  focus?: BoxFocusProp
-} & BaseBoxStylesProps
+  hoverStyles?: BoxHoverProp
+  focusStyles?: BoxFocusProp
+  styles?: BaseBoxStylesProps
+}
 
-export const useBoxStyles = ({ hover, focus, ...props }: UseBoxStylesProps) => {
+export const useBoxStyles = ({
+  hoverStyles,
+  focusStyles,
+  styles,
+}: UseBoxStylesProps) => {
   const styleRefs = useStyles(treatStyleRefs)
 
   return clsx(
-    resolveClassNames(props, styleRefs.styles),
-    resolveClassNames(hover, styleRefs.hoverStyles),
-    resolveClassNames(focus, styleRefs.focusStyles),
+    resolveClassNames(styles, styleRefs.styles),
+    resolveClassNames(hoverStyles, styleRefs.hoverStyles),
+    resolveClassNames(focusStyles, styleRefs.focusStyles),
   )
 }
