@@ -23,8 +23,8 @@ export interface CreateCalicoThemeInput {
     }
   >
 
-  space?: Record<string | number, string | number>
-  colors?: Record<string, string>
+  // space?: Record<string | number, string | number>
+  // colors?: Record<string, string>
 
   mq?: (mqStyles: MqStyles) => Style
 
@@ -55,15 +55,15 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
     map((value) => `screen and (min-width: ${value})`),
   )
 
-  // TODO: Probably a more FP way to do this instead of a ternary.
-  const fontFamily = theme.fonts
-    ? pipe(
-        theme.fonts,
-        map((fontDef) => fontDef.stack),
-      )
-    : undefined
+  // // TODO: Probably a more FP way to do this instead of a ternary.
+  // const fontFamily = theme.fonts
+  //   ? pipe(
+  //       theme.fonts,
+  //       map((fontDef) => fontDef.stack),
+  //     )
+  //   : undefined
 
-  return {
+  const x = {
     mediaQueries,
     mq: createMq(Object.values(theme.breakpoints)),
     ...baseCalicoTheme,
@@ -72,70 +72,6 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
     rules: {
       ...baseCalicoTheme.rules,
       ...theme.rules,
-
-      fontFamily: {
-        ...fontFamily,
-        ...theme.rules?.fontFamily,
-      },
-
-      color: {
-        ...theme.colors,
-        ...theme.rules?.color,
-      },
-      borderColor: {
-        ...theme.colors,
-        ...theme.rules?.borderColor,
-      },
-      backgroundColor: {
-        ...theme.colors,
-        ...theme.rules?.backgroundColor,
-      },
-
-      margin: {
-        ...theme.space,
-        ...theme.rules?.margin,
-      },
-      marginTop: {
-        ...theme.space,
-        ...theme.rules?.marginTop,
-      },
-      marginBottom: {
-        ...theme.space,
-        ...theme.rules?.marginBottom,
-      },
-      marginLeft: {
-        ...theme.space,
-        ...theme.rules?.marginLeft,
-      },
-      marginRight: {
-        ...theme.space,
-        ...theme.rules?.marginRight,
-      },
-      padding: {
-        ...theme.space,
-        ...theme.rules?.padding,
-      },
-      paddingTop: {
-        ...theme.space,
-        ...theme.rules?.paddingTop,
-      },
-      paddingBottom: {
-        ...theme.space,
-        ...theme.rules?.paddingBottom,
-      },
-      paddingLeft: {
-        ...theme.space,
-        ...theme.rules?.paddingLeft,
-      },
-      paddingRight: {
-        ...theme.space,
-        ...theme.rules?.paddingRight,
-      },
-
-      gap: {
-        ...theme.space,
-        ...theme.rules?.gap,
-      },
     },
 
     variants: {
@@ -143,4 +79,6 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
       ...theme.variants,
     },
   } as const
+
+  return x
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { TreatProvider } from 'react-treat'
-import { Theme } from 'treat/theme'
 
 import { Box } from '../../src/Box'
 import { theme } from './theme.treat'
