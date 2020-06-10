@@ -1,8 +1,13 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See
-[standard-version](https://github.com/conventional-changelog/standard-version)
-for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.2.1](https://github.com/WalltoWall/calico/compare/v0.2.0...v0.2.1) (2020-06-10)
+
+
+### Features
+
+* add missing util exports ([5ef7e2b](https://github.com/WalltoWall/calico/commit/5ef7e2bf2658f47ef6dea3a0c5cb238f2558c3b3))
 
 ## 0.2.0 (2020-06-10)
 
