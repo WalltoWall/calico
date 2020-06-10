@@ -12,7 +12,7 @@ type PsuedoCssProperty = Exclude<
 
 type PsuedoStyle = Partial<Record<PsuedoCssProperty, PlainStyle | StyleArray>>
 
-type Styles = Partial<
+export type MqStyles = Partial<
   Record<
     CSSProperty,
     | PlainStyle
@@ -55,8 +55,8 @@ const isPsuedoStyle = (val: unknown) => {
  * support for responsive arrays.
  */
 export const createMq = (breakpoints: string[]) => {
-  const mq = (stylesObj: Styles) => {
-    const styles = Object.entries(stylesObj)
+  const mq = (mqStyles: MqStyles) => {
+    const styles = Object.entries(mqStyles)
 
     let newObj = { '@media': {} } as any
     let mediaObj = newObj['@media']
@@ -113,7 +113,7 @@ export const createMq = (breakpoints: string[]) => {
       }
     }
 
-    return newObj
+    return newObj as Style
   }
 
   return mq

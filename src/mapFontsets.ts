@@ -2,26 +2,24 @@ import { Style } from 'treat'
 import { Theme } from 'treat/theme'
 import * as R from 'fp-ts/es6/Record'
 import * as O from 'fp-ts/es6/Option'
+import { pipe } from 'fp-ts/es6/pipeable'
 
 import { makeResponsive, semigroupResponsiveStyle } from './utils'
 import { CalicoTheme } from './createCalicoTheme'
-import { pipe } from 'fp-ts/es6/pipeable'
 
 interface BaseKickOptions {
   typeSizeModifier: number
   baseFontSize: number
   descenderHeightScale: number
   capHeight: number
-  typeRowSpan: number
-  gridRowHeight: number
+  lineHeight: number
 }
 
 export const basekick = ({
   typeSizeModifier,
   baseFontSize,
   descenderHeightScale,
-  typeRowSpan,
-  gridRowHeight,
+  lineHeight,
   capHeight,
 }: BaseKickOptions) => {
   const fontSize = typeSizeModifier * baseFontSize
@@ -31,11 +29,9 @@ export const basekick = ({
     return (lineHeightScale - 1) / 2 + descenderHeightScale
   }
 
-  const lineHeight = typeRowSpan * gridRowHeight
   const typeOffset = calculateTypeOffset(lineHeight)
 
-  const topSpace = lineHeight - capHeight * fontSize
-  const heightCorrection = topSpace > gridRowHeight ? topSpace : 0
+  const heightCorrection = lineHeight - capHeight * fontSize
 
   const preventCollapse = 1
 
@@ -73,21 +69,15 @@ export const basekickFontStyles = (theme: CalicoTheme) => ({
     theme.fonts,
     O.fromNullable,
     O.chain((fonts) => R.lookup(fontFamily, fonts)),
-    O.map((fontStack) => {
-      const lineHeight =
-        (lineHeightScale * fontStack.baseFontHeight * fontSize) /
-        theme.grid /
-        theme.baseFontSize
-
-      return basekick({
+    O.map((fontStack) =>
+      basekick({
         typeSizeModifier: fontSize,
         baseFontSize: theme.baseFontSize,
         descenderHeightScale: fontStack.descenderHeightScale,
-        typeRowSpan: lineHeight,
-        gridRowHeight: theme.grid * 16,
+        lineHeight: lineHeightScale * fontStack.baseFontHeight * fontSize,
         capHeight: fontStack.capHeightScale,
-      })
-    }),
+      }),
+    ),
     O.getOrElseW(() => R.empty),
   )
 

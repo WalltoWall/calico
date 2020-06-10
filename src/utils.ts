@@ -1,29 +1,15 @@
 import { Style } from 'treat'
 import { Theme } from 'treat/theme'
 import { Properties } from 'csstype'
-import * as E from 'fp-ts/es6/Either'
 import * as O from 'fp-ts/es6/Option'
 import * as R from 'fp-ts/es6/Record'
 import { Semigroup } from 'fp-ts/es6/Semigroup'
-import { eqNumber } from 'fp-ts/es6/Eq'
-import { flow, identity } from 'fp-ts/es6/function'
+import { flow } from 'fp-ts/es6/function'
 import { fold } from 'fp-ts/es6/boolean'
 import { map, singleton } from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
 import { ResponsiveProp } from './types'
-
-/**
- * Converts a grid measurement based in `rem` to an actual `rem`.
- *
- * @param grid Grid size relative to `1rem`.
- * @param amount Amount of grid units for the measurement.
- *
- * @returns `rem` value.
- */
-export const resolveGrid = (grid: number) => (amount: number) => {
-  return `${grid * amount}rem`
-}
 
 /**
  * Creates a Style with a single property.
@@ -40,25 +26,6 @@ export const styleSingleton = <
 ) => (value: TValue): Style => singleton(propertyName, value)
 
 /**
- * A version of `styleSingleton` for space properties that automatically
- * converts space values to rems using the theme's grid size.
- *
- * @param propertyName CSS property to which `value` will be assigned.
- * @param theme Theme with `grid` token.
- *
- * @returns Treat-compatible Style to pass to `style`.
- */
-export const styleSpaceSingleton = <TPropertyName extends keyof Properties>(
-  propertyName: TPropertyName,
-  theme: Theme,
-) => (value: string | number) =>
-  pipe(
-    typeof value === 'number' ? E.right(value) : E.left(value),
-    E.fold(identity, resolveGrid(theme.grid)),
-    styleSingleton(propertyName),
-  )
-
-/**
  * Assigns a Style to a particular breakpoint.
  *
  * @param breakpoint Breakpoint name to which styles will be assigned.
@@ -70,19 +37,16 @@ export const makeResponsive = (
   breakpoint: keyof Theme['breakpoints'],
   theme: Theme,
 ) => {
-  const minWidth = theme.breakpoints[breakpoint]
+  const mediaQuery = theme.mediaQueries[breakpoint]
 
   return (styles: Style) =>
     pipe(
-      eqNumber.equals(minWidth, 0),
+      // TODO: Probably a better way to do this
+      mediaQuery.startsWith('0'),
       fold<Style>(
         () =>
-          pipe(
-            singleton(
-              `screen and (min-width: ${resolveGrid(theme.grid)(minWidth)})`,
-              styles,
-            ),
-            (mediaStyles) => singleton('@media', mediaStyles),
+          pipe(singleton(mediaQuery, styles), (mediaStyles) =>
+            singleton('@media', mediaStyles),
           ),
         () => styles,
       ),
@@ -99,22 +63,6 @@ export const makeResponsive = (
 export const mapToProperty = <TPropertyName extends keyof Properties>(
   propertyName: TPropertyName,
 ) => map(styleSingleton(propertyName))
-
-/**
- * A version of `mapToProperty` for space properties that automatically
- * converts space values to rems using the theme's grid size.
- *
- * @see `mapToProperty`
- *
- * @param propertyName CSS property to which values will be assigned.
- * @param theme Theme with `grid` token.
- *
- * @returns Treat-compatible style map to pass to `styleMap`.
- */
-export const mapToSpaceProperty = <TPropertyName extends keyof Properties>(
-  propertyName: TPropertyName,
-  theme: Theme,
-) => map(styleSpaceSingleton(propertyName, theme))
 
 /**
  * Maps values of a StyleMap to a specified theme breakpoint.
@@ -142,44 +90,6 @@ export const mapToResponsiveProperty = (
   breakpoint: keyof Theme['breakpoints'],
   theme: Theme,
 ) => flow(mapToProperty(propertyName), mapToResponsive(breakpoint, theme))
-
-/**
- * Convenience function that maps a theme's space tokens to a style property
- * for a specified theme breakpoint.
- *
- * @param propertyName CSS property to which tokens will be assigned.
- * @param breakpoint Breakpoint name to which tokens will be assigned.
- * @param theme Theme with `breakpoints` and `grid` tokens.
- */
-export const mapToResponsiveSpaceProperty = (
-  propertyName: keyof Properties,
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
-) =>
-  flow(
-    mapToSpaceProperty(propertyName, theme),
-    mapToResponsive(breakpoint, theme),
-  )
-
-/**
- * Convenience function that creates a style map for a property and specified
- * theme breakpoint using the theme's space tokens.
- *
- * @param propertyName CSS property to which tokens will be assigned.
- * @param breakpoint Breakpoint name to which tokens will be assigned.
- * @param theme Theme with `breakpoints` and `grid` tokens.
- */
-export const responsiveSpaceMap = (
-  propertyName: keyof Properties,
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
-): Record<string | number, Style> =>
-  pipe(
-    theme.space,
-    O.fromNullable,
-    O.map(mapToResponsiveSpaceProperty(propertyName, breakpoint, theme)),
-    O.getOrElseW(() => R.empty),
-  )
 
 /**
  * Normalizes a responsive prop value to a tuple with values for all
@@ -215,26 +125,14 @@ export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
   throw new Error(`Invalid responsive prop value: ${JSON.stringify(value)}`)
 }
 
-/**
- * Resolves a responsive prop value to a class list picked from the provided
- * breakpoint-specific atoms.
- *
- * @param value Responsive prop value.
- * @param mobileAtoms Atoms for the mobile breakpoint.
- * @param tabletAtoms Atoms for the tablet breakpoint.
- * @param desktopAtoms Atoms for the desktop breakpoint.
- * @param desktopWideAtoms Atoms for the desktopWide breakpoint.
- *
- * @returns A stringified set of classes for the provided prop value.
- */
-export const resolveResponsiveProp = <Keys extends string | number>(
-  value: ResponsiveProp<Keys>,
-  mobileAtoms: Record<Keys, string | number>,
-  tabletAtoms: Record<Keys, string | number>,
-  desktopAtoms: Record<Keys, string | number>,
-  desktopWideAtoms: Record<Keys, string | number>,
+export const resolveResponsiveProp = <
+  Keys extends string | number = string | number
+>(
+  value: ResponsiveProp<Keys> | undefined,
+  atoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
 ) => {
-  if (typeof value === 'string') return mobileAtoms[value]
+  if (value === undefined) return
+  if (typeof value === 'string') return atoms.mobile[value]
 
   const [
     mobileValue,
@@ -244,11 +142,11 @@ export const resolveResponsiveProp = <Keys extends string | number>(
   ] = normalizeResponsiveProp(value)
 
   return (
-    mobileAtoms[mobileValue] +
-    (tabletValue !== mobileValue ? ' ' + tabletAtoms[tabletValue] : '') +
-    (desktopValue !== tabletValue ? ' ' + desktopAtoms[desktopValue] : '') +
+    atoms.mobile[mobileValue] +
+    (tabletValue !== mobileValue ? ' ' + atoms.tablet[tabletValue] : '') +
+    (desktopValue !== tabletValue ? ' ' + atoms.desktop[desktopValue] : '') +
     (desktopWideValue !== desktopValue
-      ? ' ' + desktopWideAtoms[desktopWideValue]
+      ? ' ' + atoms.desktopWide[desktopWideValue]
       : '')
   )
 }
@@ -264,5 +162,64 @@ export const semigroupResponsiveStyle: Semigroup<Style> = {
   }),
 }
 
-export const buildMediaQuery = (theme: Theme, size: number) =>
-  `screen and (min-width: ${resolveGrid(theme.grid)(size)}rem)`
+export function mapFromOptionalTheme<A extends ReadonlyArray<unknown>, B>(
+  ab: (...a: A) => B,
+): (...a: A) => B
+export function mapFromOptionalTheme<A extends ReadonlyArray<unknown>, B, C>(
+  ab: (...a: A) => B,
+  bc: (b: B) => C,
+): (...a: A) => C
+export function mapFromOptionalTheme(ab: Function, bc?: Function): unknown {
+  switch (arguments.length) {
+    case 1: {
+      return flow(
+        O.fromNullable,
+        //@ts-ignore
+        O.map(flow(ab)),
+        O.getOrElseW(() => R.empty),
+      )
+    }
+    case 2: {
+      return flow(
+        O.fromNullable,
+        //@ts-ignore
+        O.map(flow(ab, bc)),
+        O.getOrElseW(() => R.empty),
+      )
+    }
+    default: {
+      throw new Error()
+    }
+  }
+}
+
+export const responsiveStyle = (theme: Theme) => (
+  styleMap: Record<string, Style>,
+) => {
+  return pipe(
+    theme.mediaQueries,
+    map((mediaQuery) =>
+      pipe(
+        styleMap,
+        map((style) => R.singleton(mediaQuery, style)),
+        map((value) => R.singleton('@media', value)),
+      ),
+    ),
+  )
+}
+
+export const variantResponsiveStyle = (theme: Theme) => (variant: string) => (
+  styleMap: Record<string, Style>,
+) => {
+  return pipe(
+    theme.mediaQueries,
+    map((mediaQuery) =>
+      pipe(
+        styleMap,
+        map((style) => R.singleton(variant, style)),
+        map((variantStyle) => R.singleton(mediaQuery, variantStyle)),
+        map((value) => R.singleton('@media', value)),
+      ),
+    ),
+  )
+}

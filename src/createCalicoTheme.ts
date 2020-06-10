@@ -1,29 +1,16 @@
-import { Properties } from 'csstype'
+import { Style } from 'treat'
+import { StandardProperties } from 'csstype'
 import { map } from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
-import { resolveGrid } from './utils'
-
-import { backgroundRules } from './useBackgroundStyles'
-import { borderRules } from './useBorderStyles'
-import { effectRules } from './useEffectStyles'
-import { flexboxRules } from './useFlexboxStyles'
-import { gridRules } from './useGridStyles'
-import { interactivityRules } from './useInteractivityStyles'
-import { layoutRules } from './useLayoutStyles'
-import { sizingRules } from './useSizingStyles'
-import { transitionRules } from './useTransitionStyles'
-import { typographyRules } from './useTypographyStyles'
+import { rules } from './rules'
+import { variants } from './variants'
+import { createMq, MqStyles } from './createMq'
 
 type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 
 export interface CreateCalicoThemeInput {
-  breakpoints: Record<BreakpointKeys, number>
-
-  grid: number
-  space?: Record<string | number, string | number>
-
-  colors?: Record<string, string>
+  breakpoints: Record<BreakpointKeys, string>
 
   baseFontSize?: number
   fonts?: Record<
@@ -36,28 +23,23 @@ export interface CreateCalicoThemeInput {
     }
   >
 
+  mq?: (mqStyles: MqStyles) => Style
+
   rules?: {
-    [P in keyof Properties]?: Record<
+    [P in keyof StandardProperties]?: Record<
       string | number,
-      NonNullable<Properties[P]>
+      NonNullable<StandardProperties<string | number>[P]>
     >
+  }
+  variants?: {
+    [P in keyof StandardProperties]?: Partial<Record<'hover' | 'focus', true>>
   }
 }
 
 export const baseCalicoTheme = {
   baseFontSize: 16,
-  rules: {
-    ...backgroundRules,
-    ...borderRules,
-    ...effectRules,
-    ...flexboxRules,
-    ...gridRules,
-    ...interactivityRules,
-    ...layoutRules,
-    ...sizingRules,
-    ...transitionRules,
-    ...typographyRules,
-  },
+  rules,
+  variants,
 } as const
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
@@ -67,16 +49,25 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
 ) => {
   const mediaQueries = pipe(
     theme.breakpoints,
-    map((value) => `screen and (min-width: ${resolveGrid(theme.grid)(value)})`),
+    map((value) => `screen and (min-width: ${value})`),
   )
 
-  return {
+  const x = {
     mediaQueries,
+    mq: createMq(Object.values(theme.breakpoints)),
     ...baseCalicoTheme,
     ...theme,
+
     rules: {
       ...baseCalicoTheme.rules,
       ...theme.rules,
     },
+
+    variants: {
+      ...baseCalicoTheme.variants,
+      ...theme.variants,
+    },
   } as const
+
+  return x
 }
