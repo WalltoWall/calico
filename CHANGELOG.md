@@ -16,8 +16,6 @@ for commit guidelines.
 - All styling must now be placed inside the `styles` object prop. Styles can no
   longer be applied as direct props to `<Box />`.
 
-**Namespaced prop for styling**
-
 ### New Features
 
 #### Namespaced props for styling
