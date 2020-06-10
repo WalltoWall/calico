@@ -1,5 +1,8 @@
-export { Box, BoxProps } from './Box'
-export { useBoxStyles, UseBoxStylesProps } from './useBoxStyles'
+export { Box } from './Box'
+export type { BoxProps } from './Box'
+
+export { useBoxStyles } from './useBoxStyles'
+export type { UseBoxStylesProps } from './useBoxStyles'
 
 export { mapFontsets } from './mapFontsets'
 export { createMq } from './createMq'
