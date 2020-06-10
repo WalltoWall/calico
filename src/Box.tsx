@@ -18,7 +18,6 @@ export const Box = ({
   className,
   style,
 
-  // Variants
   styles,
   hoverStyles,
   focusStyles,
