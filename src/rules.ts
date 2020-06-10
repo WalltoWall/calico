@@ -75,6 +75,7 @@ export const rules = {
     inlineFlex: 'inline-flex',
     grid: 'grid',
     inlineGrid: 'inline-grid',
+    listItem: 'list-item',
   },
   flex: {
     equal0: '1 1 0px',
@@ -210,7 +211,6 @@ export const rules = {
     normal: 'normal',
     none: 0,
   },
-  lineHeight: {},
   listStyle: {
     none: 'none',
     disc: 'disc',
