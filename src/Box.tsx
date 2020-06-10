@@ -102,6 +102,7 @@ export const Box = ({
   verticalAlign,
   whiteSpace,
   wordBreak,
+  listStyle,
 
   // Backgrounds
   backgroundAttachment,

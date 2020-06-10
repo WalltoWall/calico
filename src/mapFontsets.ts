@@ -83,17 +83,14 @@ export const basekickFontStyles = (theme: CalicoTheme) => ({
 
 const responsiveBasekickFontset = (theme: CalicoTheme) => (fontset: Fontset) =>
   pipe(
-    fontset.fontSize,
+    fontset.fontSize as Required<typeof fontset.fontSize>,
     R.mapWithIndex((breakpoint, fontSize) =>
       pipe(
         { ...fontset, fontSize } as BaseKickArgs,
         basekickFontStyles(theme),
         makeResponsive(breakpoint, theme),
       ),
-    ) as (
-      fa: Partial<Record<keyof CalicoTheme['breakpoints'], number | undefined>>,
-    ) => Record<keyof CalicoTheme['breakpoints'], Style>,
-    // Manually typing `R.mapWithIndex` is required to support Partial records.
+    ),
   )
 
 export const mapFontsets = <K extends string>(
