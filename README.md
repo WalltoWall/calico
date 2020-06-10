@@ -43,6 +43,8 @@ documentation.
   - [`createCalicoTheme`][createcalicotheme] — TODO
   - [`mapFontsets`][mapfontsets] — TODO
   - [`createMq`][createmq] — TODO
+  - [`normalizeResponsiveProp`][utils] — TODO
+  - [`resolveResponsiveProp`][utils] — TODO
 - Other Exports
   - `baseCalicoTheme` — TODO
   - `ResponsiveProp` — TODO
@@ -53,3 +55,4 @@ documentation.
 [mapfontsets]: ./src/mapFontsets.ts
 [createcalicotheme]: ./src/createCalicoTheme.ts
 [createmq]: ./src/createMq.ts
+[utils]: ./src/utils.ts
