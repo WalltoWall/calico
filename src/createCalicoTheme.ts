@@ -23,9 +23,6 @@ export interface CreateCalicoThemeInput {
     }
   >
 
-  // space?: Record<string | number, string | number>
-  // colors?: Record<string, string>
-
   mq?: (mqStyles: MqStyles) => Style
 
   rules?: {
@@ -54,14 +51,6 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
     theme.breakpoints,
     map((value) => `screen and (min-width: ${value})`),
   )
-
-  // // TODO: Probably a more FP way to do this instead of a ternary.
-  // const fontFamily = theme.fonts
-  //   ? pipe(
-  //       theme.fonts,
-  //       map((fontDef) => fontDef.stack),
-  //     )
-  //   : undefined
 
   const x = {
     mediaQueries,
