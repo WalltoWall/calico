@@ -37,8 +37,8 @@ documentation.
   - [`Box`][box] — Component that accepts atomic styles as props and maps them
     to `className`s,
 - Hooks
-  - [`useBoxStyles`][useboxstyles] — React hook to resolve background-related
-    atomic CSS styles to `className`s.
+  - [`useBoxStyles`][useboxstyles] — Low level react hook to resolve atomic CSS
+    styles to `className`s. Useful for creating your own `Box`.
 - Functions
   - [`createCalicoTheme`][createcalicotheme] — TODO
   - [`mapFontsets`][mapfontsets] — TODO
