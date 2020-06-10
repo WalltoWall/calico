@@ -90,7 +90,6 @@ const App = () => (
     <Box
       id="space"
       styles={{
-        margin: 1,
         padding: 1,
       }}
     />

@@ -7,6 +7,12 @@ import { ResponsiveProp } from './types'
 
 import * as treatStyleRefs from './useBoxStyles.treat'
 
+type AliasStyleProps = {
+  marginX?: Theme['rules']['margin'] extends object
+    ? ResponsiveProp<keyof Theme['rules']['margin']>
+    : never
+}
+
 type NotUndefOrNever<T extends {}> = Pick<
   T,
   { [K in keyof T]: T[K] extends undefined | never ? never : K }[keyof T]
@@ -14,7 +20,8 @@ type NotUndefOrNever<T extends {}> = Pick<
 
 type BaseBoxStylesProps = {
   [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
-}
+} &
+  AliasStyleProps
 
 type BoxHoverProp = NotUndefOrNever<
   {
@@ -63,6 +70,20 @@ export type UseBoxStylesProps = {
 }
 
 export const useBoxStyles = ({
+  hoverStyles,
+  focusStyles,
+  styles,
+}: UseBoxStylesProps) => {
+  const styleRefs = useStyles(treatStyleRefs)
+
+  return clsx(
+    resolveClassNames(styles, styleRefs.styles),
+    resolveClassNames(hoverStyles, styleRefs.hoverStyles),
+    resolveClassNames(focusStyles, styleRefs.focusStyles),
+  )
+}
+
+export const _useBoxStyles = ({
   hoverStyles,
   focusStyles,
   styles,
