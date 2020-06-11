@@ -43,7 +43,7 @@ const resolveClassNames = (props: BoxStylesProps | undefined, styles: any) => {
 
   for (const key in props) {
     const value = props[key as keyof Theme['rules']]
-    if (!value) continue
+    if (value === null || value === undefined) continue
 
     resolvedClassNames.push(
       resolveResponsiveProp(value, styles[key as keyof Theme['rules']]),

@@ -78,6 +78,8 @@ test('flexbox props', async () => {
       "display": "block",
       "flex-basis": "auto",
       "flex-direction": "row",
+      "flex-grow": "0",
+      "flex-shrink": "0",
       "flex-wrap": "nowrap",
       "justify-content": "flex-start",
       "justify-items": "center",
@@ -132,11 +134,15 @@ test('layout props', async () => {
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
+      "bottom": "0",
       "display": "flex",
+      "left": "0",
       "overflow": "hidden",
       "overflow-x": "hidden",
       "overflow-y": "hidden",
       "position": "relative",
+      "right": "0",
+      "top": "0",
       "z-index": "2",
     }
   `)
