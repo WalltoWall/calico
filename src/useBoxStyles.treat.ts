@@ -2,53 +2,50 @@ import { styleTree, styleMap } from 'treat'
 import * as R from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
-import {
-  mapToProperty,
-  mapFromOptionalTheme,
-  responsiveStyle,
-  variantResponsiveStyle,
-} from './utils'
+import { styleSingleton, mapToBreakpoints, mapToPseudo } from './utils'
 
 export const styles = styleTree((theme) =>
   pipe(
     theme.rules as Required<typeof theme.rules>,
-    R.mapWithIndex((ruleName, rule) =>
+    R.mapWithIndex((propertyName, atoms) =>
       pipe(
-        rule,
-        mapFromOptionalTheme(mapToProperty(ruleName)),
-        responsiveStyle(theme),
+        atoms as Record<string | number, string | number>,
+        R.map(styleSingleton(propertyName)),
+        mapToBreakpoints(theme),
+        R.map(styleMap),
       ),
     ),
-    R.map(R.map(styleMap)),
   ),
 )
 
-export const hoverStyles = styleTree((theme) =>
+export const hover = styleTree((theme) =>
   pipe(
     theme.rules as Required<typeof theme.rules>,
     R.filterWithIndex((ruleName) => Boolean(theme.variants[ruleName]?.hover)),
-    R.mapWithIndex((ruleName: keyof typeof theme.variants, rule) =>
+    R.mapWithIndex((propertyName: keyof typeof theme.variants, atoms) =>
       pipe(
-        rule,
-        mapFromOptionalTheme(mapToProperty(ruleName)),
-        variantResponsiveStyle(theme)(':hover'),
+        atoms as Record<string | number, string | number>,
+        R.map(styleSingleton(propertyName)),
+        R.map(mapToPseudo(':hover')),
+        mapToBreakpoints(theme),
+        R.map(styleMap),
       ),
     ),
-    R.map(R.map(styleMap)),
   ),
 )
 
-export const focusStyles = styleTree((theme) =>
+export const focus = styleTree((theme) =>
   pipe(
     theme.rules as Required<typeof theme.rules>,
     R.filterWithIndex((ruleName) => Boolean(theme.variants[ruleName]?.focus)),
-    R.mapWithIndex((ruleName: keyof typeof theme.variants, rule) =>
+    R.mapWithIndex((propertyName: keyof typeof theme.variants, atoms) =>
       pipe(
-        rule,
-        mapFromOptionalTheme(mapToProperty(ruleName)),
-        variantResponsiveStyle(theme)(':focus'),
+        atoms as Record<string | number, string | number>,
+        R.map(styleSingleton(propertyName)),
+        R.map(mapToPseudo(':focus')),
+        mapToBreakpoints(theme),
+        R.map(styleMap),
       ),
     ),
-    R.map(R.map(styleMap)),
   ),
 )

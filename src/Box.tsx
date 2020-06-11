@@ -2,42 +2,42 @@ import React from 'react'
 import clsx from 'clsx'
 
 import { SafeReactHTMLAttributes } from './types'
-import { UseBoxStylesProps, useBoxStyles } from './useBoxStyles'
+import {
+  useBoxStyles,
+  usePseudoBoxStyles,
+  BoxStylesProps,
+  BoxHoverProps,
+  BoxFocusProps,
+} from './useBoxStyles'
 
 export type BoxProps = {
   component?: React.ElementType
   children?: React.ReactNode
-  className?: string
-  style?: React.CSSProperties
-} & UseBoxStylesProps &
-  SafeReactHTMLAttributes
+  styles?: BoxStylesProps
+  hoverStyles?: BoxHoverProps
+  focusStyles?: BoxFocusProps
+} & SafeReactHTMLAttributes
 
 export const Box = ({
-  component,
+  component = 'div',
   children,
   className,
-  style,
-
   styles,
   hoverStyles,
   focusStyles,
   ...props
 }: BoxProps) => {
-  const resolvedClassNames = useBoxStyles({
-    styles,
-    hoverStyles,
-    focusStyles,
-  })
+  const resolvedClassNames =
+    clsx(
+      useBoxStyles(styles),
+      usePseudoBoxStyles(focusStyles, 'focus'),
+      usePseudoBoxStyles(hoverStyles, 'hover'),
+      className,
+    ) || undefined
 
-  const Tag = component ?? 'div'
-
-  return (
-    <Tag
-      className={clsx(resolvedClassNames, className) || undefined}
-      style={style}
-      {...props}
-    >
-      {children}
-    </Tag>
+  return React.createElement(
+    component,
+    { className: resolvedClassNames, ...props },
+    children,
   )
 }
