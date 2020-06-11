@@ -17,19 +17,13 @@ test('mapFontsets', () => {
   ).toMatchInlineSnapshot(`
     Object {
       "sans1": Object {
+        ":before": Object {
+          "content": "''",
+          "display": "block",
+          "height": 0,
+          "marginTop": "-0.33999999999999986rem",
+        },
         "@media": Object {
-          "screen and (min-width: 0rem)": Object {
-            ":before": Object {
-              "content": "''",
-              "display": "block",
-              "height": 0,
-              "marginTop": "-0.33999999999999986rem",
-            },
-            "fontSize": "1rem",
-            "lineHeight": "0.9624999999999999rem",
-            "paddingTop": 1,
-            "transform": "translateY(0.10124999999999995em)",
-          },
           "screen and (min-width: 48rem)": Object {
             ":before": Object {
               "content": "''",
@@ -43,6 +37,10 @@ test('mapFontsets', () => {
             "transform": "translateY(0.10125em)",
           },
         },
+        "fontSize": "1rem",
+        "lineHeight": "0.9624999999999999rem",
+        "paddingTop": 1,
+        "transform": "translateY(0.10124999999999995em)",
       },
     }
   `)

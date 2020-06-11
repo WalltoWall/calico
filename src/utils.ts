@@ -1,15 +1,13 @@
 import { Style } from 'treat'
 import { Theme } from 'treat/theme'
-import { Properties } from 'csstype'
-import * as O from 'fp-ts/es6/Option'
+import { Properties, SimplePseudos } from 'csstype'
+import * as B from 'fp-ts/es6/boolean'
 import * as R from 'fp-ts/es6/Record'
 import { Semigroup } from 'fp-ts/es6/Semigroup'
-import { flow } from 'fp-ts/es6/function'
-import { fold } from 'fp-ts/es6/boolean'
-import { map, singleton } from 'fp-ts/es6/Record'
 import { pipe } from 'fp-ts/es6/pipeable'
 
 import { ResponsiveProp } from './types'
+import { eqNumber } from 'fp-ts/es6/Eq'
 
 /**
  * Creates a Style with a single property.
@@ -23,7 +21,7 @@ export const styleSingleton = <
   TValue extends string | number
 >(
   propertyName: TPropertyName,
-) => (value: TValue): Style => singleton(propertyName, value)
+) => (value: TValue): Style => R.singleton(propertyName, value)
 
 /**
  * Assigns a Style to a particular breakpoint.
@@ -36,60 +34,28 @@ export const styleSingleton = <
 export const makeResponsive = (
   breakpoint: keyof Theme['breakpoints'],
   theme: Theme,
-) => {
+) => (style: Style) => {
+  const minWidth = Number.parseFloat(theme.breakpoints[breakpoint])
   const mediaQuery = theme.mediaQueries[breakpoint]
 
-  return (styles: Style) =>
-    pipe(
-      // TODO: Probably a better way to do this
-      mediaQuery.startsWith('0'),
-      fold<Style>(
-        () =>
-          pipe(singleton(mediaQuery, styles), (mediaStyles) =>
-            singleton('@media', mediaStyles),
-          ),
-        () => styles,
-      ),
-    )
+  return pipe(
+    eqNumber.equals(minWidth, 0),
+    B.fold<Style>(
+      () => R.singleton('@media', R.singleton(mediaQuery, style)),
+      () => style,
+    ),
+  )
 }
 
 /**
- * Maps values of a Record to a style property.
+ * Assigns a Style to a particular pseudo-class.
  *
- * @param propertyName CSS property to which values will be assigned.
+ * @param pseudo Pseudo-class to which styles will be assigned.
  *
- * @returns Treat-compatible style map to pass to `styleMap`.
+ * @returns Style assigned to the pseudo-class.
  */
-export const mapToProperty = <TPropertyName extends keyof Properties>(
-  propertyName: TPropertyName,
-) => map(styleSingleton(propertyName))
-
-/**
- * Maps values of a StyleMap to a specified theme breakpoint.
- *
- * @param breakpoint Breakpoint name to which values will be assigned.
- * @param theme Theme with `breakpoints` and `grid` tokens.
- *
- * @returns Treat-compatible style map to pass to `styleMap`.
- */
-export const mapToResponsive = (
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
-) => map(makeResponsive(breakpoint, theme))
-
-/**
- * Convenience function that maps values of a Record to a style property for a
- * specified theme breakpoint.
- *
- * @param propertyName CSS property to which values will be assigned.
- * @param breakpoint Breakpoint name to which values will be assigned.
- * @param theme Theme with `breakpoints` token.
- */
-export const mapToResponsiveProperty = (
-  propertyName: keyof Properties,
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
-) => flow(mapToProperty(propertyName), mapToResponsive(breakpoint, theme))
+export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
+  R.singleton(pseudo, style)
 
 /**
  * Normalizes a responsive prop value to a tuple with values for all
@@ -125,14 +91,23 @@ export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
   throw new Error(`Invalid responsive prop value: ${JSON.stringify(value)}`)
 }
 
+/**
+ * Resolves a responsive prop value to a list of class names using a set of
+ * atoms.
+ *
+ * @param value Responsive prop value.
+ * @param responsiveAtoms Set of responsive atoms for appropriate for the prop.
+ *
+ * @returns A stringified list of class names.
+ */
 export const resolveResponsiveProp = <
   Keys extends string | number = string | number
 >(
   value: ResponsiveProp<Keys> | undefined,
-  atoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
+  responsiveAtoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
 ) => {
   if (value === undefined) return
-  if (typeof value === 'string') return atoms.mobile[value]
+  if (typeof value === 'string') return responsiveAtoms.mobile[value]
 
   const [
     mobileValue,
@@ -142,11 +117,15 @@ export const resolveResponsiveProp = <
   ] = normalizeResponsiveProp(value)
 
   return (
-    atoms.mobile[mobileValue] +
-    (tabletValue !== mobileValue ? ' ' + atoms.tablet[tabletValue] : '') +
-    (desktopValue !== tabletValue ? ' ' + atoms.desktop[desktopValue] : '') +
+    responsiveAtoms.mobile[mobileValue] +
+    (tabletValue !== mobileValue
+      ? ' ' + responsiveAtoms.tablet[tabletValue]
+      : '') +
+    (desktopValue !== tabletValue
+      ? ' ' + responsiveAtoms.desktop[desktopValue]
+      : '') +
     (desktopWideValue !== desktopValue
-      ? ' ' + atoms.desktopWide[desktopWideValue]
+      ? ' ' + responsiveAtoms.desktopWide[desktopWideValue]
       : '')
   )
 }
@@ -162,64 +141,19 @@ export const semigroupResponsiveStyle: Semigroup<Style> = {
   }),
 }
 
-export function mapFromOptionalTheme<A extends ReadonlyArray<unknown>, B>(
-  ab: (...a: A) => B,
-): (...a: A) => B
-export function mapFromOptionalTheme<A extends ReadonlyArray<unknown>, B, C>(
-  ab: (...a: A) => B,
-  bc: (b: B) => C,
-): (...a: A) => C
-export function mapFromOptionalTheme(ab: Function, bc?: Function): unknown {
-  switch (arguments.length) {
-    case 1: {
-      return flow(
-        O.fromNullable,
-        //@ts-ignore
-        O.map(flow(ab)),
-        O.getOrElseW(() => R.empty),
-      )
-    }
-    case 2: {
-      return flow(
-        O.fromNullable,
-        //@ts-ignore
-        O.map(flow(ab, bc)),
-        O.getOrElseW(() => R.empty),
-      )
-    }
-    default: {
-      throw new Error()
-    }
-  }
-}
-
-export const responsiveStyle = (theme: Theme) => (
-  styleMap: Record<string, Style>,
-) => {
-  return pipe(
-    theme.mediaQueries,
-    map((mediaQuery) =>
-      pipe(
-        styleMap,
-        map((style) => R.singleton(mediaQuery, style)),
-        map((value) => R.singleton('@media', value)),
-      ),
+/**
+ * Maps a set of atoms to all of a theme's breakpoints.
+ *
+ * @param theme Theme with `breakpoints` tokens.
+ *
+ * @returns The theme's breakpoints mapped to the set of atoms.
+ */
+export const mapToBreakpoints = (theme: Theme) => (
+  atoms: Record<string, Style>,
+) =>
+  pipe(
+    theme.breakpoints,
+    R.mapWithIndex((breakpointName) =>
+      pipe(atoms, R.map(makeResponsive(breakpointName, theme))),
     ),
   )
-}
-
-export const variantResponsiveStyle = (theme: Theme) => (variant: string) => (
-  styleMap: Record<string, Style>,
-) => {
-  return pipe(
-    theme.mediaQueries,
-    map((mediaQuery) =>
-      pipe(
-        styleMap,
-        map((style) => R.singleton(variant, style)),
-        map((variantStyle) => R.singleton(mediaQuery, variantStyle)),
-        map((value) => R.singleton('@media', value)),
-      ),
-    ),
-  )
-}

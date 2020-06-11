@@ -5,18 +5,18 @@ import { useStyles } from 'react-treat'
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
 
-import * as treatStyleRefs from './useBoxStyles.treat'
+import * as styleRefs from './useBoxStyles.treat'
 
 type NotUndefOrNever<T extends {}> = Pick<
   T,
   { [K in keyof T]: T[K] extends undefined | never ? never : K }[keyof T]
 >
 
-type BaseBoxStylesProps = {
+export type BoxStylesProps = {
   [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
 }
 
-type BoxHoverProp = NotUndefOrNever<
+export type BoxHoverProps = NotUndefOrNever<
   {
     [K in keyof Theme['variants']]?: NonNullable<
       Theme['variants'][K]
@@ -26,7 +26,7 @@ type BoxHoverProp = NotUndefOrNever<
   }
 >
 
-type BoxFocusProp = NotUndefOrNever<
+export type BoxFocusProps = NotUndefOrNever<
   {
     [K in keyof Theme['variants']]?: NonNullable<
       Theme['variants'][K]
@@ -36,10 +36,7 @@ type BoxFocusProp = NotUndefOrNever<
   }
 >
 
-const resolveClassNames = (
-  props: BaseBoxStylesProps | undefined,
-  styles: any,
-) => {
+const resolveClassNames = (props: BoxStylesProps | undefined, styles: any) => {
   if (props === undefined) return
 
   let resolvedClassNames: (string | undefined)[] = []
@@ -56,22 +53,25 @@ const resolveClassNames = (
   return resolvedClassNames
 }
 
-export type UseBoxStylesProps = {
-  hoverStyles?: BoxHoverProp
-  focusStyles?: BoxFocusProp
-  styles?: BaseBoxStylesProps
+export function useBoxStyles(styles: BoxStylesProps | undefined): string {
+  const boxStyles = useStyles(styleRefs)
+
+  return clsx(resolveClassNames(styles, boxStyles.styles))
 }
 
-export const useBoxStyles = ({
-  hoverStyles,
-  focusStyles,
-  styles,
-}: UseBoxStylesProps) => {
-  const styleRefs = useStyles(treatStyleRefs)
+export function usePseudoBoxStyles(
+  styles: BoxFocusProps | undefined,
+  pseudo: 'focus',
+): string
+export function usePseudoBoxStyles(
+  styles: BoxHoverProps | undefined,
+  pseudo: 'hover',
+): string
+export function usePseudoBoxStyles(
+  styles: BoxHoverProps | BoxFocusProps | undefined,
+  pseudo: 'focus' | 'hover',
+): string {
+  const boxStyles = useStyles(styleRefs)
 
-  return clsx(
-    resolveClassNames(styles, styleRefs.styles),
-    resolveClassNames(hoverStyles, styleRefs.hoverStyles),
-    resolveClassNames(focusStyles, styleRefs.focusStyles),
-  )
+  return clsx(resolveClassNames(styles, boxStyles[pseudo]))
 }
