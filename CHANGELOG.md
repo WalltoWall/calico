@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/WalltoWall/calico/compare/v0.3.0...v0.3.1) (2020-06-14)
+
+
+### Bug Fixes
+
+* correct scrollX and scrollY values ([a70c9d8](https://github.com/WalltoWall/calico/commit/a70c9d85aa0eed2e74138c5ef00923a24b490038))
+* provide debug name ([0a3433e](https://github.com/WalltoWall/calico/commit/0a3433e0840f21e4930299cf9fc122cd859833a0))
+
 ## [0.3.0](https://github.com/WalltoWall/calico/compare/v0.2.1...v0.3.0) (2020-06-11)
 
 
