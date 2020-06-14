@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/WalltoWall/calico/compare/v0.3.1...v0.3.2) (2020-06-14)
+
+
+### Bug Fixes
+
+* use correct overflow property names ([1fb22a8](https://github.com/WalltoWall/calico/commit/1fb22a8325ce73aa861038b93a61b233a8580b35))
+
 ### [0.3.1](https://github.com/WalltoWall/calico/compare/v0.3.0...v0.3.1) (2020-06-14)
 
 
