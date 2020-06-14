@@ -230,8 +230,8 @@ export const rules = {
     auto: 'auto',
     hidden: 'hidden',
     scroll: 'scroll',
-    scrollX: 'scrollX',
-    scrollY: 'scrollY',
+    scrollX: 'scroll-x',
+    scrollY: 'scroll-y',
   },
   pointerEvents: {
     none: 'none',
