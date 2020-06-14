@@ -262,6 +262,7 @@ export const rules = {
     right: 'right',
   },
   textTransform: {
+    none: 'none',
     uppercase: 'uppercase',
     lowercase: 'lowercase',
     capitalize: 'capitalize',
