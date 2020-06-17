@@ -18,26 +18,33 @@ export type BoxProps = {
   focusStyles?: BoxFocusProps
 } & SafeReactHTMLAttributes
 
-export const Box = ({
-  component = 'div',
-  children,
-  className,
-  styles,
-  hoverStyles,
-  focusStyles,
-  ...props
-}: BoxProps) => {
-  const resolvedClassNames =
-    clsx(
-      useBoxStyles(styles),
-      usePseudoBoxStyles(focusStyles, 'focus'),
-      usePseudoBoxStyles(hoverStyles, 'hover'),
+export const Box = React.forwardRef(
+  (
+    {
+      component = 'div',
+      children,
       className,
-    ) || undefined
+      styles,
+      hoverStyles,
+      focusStyles,
+      ...props
+    }: BoxProps,
+    ref,
+  ) => {
+    const resolvedClassNames =
+      clsx(
+        useBoxStyles(styles),
+        usePseudoBoxStyles(focusStyles, 'focus'),
+        usePseudoBoxStyles(hoverStyles, 'hover'),
+        className,
+      ) || undefined
 
-  return React.createElement(
-    component,
-    { className: resolvedClassNames, ...props },
-    children,
-  )
-}
+    return React.createElement(
+      component,
+      { className: resolvedClassNames, ref, ...props },
+      children,
+    )
+  },
+)
+
+Box.displayName = 'Box'
