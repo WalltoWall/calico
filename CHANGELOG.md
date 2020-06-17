@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.4](https://github.com/WalltoWall/calico/compare/v0.3.3...v0.3.4) (2020-06-17)
+
+
+### Features
+
+* box forward ref ([6b2c6a1](https://github.com/WalltoWall/calico/commit/6b2c6a18e439231b77c3210e4ec8383e95035ab1))
+
 ### [0.3.3](https://github.com/WalltoWall/calico/compare/v0.3.2...v0.3.3) (2020-06-14)
 
 
