@@ -30,7 +30,22 @@ Install the package in addition to its peer dependencies:
 
 ```bash
 yarn add @walltowall/calico treat react-treat
+
 ```
+
+Depending on your project, you'll also need to configure `webpack` to support
+`treat`.
+
+```bash
+# If using Gatsby:
+yarn add -D gatsby-plugin-treat
+
+# If using NextJS
+yarn add -D next-treat
+```
+
+For additional information about setting up `treat`, refer to their
+[docs](https://seek-oss.github.io/treat/setup).
 
 ## Getting Started
 
