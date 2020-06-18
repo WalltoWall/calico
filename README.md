@@ -16,11 +16,13 @@ various styling solutions into one:
   [`treat`](https://seek-oss.github.io/treat/) library.
   - Static style extraction with full type safety.
   - Dynamic styles via swapping `className`s.
-- **Developer-centric** as inspired by `styled-system` and `theme-ui`.
+- **Developer-centric** as inspired by
+  [`styled-system`](https://styled-system.com) and
+  [`theme-ui`](https://theme-ui.com).
   - Define responsive styles via arrays.
-  - Namespaced styles to ease
+  - Namespaced styles to ease type-extensibility.
   - One-off styles can be defined in `.treat` files with additional responsive
-    helpers.
+    helpers added onto your `theme`.
 
 ## Install
 
