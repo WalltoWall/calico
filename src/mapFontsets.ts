@@ -93,6 +93,38 @@ const responsiveBasekickFontset = (theme: CalicoTheme) => (fontset: Fontset) =>
     ),
   )
 
+/**
+ * Utility function for generating `treat` styles that remove the leading and trailing white-space
+ * for your fonts.
+ *
+ * Removing white-space in this manner aligns web-rendered text to be aligned at their true baseline
+ * instead of from the center of their line-height. This provides a more consistent behavior to
+ * design tools.
+ *
+ * @see
+ * https://github.com/michaeltaranto/basekick
+ *
+ * @param theme Your theme object from `createCalicoTheme`.
+ * @param fontsets The configuration settings for each of your fonts.
+ *
+ * @returns `treat` style objects containing styles that appropriately trim white-space.
+ *
+ * @example
+ * import { styleMap } from 'treat'
+ *
+ * // Heading.treat.ts
+ * const fontsets = {
+ *  sans: {
+ *    fontFamily: 'sans',
+ *    fontSize: {
+ *      mobile: 1
+ *    },
+ *    lineHeightScale: 1.5
+ *  }
+ * } as const
+ *
+ * export const variants = styleMap(theme => mapFontSets(theme, fontsets))
+ */
 export const mapFontsets = <K extends string>(
   theme: CalicoTheme,
   fontsets: Record<K, Fontset>,

@@ -44,6 +44,12 @@ export const baseCalicoTheme = {
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
 
+/**
+ * Creates a `treat` compatible theme object that merges with the default calico rules.
+ *
+ * @param theme Your theme object.
+ * @returns The merged theme object.
+ */
 export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
   theme: T,
 ) => {
