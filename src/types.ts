@@ -6,11 +6,6 @@ export type ResponsiveProp<AtomName> =
   | Readonly<[AtomName, AtomName, AtomName]>
   | Readonly<[AtomName, AtomName, AtomName, AtomName]>
 
-type ConflictingHtmlProps = 'color' | 'width' | 'height'
-
-export type SafeReactHTMLAttributes = Omit<
-  React.AllHTMLAttributes<'div'>,
-  ConflictingHtmlProps
-> & {
+export type SafeReactHTMLAttributes = React.AllHTMLAttributes<'div'> & {
   loading?: string
 }
