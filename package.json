@@ -1,6 +1,6 @@
 {
   "name": "@walltowall/calico",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "React components for using atmoically generated styles via props.",
   "license": "MIT",
   "main": "src/index.ts",
