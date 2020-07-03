@@ -120,13 +120,12 @@ export const resolveResponsiveProp = <
     desktopWideValue,
   ] = normalizeResponsiveProp(value)
 
-  // If a responsive value is null, it will return undefined for
-  // the resolved
+  // If a responsive value is null, it will return undefined and wont be included.
   return clsx(
     responsiveAtoms.mobile[mobileValue as Keys],
-    responsiveAtoms.mobile[tabletValue as Keys],
-    responsiveAtoms.mobile[desktopValue as Keys],
-    responsiveAtoms.mobile[desktopWideValue as Keys],
+    responsiveAtoms.tablet[tabletValue as Keys],
+    responsiveAtoms.desktop[desktopValue as Keys],
+    responsiveAtoms.desktopWide[desktopWideValue as Keys],
   )
 }
 
