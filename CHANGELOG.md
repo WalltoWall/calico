@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.6](https://github.com/WalltoWall/calico/compare/v0.3.5...v0.3.6) (2020-07-03)
+
+
+### Features
+
+* support null in responsive arrays ([#24](https://github.com/WalltoWall/calico/issues/24)) ([b2bb58f](https://github.com/WalltoWall/calico/commit/b2bb58f84c7df4a80fb20d083543a6960ffa3d57))
+
 ### [0.3.5](https://github.com/WalltoWall/calico/compare/v0.3.4...v0.3.5) (2020-06-23)
 
 
