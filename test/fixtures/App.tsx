@@ -125,6 +125,12 @@ const App = () => (
         color: 'white',
       }}
     />
+    <Box
+      id="responsive"
+      styles={{
+        color: ['black', null, 'white'],
+      }}
+    />
   </>
 )
 

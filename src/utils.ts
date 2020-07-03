@@ -1,4 +1,5 @@
 import { Style } from 'treat'
+import clsx from 'clsx'
 import { Theme } from 'treat/theme'
 import { Properties, SimplePseudos } from 'csstype'
 import * as B from 'fp-ts/es6/boolean'
@@ -68,7 +69,7 @@ export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
  */
 export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
   value: ResponsiveProp<Keys>,
-): Readonly<[Keys, Keys, Keys, Keys]> => {
+): Readonly<[Keys | null, Keys | null, Keys | null, Keys | null]> => {
   if (
     typeof value === 'string' ||
     typeof value === 'number' ||
@@ -116,17 +117,12 @@ export const resolveResponsiveProp = <
     desktopWideValue,
   ] = normalizeResponsiveProp(value)
 
-  return (
-    responsiveAtoms.mobile[mobileValue] +
-    (tabletValue !== mobileValue
-      ? ' ' + responsiveAtoms.tablet[tabletValue]
-      : '') +
-    (desktopValue !== tabletValue
-      ? ' ' + responsiveAtoms.desktop[desktopValue]
-      : '') +
-    (desktopWideValue !== desktopValue
-      ? ' ' + responsiveAtoms.desktopWide[desktopWideValue]
-      : '')
+  // If a responsive value is null, it will return undefined and wont be included.
+  return clsx(
+    responsiveAtoms.mobile[mobileValue as Keys],
+    responsiveAtoms.tablet[tabletValue as Keys],
+    responsiveAtoms.desktop[desktopValue as Keys],
+    responsiveAtoms.desktopWide[desktopWideValue as Keys],
   )
 }
 

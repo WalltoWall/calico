@@ -235,6 +235,17 @@ test('focus prop', async () => {
   `)
 })
 
+test('resposnive styles', async () => {
+  const styles = await getStyles(page, '#responsive')
+
+  expect(styles).toMatchInlineSnapshot(`
+    Object {
+      "color": "#000",
+      "display": "block",
+    }
+  `)
+})
+
 afterAll(() => {
   server.close()
 })
