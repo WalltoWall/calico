@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.5](https://github.com/WalltoWall/calico/compare/v0.3.4...v0.3.5) (2020-06-23)
+
+
+### Bug Fixes
+
+* remove conflicting prop deny list ([e5e9e3a](https://github.com/WalltoWall/calico/commit/e5e9e3a83afc6a2caa92c79ec27d3f5ebc2f237a))
+
 ### [0.3.4](https://github.com/WalltoWall/calico/compare/v0.3.3...v0.3.4) (2020-06-17)
 
 

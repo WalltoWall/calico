@@ -169,7 +169,7 @@ documentation.
   - [`createCalicoTheme`](./src/createCalicoTheme.ts) — Creates a `treat`
     compatible theme object whose rules are merged with the default calico
     rules.
-  - [`mapFontsets`](./src/mapFontsets.ts) — Utiltiy function for generating
+  - [`mapFontsets`](./src/mapFontsets.ts) — Utility function for generating
     `treat` styles that remove the leading and trailing white-space for your
     fonts.
   - [`createMq`](./src/createMq.ts) — Low level higher-order function that
