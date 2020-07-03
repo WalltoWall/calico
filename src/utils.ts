@@ -1,4 +1,5 @@
 import { Style } from 'treat'
+import clsx from 'clsx'
 import { Theme } from 'treat/theme'
 import { Properties, SimplePseudos } from 'csstype'
 import * as B from 'fp-ts/es6/boolean'
@@ -66,13 +67,16 @@ export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
  *
  * @returns A tuple containing prop values for all breakpoints.
  */
-export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
-  value: ResponsiveProp<Keys>,
-): Readonly<[Keys, Keys, Keys, Keys]> => {
+export const normalizeResponsiveProp = <
+  Keys extends string | number | boolean | null
+>(
+  value: ResponsiveProp<Keys | null>,
+): Readonly<[Keys | null, Keys | null, Keys | null, Keys | null]> => {
   if (
     typeof value === 'string' ||
     typeof value === 'number' ||
-    typeof value === 'boolean'
+    typeof value === 'boolean' ||
+    value === null
   )
     return [value, value, value, value]
 
@@ -116,17 +120,13 @@ export const resolveResponsiveProp = <
     desktopWideValue,
   ] = normalizeResponsiveProp(value)
 
-  return (
-    responsiveAtoms.mobile[mobileValue] +
-    (tabletValue !== mobileValue
-      ? ' ' + responsiveAtoms.tablet[tabletValue]
-      : '') +
-    (desktopValue !== tabletValue
-      ? ' ' + responsiveAtoms.desktop[desktopValue]
-      : '') +
-    (desktopWideValue !== desktopValue
-      ? ' ' + responsiveAtoms.desktopWide[desktopWideValue]
-      : '')
+  // If a responsive value is null, it will return undefined for
+  // the resolved
+  return clsx(
+    responsiveAtoms.mobile[mobileValue as Keys],
+    responsiveAtoms.mobile[tabletValue as Keys],
+    responsiveAtoms.mobile[desktopValue as Keys],
+    responsiveAtoms.mobile[desktopWideValue as Keys],
   )
 }
 
