@@ -67,16 +67,13 @@ export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
  *
  * @returns A tuple containing prop values for all breakpoints.
  */
-export const normalizeResponsiveProp = <
-  Keys extends string | number | boolean | null
->(
-  value: ResponsiveProp<Keys | null>,
+export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
+  value: ResponsiveProp<Keys>,
 ): Readonly<[Keys | null, Keys | null, Keys | null, Keys | null]> => {
   if (
     typeof value === 'string' ||
     typeof value === 'number' ||
-    typeof value === 'boolean' ||
-    value === null
+    typeof value === 'boolean'
   )
     return [value, value, value, value]
 
