@@ -1,7 +1,7 @@
 import { SimplePseudos } from 'csstype'
 import { Style } from 'treat'
 
-type PlainStyle = string | number
+type PlainStyle = string | number | null
 type StyleArray = PlainStyle[] | readonly PlainStyle[]
 
 type CSSProperty = Exclude<keyof Style, '@media'>

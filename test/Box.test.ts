@@ -1,7 +1,14 @@
+import { Page } from 'puppeteer'
+
 import { startFixture, FixtureServer } from './utils/startFixture'
 import { getStyles } from './utils/getStyles'
 
 let server: FixtureServer
+
+//@ts-ignore
+// This is here due to type conflicts between
+// @expect-puppeteer and puppeteers official types.
+const castPage = page as Page
 
 beforeAll(async () => {
   server = await startFixture({
@@ -11,7 +18,7 @@ beforeAll(async () => {
 })
 
 test('background props', async () => {
-  const styles = await getStyles(page, '#background')
+  const styles = await getStyles(castPage, '#background')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -27,7 +34,7 @@ test('background props', async () => {
 })
 
 test('border props', async () => {
-  const styles = await getStyles(page, '#border')
+  const styles = await getStyles(castPage, '#border')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -57,7 +64,7 @@ test('border props', async () => {
 })
 
 test('effect props', async () => {
-  const styles = await getStyles(page, '#effect')
+  const styles = await getStyles(castPage, '#effect')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -68,7 +75,7 @@ test('effect props', async () => {
 })
 
 test('flexbox props', async () => {
-  const styles = await getStyles(page, '#flexbox')
+  const styles = await getStyles(castPage, '#flexbox')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -89,7 +96,7 @@ test('flexbox props', async () => {
 })
 
 test('grid props', async () => {
-  const styles = await getStyles(page, '#grid')
+  const styles = await getStyles(castPage, '#grid')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -111,7 +118,7 @@ test('grid props', async () => {
 })
 
 test('interactivity props', async () => {
-  const styles = await getStyles(page, '#interactivity')
+  const styles = await getStyles(castPage, '#interactivity')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -130,7 +137,7 @@ test('interactivity props', async () => {
 })
 
 test('layout props', async () => {
-  const styles = await getStyles(page, '#layout')
+  const styles = await getStyles(castPage, '#layout')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -149,7 +156,7 @@ test('layout props', async () => {
 })
 
 test('sizing props', async () => {
-  const styles = await getStyles(page, '#sizing')
+  const styles = await getStyles(castPage, '#sizing')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -162,7 +169,7 @@ test('sizing props', async () => {
 })
 
 test('space props', async () => {
-  const styles = await getStyles(page, '#space')
+  const styles = await getStyles(castPage, '#space')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -182,7 +189,7 @@ test('space props', async () => {
 })
 
 test('transition props', async () => {
-  const styles = await getStyles(page, '#transition')
+  const styles = await getStyles(castPage, '#transition')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -194,7 +201,7 @@ test('transition props', async () => {
 })
 
 test('typography props', async () => {
-  const styles = await getStyles(page, '#typography')
+  const styles = await getStyles(castPage, '#typography')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -211,7 +218,7 @@ test('typography props', async () => {
 })
 
 test('hover prop', async () => {
-  const styles = await getStyles(page, '#hover', 'hover')
+  const styles = await getStyles(castPage, '#hover', 'hover')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -222,7 +229,7 @@ test('hover prop', async () => {
 })
 
 test('focus prop', async () => {
-  const styles = await getStyles(page, '#focus', 'focus')
+  const styles = await getStyles(castPage, '#focus', 'focus')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -236,7 +243,7 @@ test('focus prop', async () => {
 })
 
 test('resposnive styles', async () => {
-  const styles = await getStyles(page, '#responsive')
+  const styles = await getStyles(castPage, '#responsive')
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
