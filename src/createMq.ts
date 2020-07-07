@@ -20,6 +20,7 @@ export type MqStyles = Partial<
     | StyleArray
     | Style['selectors']
     | Style['@keyframes']
+    | null
   >
 >
 
@@ -79,21 +80,24 @@ export const createMq = (breakpoints: string[]) => {
 
       if (isPsuedoStyle(style)) {
         const psuedoStyles = Object.entries(style as PsuedoStyle)
-        newObj[cssKey] = newObj[cssKey] ?? {}
 
         for (const [psuedoCssKey, psuedoValue] of psuedoStyles) {
           if (isPlainStyle(psuedoValue)) {
+            newObj[cssKey] = newObj[cssKey] ?? {}
             newObj[cssKey][psuedoCssKey] = psuedoValue as PlainStyle
             continue
           }
 
           for (const [idx, bpStyle] of (psuedoValue as StyleArray).entries()) {
+            if (!bpStyle) continue
             if (idx === 0) {
+              newObj[cssKey] = newObj[cssKey] ?? {}
               newObj[cssKey][psuedoCssKey] = bpStyle
               continue
             }
 
             const mediaQuery = `(min-width: ${breakpoints[idx - 1]})`
+            mediaObj[mediaQuery] = mediaObj[mediaQuery] ?? {}
             mediaObj[mediaQuery][cssKey] = mediaObj[mediaQuery][cssKey] ?? {}
             mediaObj[mediaQuery][cssKey][psuedoCssKey] = bpStyle
           }
@@ -102,6 +106,7 @@ export const createMq = (breakpoints: string[]) => {
       }
 
       for (const [idx, bpStyle] of (style as StyleArray).entries()) {
+        if (!bpStyle) continue
         if (idx === 0) {
           newObj[cssKey] = bpStyle
           continue

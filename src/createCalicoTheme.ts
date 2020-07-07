@@ -60,7 +60,7 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
 
   const x = {
     mediaQueries,
-    mq: createMq(Object.values(theme.breakpoints)),
+    mq: createMq(Object.values(theme.breakpoints).slice(1)),
     ...baseCalicoTheme,
     ...theme,
 
