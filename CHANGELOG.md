@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.7](https://github.com/WalltoWall/calico/compare/v0.3.6...v0.3.7) (2020-07-07)
+
+
+### Bug Fixes
+
+* allow for null in mq function ([29174dd](https://github.com/WalltoWall/calico/commit/29174dde825864daf1abdf0c134f547af30ee7dc))
+* allow for null in types of createmq ([af0d641](https://github.com/WalltoWall/calico/commit/af0d64121f3a26b289f3e7a5dc8d917ce620c0e8))
+
 ### [0.3.6](https://github.com/WalltoWall/calico/compare/v0.3.5...v0.3.6) (2020-07-03)
 
 
