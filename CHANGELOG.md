@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.8](https://github.com/WalltoWall/calico/compare/v0.3.7...v0.3.8) (2020-07-29)
+
+
+### Bug Fixes
+
+* responsive props for numbers and duplicated classnames ([#26](https://github.com/WalltoWall/calico/issues/26)) ([c768b35](https://github.com/WalltoWall/calico/commit/c768b357c8ba0a9b36075f6d25531886021b25dc))
+
 ### [0.3.7](https://github.com/WalltoWall/calico/compare/v0.3.6...v0.3.7) (2020-07-07)
 
 
