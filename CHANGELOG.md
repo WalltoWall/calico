@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.9-remove-fonts.0](https://github.com/WalltoWall/calico/compare/v0.3.8...v0.3.9-remove-fonts.0) (2020-07-29)
+
+
+### Features
+
+* remove fonts theme key ([7295bd7](https://github.com/WalltoWall/calico/commit/7295bd727aa1c7ec67895a4e7a70b9335a2631cd))
+
 ### [0.3.8](https://github.com/WalltoWall/calico/compare/v0.3.7...v0.3.8) (2020-07-29)
 
 
