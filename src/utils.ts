@@ -108,14 +108,15 @@ export const resolveResponsiveProp = <
   responsiveAtoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
 ) => {
   if (value === undefined) return
-  if (typeof value === 'string') return responsiveAtoms.mobile[value]
+  if (typeof value === 'string' || typeof value === 'number')
+    return responsiveAtoms.mobile[value]
 
-  const [
-    mobileValue,
-    tabletValue,
-    desktopValue,
-    desktopWideValue,
-  ] = normalizeResponsiveProp(value)
+  const [mobileValue, tabletValue, desktopValue, desktopWideValue] = value as [
+    Keys,
+    Keys,
+    Keys,
+    Keys,
+  ]
 
   // If a responsive value is null, it will return undefined and wont be included.
   return clsx(
