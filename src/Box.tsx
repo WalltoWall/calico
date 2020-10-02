@@ -76,7 +76,11 @@ export const Box = React.forwardRef(
       ) || undefined
 
     // TODO: Remove in 1.0 release.
-    if (component && !didWarnAboutComponentPropMigration) {
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      component &&
+      !didWarnAboutComponentPropMigration
+    ) {
       console.warn(
         'A Calico <Box> component was found using the `component` prop. The `component` prop is deprecated and has been replaced by the `as` prop and will be removed in v1.0. You should be able to rename `component` to `as` without any other changes.',
       )
