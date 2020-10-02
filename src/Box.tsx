@@ -1,4 +1,8 @@
-import React from 'react'
+import * as React from 'react'
+import {
+  Box as PolymorphicBox,
+  PolymorphicComponentProps,
+} from 'react-polymorphic-box'
 import clsx from 'clsx'
 
 import { SafeReactHTMLAttributes } from './types'
@@ -10,16 +14,13 @@ import {
   BoxFocusProps,
 } from './useBoxStyles'
 
+const defaultElement = 'div'
+
 /**
  * A `<Box />` accepts all standard HTML props in addition to
  * some additional props for styling.
  */
-export type BoxProps = {
-  /** The HTML element to render the `Box` as. */
-  component?: React.ElementType
-
-  children?: React.ReactNode
-
+type CalicoBoxProps = {
   /** The atomic styles to apply to this element. */
   styles?: BoxStylesProps
 
@@ -28,11 +29,15 @@ export type BoxProps = {
 
   /** The atomic hover styles to apply to this element. */
   focusStyles?: BoxFocusProps
-} & SafeReactHTMLAttributes
+} & Omit<SafeReactHTMLAttributes, 'as'>
+
+export type BoxProps<
+  E extends React.ElementType = typeof defaultElement
+> = PolymorphicComponentProps<E, CalicoBoxProps>
 
 /**
  * The basic building block of `calico`. By default, it renders a `<div />` element,
- * but this can be overridden via the `component` prop.
+ * but this can be overridden via the `as` prop.
  *
  * @param props
  *
@@ -40,17 +45,9 @@ export type BoxProps = {
  * const Example = () => <Box styles={{ color: 'red' }} />
  */
 export const Box = React.forwardRef(
-  (
-    {
-      component = 'div',
-      children,
-      className,
-      styles,
-      hoverStyles,
-      focusStyles,
-      ...props
-    }: BoxProps,
-    ref,
+  <E extends React.ElementType = typeof defaultElement>(
+    { styles, hoverStyles, focusStyles, className, ...restProps }: BoxProps<E>,
+    innerRef: typeof restProps.ref,
   ) => {
     const resolvedClassNames =
       clsx(
@@ -60,12 +57,17 @@ export const Box = React.forwardRef(
         className,
       ) || undefined
 
-    return React.createElement(
-      component,
-      { className: resolvedClassNames, ref, ...props },
-      children,
+    return (
+      <PolymorphicBox
+        as={defaultElement}
+        className={resolvedClassNames}
+        {...restProps}
+        ref={innerRef}
+      />
     )
   },
-)
+) as (<E extends React.ElementType = typeof defaultElement>(
+  props: BoxProps<E>,
+) => JSX.Element) & { displayName: string }
 
 Box.displayName = 'Box'

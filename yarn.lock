@@ -7948,6 +7948,11 @@ react-is@^16.12.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-polymorphic-box@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-polymorphic-box/-/react-polymorphic-box-2.0.7.tgz#96c629d3d95c9c7522f375ed833fcb41616f583b"
+  integrity sha512-JDbU9gKwliBMbP9XiqnLqnc314e27eS3B+dlvDRTzDrGiL3IzMsPzJJ9/0KPlruQYJeF2BSbehnHjdr01IXXfQ==
+
 react-treat@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/react-treat/-/react-treat-1.4.1.tgz#682be7bf63ca9f9b9f45251b7bea253227044b4f"
