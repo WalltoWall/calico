@@ -21,6 +21,14 @@ const defaultElement = 'div'
  * some additional props for styling.
  */
 type CalicoBoxProps = {
+  // TODO: Remove in 1.0 release.
+  /**
+   * The HTML element to render the `Box` as.
+   *
+   * @deprecated Use the `as` prop instead.
+   */
+  component?: React.ElementType
+
   /** The atomic styles to apply to this element. */
   styles?: BoxStylesProps
 
@@ -35,6 +43,9 @@ export type BoxProps<
   E extends React.ElementType = typeof defaultElement
 > = PolymorphicComponentProps<E, CalicoBoxProps>
 
+// TODO: Remove in 1.0 release.
+let didWarnAboutComponentPropMigration = false
+
 /**
  * The basic building block of `calico`. By default, it renders a `<div />` element,
  * but this can be overridden via the `as` prop.
@@ -46,7 +57,14 @@ export type BoxProps<
  */
 export const Box = React.forwardRef(
   <E extends React.ElementType = typeof defaultElement>(
-    { styles, hoverStyles, focusStyles, className, ...restProps }: BoxProps<E>,
+    {
+      styles,
+      hoverStyles,
+      focusStyles,
+      className,
+      component,
+      ...restProps
+    }: BoxProps<E>,
     innerRef: typeof restProps.ref,
   ) => {
     const resolvedClassNames =
@@ -57,9 +75,15 @@ export const Box = React.forwardRef(
         className,
       ) || undefined
 
+    // TODO: Remove in 1.0 release.
+    if (component && !didWarnAboutComponentPropMigration)
+      console.warn(
+        'A Calico <Box> component was found using the `component` prop. The `component` prop is deprecated and has been replaced by the `as` prop and will be removed in v1.0. You should be able to rename `component` to `as` without any other changes.',
+      )
+
     return (
       <PolymorphicBox
-        as={defaultElement}
+        as={component || defaultElement}
         className={resolvedClassNames}
         {...restProps}
         ref={innerRef}

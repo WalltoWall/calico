@@ -136,6 +136,7 @@ const App = () => (
       }}
     />
     <Box id="polymorphic" as={CompWithDefaultProps} />
+    <Box id="polymorphic-component-prop" component={CompWithDefaultProps} />
   </>
 )
 

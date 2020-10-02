@@ -4,6 +4,7 @@ import { startFixture, FixtureServer } from './utils/startFixture'
 import { getStyles } from './utils/getStyles'
 
 let server: FixtureServer
+let consoleMessages = [] as { type: string; text: string }[]
 
 //@ts-ignore
 // This is here due to type conflicts between
@@ -14,6 +15,10 @@ beforeAll(async () => {
   server = await startFixture({
     entry: require.resolve('./fixtures/App.tsx'),
   })
+  consoleMessages = []
+  page.on('console', (message) =>
+    consoleMessages.push({ type: message.type(), text: message.text() }),
+  )
   await page.goto(server.url)
 })
 
@@ -260,6 +265,19 @@ test('polymorphic component', async () => {
   })
 
   expect(dataFooVal).toBe('bar')
+})
+
+test('polymorphic component with component prop', async () => {
+  const dataFooVal = await page.evaluate(() => {
+    const el = document.querySelector('#polymorphic-component-prop')
+    return el?.getAttribute?.('data-foo')
+  })
+
+  expect(dataFooVal).toBe('bar')
+  expect(consoleMessages).toContainEqual({
+    type: 'warning',
+    text: expect.stringMatching(/`component` prop.*deprecated/),
+  })
 })
 
 afterAll(() => {
