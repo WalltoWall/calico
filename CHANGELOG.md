@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/WalltoWall/calico/compare/v0.3.8...v0.4.0) (2020-10-03)
+
+
+### Features
+
+* support polymorphic components via react-polymorphic-box ([#31](https://github.com/WalltoWall/calico/issues/31)) ([e7ba84c](https://github.com/WalltoWall/calico/commit/e7ba84ce1f0fda37baf832619234bb988ef3150c))
+
+
+### Bug Fixes
+
+* update all dependencies ([1c71e3f](https://github.com/WalltoWall/calico/commit/1c71e3f6c619e2bcc8c6bb1e6ad5a963d95759eb))
+
 ### [0.3.8](https://github.com/WalltoWall/calico/compare/v0.3.7...v0.3.8) (2020-07-29)
 
 
