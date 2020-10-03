@@ -2,13 +2,13 @@ import { Style } from 'treat'
 import clsx from 'clsx'
 import { Theme } from 'treat/theme'
 import { Properties, SimplePseudos } from 'csstype'
-import * as B from 'fp-ts/es6/boolean'
-import * as R from 'fp-ts/es6/Record'
-import { Semigroup } from 'fp-ts/es6/Semigroup'
-import { pipe } from 'fp-ts/es6/pipeable'
+import * as B from 'fp-ts/boolean'
+import * as R from 'fp-ts/Record'
+import { Semigroup } from 'fp-ts/Semigroup'
+import { pipe } from 'fp-ts/pipeable'
+import { eqNumber } from 'fp-ts/Eq'
 
 import { ResponsiveProp } from './types'
-import { eqNumber } from 'fp-ts/es6/Eq'
 
 /**
  * Creates a Style with a single property.

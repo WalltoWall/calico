@@ -1,6 +1,6 @@
 import { styleTree, styleMap } from 'treat'
-import * as R from 'fp-ts/es6/Record'
-import { pipe } from 'fp-ts/es6/pipeable'
+import * as R from 'fp-ts/Record'
+import { pipe } from 'fp-ts/pipeable'
 
 import { styleSingleton, mapToBreakpoints, mapToPseudo } from './utils'
 

@@ -1,8 +1,8 @@
 import { Style } from 'treat'
 import { Theme } from 'treat/theme'
-import * as R from 'fp-ts/es6/Record'
-import * as O from 'fp-ts/es6/Option'
-import { pipe } from 'fp-ts/es6/pipeable'
+import * as R from 'fp-ts/Record'
+import * as O from 'fp-ts/Option'
+import { pipe } from 'fp-ts/pipeable'
 
 import { makeResponsive, semigroupResponsiveStyle } from './utils'
 import { CalicoTheme } from './createCalicoTheme'

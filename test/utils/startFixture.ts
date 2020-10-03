@@ -14,9 +14,6 @@ const defaultConfig: Configuration = {
   output: { path: '/' },
   resolve: {
     extensions: ['.js', '.json', '.tsx', '.ts'],
-    alias: {
-      'fp-ts/es6': 'fp-ts/lib',
-    },
   },
   module: {
     rules: [

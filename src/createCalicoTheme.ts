@@ -1,7 +1,7 @@
 import { Style } from 'treat'
 import { StandardProperties } from 'csstype'
-import { map } from 'fp-ts/es6/Record'
-import { pipe } from 'fp-ts/es6/pipeable'
+import { map } from 'fp-ts/Record'
+import { pipe } from 'fp-ts/pipeable'
 
 import { rules } from './rules'
 import { variants } from './variants'
