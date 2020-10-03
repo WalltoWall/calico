@@ -2,8 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { TreatProvider } from 'react-treat'
 
-import { Box } from '../../src/Box'
+import { Box, BoxProps } from '../../src/Box'
 import { theme } from './theme.treat'
+
+const CompWithDefaultProps = (props: BoxProps) => (
+  <Box data-foo="bar" {...props} />
+)
 
 const App = () => (
   <>
@@ -131,6 +135,8 @@ const App = () => (
         color: ['black', null, 'white'],
       }}
     />
+    <Box id="polymorphic" as={CompWithDefaultProps} />
+    <Box id="polymorphic-component-prop" component={CompWithDefaultProps} />
   </>
 )
 

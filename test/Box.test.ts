@@ -253,6 +253,24 @@ test('resposnive styles', async () => {
   `)
 })
 
+test('polymorphic component', async () => {
+  const dataFooVal = await page.evaluate(() => {
+    const el = document.querySelector('#polymorphic')
+    return el?.getAttribute?.('data-foo')
+  })
+
+  expect(dataFooVal).toBe('bar')
+})
+
+test('polymorphic component with component prop', async () => {
+  const dataFooVal = await page.evaluate(() => {
+    const el = document.querySelector('#polymorphic-component-prop')
+    return el?.getAttribute?.('data-foo')
+  })
+
+  expect(dataFooVal).toBe('bar')
+})
+
 afterAll(() => {
   server.close()
 })

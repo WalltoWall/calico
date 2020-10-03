@@ -28,7 +28,8 @@
   ],
   "dependencies": {
     "clsx": "^1.1.1",
-    "fp-ts": "^2.6.7"
+    "fp-ts": "^2.6.7",
+    "react-polymorphic-box": "^2.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
