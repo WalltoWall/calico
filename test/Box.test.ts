@@ -242,7 +242,7 @@ test('focus prop', async () => {
   `)
 })
 
-test('resposnive styles', async () => {
+test('responsive styles', async () => {
   const styles = await getStyles(castPage, '#responsive')
 
   expect(styles).toMatchInlineSnapshot(`
