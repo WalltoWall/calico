@@ -29,16 +29,6 @@ export const theme = createCalicoTheme({
     desktopWide: '90rem',
   },
 
-  // Fonts
-  fonts: {
-    sans: {
-      stack: 'system-ui',
-      baseFontHeight: 11,
-      descenderHeightScale: 0.12,
-      capHeightScale: 0.685,
-    },
-  },
-
   rules: {
     color: colors,
     borderColor: colors,

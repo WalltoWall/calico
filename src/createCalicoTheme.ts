@@ -12,17 +12,6 @@ type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 export interface CreateCalicoThemeInput {
   breakpoints: Record<BreakpointKeys, string>
 
-  baseFontSize?: number
-  fonts?: Record<
-    string,
-    {
-      stack: string
-      baseFontHeight: number
-      descenderHeightScale: number
-      capHeightScale: number
-    }
-  >
-
   mq?: (mqStyles: MqStyles) => Style
 
   rules?: {
@@ -37,7 +26,6 @@ export interface CreateCalicoThemeInput {
 }
 
 export const baseCalicoTheme = {
-  baseFontSize: 16,
   rules,
   variants,
 } as const
