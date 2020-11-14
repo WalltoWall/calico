@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/WalltoWall/calico/compare/v0.4.0...v0.5.0) (2020-11-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removes support for Capsize-like font utilities. Use
+Capsize directly instead.
+
+- Removes `mapFontsets` helper.
+- Removes `baseFontSize` top-level theme key
+- Removes `fonts` top-level theme key
+
+### Features
+
+* remove capsize-like font utilities ([03e5bc6](https://github.com/WalltoWall/calico/commit/03e5bc6c2c23b167944ddc7f1cd4491ef1f366c1))
+
 ## [0.4.0](https://github.com/WalltoWall/calico/compare/v0.3.8...v0.4.0) (2020-10-03)
 
 
