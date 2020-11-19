@@ -22,7 +22,7 @@ type Rules<K extends keyof StandardProperties> = Partial<
 >
 
 /**
- * Record of CSS properties to set of variants to generate. Variants include
+ * Record of CSS properties to a set of variants to generate. Variants include
  * pseudo-classes such as `:hover` and `:focus`.
  */
 type Variants<K extends keyof StandardProperties> = Partial<
