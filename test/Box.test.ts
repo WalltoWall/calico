@@ -271,6 +271,28 @@ test('polymorphic component with component prop', async () => {
   expect(dataFooVal).toBe('bar')
 })
 
+test('polymorphic element type', async () => {
+  // We are just checking that the `as` prop maps to an appropriate underlying
+  // HTML element in the type system. We do this by rendering a `<Box>` as an
+  // `input` and adding an `onChange` prop. The prop's function should be typed
+  // with a React.FormEvent<HTMLInputElement> event containing a `value`
+  // property.
+  //
+  // @see ./fixtures/App.tsx with <Box id="polymorphic-element-type" />
+  expect(true).toBe(true)
+})
+
+test('polymorphic element type with component', async () => {
+  // We are just checking that the `as` prop maps to an appropriate underlying
+  // HTML element in the type system. We do this by rendering a `<Box>` as a
+  // `Box` and adding an `onChange` prop. The prop's function should be typed
+  // with a React.FormEvent<Element> event *not* containing a `value` property.
+  // We check this with a `// @ts-expect-error` comment.
+  //
+  // @see ./fixtures/App.tsx with <Box id="polymorphic-element-type-with-component" />
+  expect(true).toBe(true)
+})
+
 afterAll(() => {
   server.close()
 })

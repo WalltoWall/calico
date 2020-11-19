@@ -16,10 +16,6 @@ import {
 
 const defaultElement = 'div'
 
-/**
- * A `<Box />` accepts all standard HTML props in addition to
- * some additional props for styling.
- */
 type CalicoBoxProps<E = Element> = {
   // TODO: Remove in 1.0 release.
   /**
@@ -39,9 +35,13 @@ type CalicoBoxProps<E = Element> = {
   focusStyles?: BoxFocusProps
 } & Omit<SafeReactHTMLAttributes<E>, 'as'>
 
+/**
+ * A `<Box />` accepts all standard HTML props in addition to some additional
+ * props for styling.
+ */
 export type BoxProps<
   E extends React.ElementType = typeof defaultElement,
-  F = Element
+  F = E extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[E] : Element
 > = PolymorphicComponentProps<E, CalicoBoxProps<F>>
 
 // TODO: Remove in 1.0 release.
