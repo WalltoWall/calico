@@ -20,7 +20,7 @@ const defaultElement = 'div'
  * A `<Box />` accepts all standard HTML props in addition to
  * some additional props for styling.
  */
-type CalicoBoxProps = {
+type CalicoBoxProps<E = Element> = {
   // TODO: Remove in 1.0 release.
   /**
    * The HTML element to render the `Box` as.
@@ -37,11 +37,12 @@ type CalicoBoxProps = {
 
   /** The atomic hover styles to apply to this element. */
   focusStyles?: BoxFocusProps
-} & Omit<SafeReactHTMLAttributes, 'as'>
+} & Omit<SafeReactHTMLAttributes<E>, 'as'>
 
 export type BoxProps<
-  E extends React.ElementType = typeof defaultElement
-> = PolymorphicComponentProps<E, CalicoBoxProps>
+  E extends React.ElementType = typeof defaultElement,
+  F = Element
+> = PolymorphicComponentProps<E, CalicoBoxProps<F>>
 
 // TODO: Remove in 1.0 release.
 let didWarnAboutComponentPropMigration = false
