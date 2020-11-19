@@ -11,7 +11,7 @@ import {
   usePseudoBoxStyles,
   BoxHoverProps,
   BoxFocusProps,
-  _BoxStylesProps,
+  BoxStylesProps,
 } from './useBoxStyles'
 
 const defaultElement = 'div'
@@ -30,7 +30,7 @@ type CalicoBoxProps = {
   component?: React.ElementType
 
   /** The atomic styles to apply to this element. */
-  styles?: _BoxStylesProps
+  styles?: BoxStylesProps
 
   /** The atomic hover styles to apply to this element. */
   hoverStyles?: BoxHoverProps

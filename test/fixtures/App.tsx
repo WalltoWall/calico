@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { TreatProvider } from 'react-treat'
-
 import { Box, BoxProps } from '../../src/Box'
 import { theme } from './theme.treat'
 
@@ -135,6 +134,8 @@ const App = () => (
         color: ['black', null, 'white'],
       }}
     />
+    <Box id="polymorphic" as={CompWithDefaultProps} />
+    <Box id="polymorphic-component-prop" component={CompWithDefaultProps} />
     <Box
       id="aliases"
       styles={{
@@ -142,8 +143,6 @@ const App = () => (
         paddingX: 2,
       }}
     />
-    <Box id="polymorphic" as={CompWithDefaultProps} />
-    <Box id="polymorphic-component-prop" component={CompWithDefaultProps} />
   </>
 )
 

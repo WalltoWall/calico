@@ -271,6 +271,12 @@ test('polymorphic component with component prop', async () => {
   expect(dataFooVal).toBe('bar')
 })
 
+test('prop aliases', async () => {
+  const styles = await getStyles(castPage, '#aliases')
+
+  expect(styles).toMatchInlineSnapshot()
+})
+
 afterAll(() => {
   server.close()
 })
