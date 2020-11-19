@@ -16,6 +16,14 @@ export type BoxStylesProps = {
   [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
 }
 
+export type _BoxStylesProps = {
+  [K in keyof Theme['aliases'] | keyof Theme['rules']]?: ResponsiveProp<
+    K extends keyof Theme['rules']
+      ? keyof Theme['rules'][K]
+      : keyof Theme['rules'][Theme['aliases'][K][number]]
+  >
+}
+
 export type BoxHoverProps = NotUndefOrNever<
   {
     [K in keyof Theme['variants']]?: NonNullable<
@@ -36,7 +44,8 @@ export type BoxFocusProps = NotUndefOrNever<
   }
 >
 
-const resolveClassNames = (props: BoxStylesProps | undefined, styles: any) => {
+// TODO: Make this work with aliases.
+const resolveClassNames = (props: _BoxStylesProps | undefined, styles: any) => {
   if (props === undefined) return
 
   let resolvedClassNames: (string | undefined)[] = []
@@ -45,6 +54,7 @@ const resolveClassNames = (props: BoxStylesProps | undefined, styles: any) => {
     const value = props[key as keyof Theme['rules']]
     if (value === null || value === undefined) continue
 
+    // TODO: Something around here
     resolvedClassNames.push(
       resolveResponsiveProp(value, styles[key as keyof Theme['rules']]),
     )
@@ -60,7 +70,7 @@ const resolveClassNames = (props: BoxStylesProps | undefined, styles: any) => {
  * @param styles - The object of styles to map to `className`s
  * @returns A string containing the resolved `className`s.
  */
-export function useBoxStyles(styles: BoxStylesProps | undefined): string {
+export function useBoxStyles(styles: _BoxStylesProps | undefined): string {
   const boxStyles = useStyles(styleRefs)
 
   return clsx(resolveClassNames(styles, boxStyles.styles))

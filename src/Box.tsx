@@ -9,9 +9,9 @@ import { SafeReactHTMLAttributes } from './types'
 import {
   useBoxStyles,
   usePseudoBoxStyles,
-  BoxStylesProps,
   BoxHoverProps,
   BoxFocusProps,
+  _BoxStylesProps,
 } from './useBoxStyles'
 
 const defaultElement = 'div'
@@ -30,7 +30,7 @@ type CalicoBoxProps = {
   component?: React.ElementType
 
   /** The atomic styles to apply to this element. */
-  styles?: BoxStylesProps
+  styles?: _BoxStylesProps
 
   /** The atomic hover styles to apply to this element. */
   hoverStyles?: BoxHoverProps

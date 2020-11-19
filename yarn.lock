@@ -2335,10 +2335,10 @@ babel-plugin-jest-hoist@^26.6.2:
     "@types/babel__core" "^7.0.0"
     "@types/babel__traverse" "^7.0.6"
 
-babel-plugin-treat@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-treat/-/babel-plugin-treat-1.1.0.tgz#82fc26c9dc46cc075e13116e738456bc63ee0edc"
-  integrity sha512-7T5q8BD1P88E0pN803/Me/Hix19kmfJcR5vFEeXwQEoT1aQ3kmKsH95NCB4B3BvZr7gqlofDbGOhgNWYhPWAyw==
+babel-plugin-treat@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-treat/-/babel-plugin-treat-1.6.2.tgz#f718ce6bcca9237b00d68134a83e8e338472513d"
+  integrity sha512-wGqu14P09Y7L9CVcnUDxSOaOS/+A5n8PnEGg+2Vk837gB7OJ94N9974jb7qfm2kTw5pWKoEVW0N2yIVQCw10tw==
 
 babel-preset-current-node-syntax@^1.0.0:
   version "1.0.0"
@@ -9268,10 +9268,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.5.tgz#ae9dddfd1069f1cb5beb3ef3b2170dd7c1332389"
-  integrity sha512-ywmr/VrTVCmNTJ6iV2LwIrfG1P+lv6luD8sUJs+2eI9NLGigaN+nUQc13iHqisq7bra9lnmUSYqbJvegraBOPQ==
+typescript@^4.1.0-beta:
+  version "4.1.0-beta"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.0-beta.tgz#e4d054035d253b7a37bdc077dd71706508573e69"
+  integrity sha512-b/LAttdVl3G6FEmnMkDsK0xvfvaftXpSKrjXn+OVCRqrwz5WD/6QJOiN+dTorqDY+hkaH+r2gP5wI1jBDmdQ7A==
 
 uglify-js@^3.1.4:
   version "3.11.0"

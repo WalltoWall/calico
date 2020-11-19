@@ -73,4 +73,11 @@ export const theme = createCalicoTheme({
       fast: '100ms',
     },
   },
+
+  aliases: {
+    marginX: ['marginLeft', 'marginRight'],
+    marginY: ['marginTop', 'marginBottom'],
+    paddingX: ['paddingLeft', 'paddingRight'],
+    paddingY: ['paddingTop', 'paddingBottom'],
+  },
 })

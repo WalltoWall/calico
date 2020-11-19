@@ -7,27 +7,31 @@ import { rules } from './rules'
 import { variants } from './variants'
 import { createMq, MqStyles } from './createMq'
 
-type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
+type CSSProperties = keyof StandardProperties<string | number>
 
-export interface CreateCalicoThemeInput {
-  breakpoints: Record<BreakpointKeys, string>
+type Rules = {
+  [P in CSSProperties]?: Record<
+    string | number,
+    NonNullable<StandardProperties<string | number>[P]>
+  >
+}
+type Variants = {
+  [P in CSSProperties]?: Partial<Record<'hover' | 'focus', true>>
+}
+type Aliases<T extends string | number | symbol> = Record<T, CSSProperties[]>
 
+export interface CreateCalicoThemeInput<T extends string | number | symbol> {
+  breakpoints: Record<'mobile' | 'tablet' | 'desktop' | 'desktopWide', string>
   mq?: (mqStyles: MqStyles) => Style
-
-  rules?: {
-    [P in keyof StandardProperties]?: Record<
-      string | number,
-      NonNullable<StandardProperties<string | number>[P]>
-    >
-  }
-  variants?: {
-    [P in keyof StandardProperties]?: Partial<Record<'hover' | 'focus', true>>
-  }
+  rules?: Rules
+  variants?: Variants
+  aliases?: Aliases<T>
 }
 
 export const baseCalicoTheme = {
   rules,
   variants,
+  aliases: {},
 } as const
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
@@ -38,7 +42,9 @@ export type CalicoTheme = ReturnType<typeof createCalicoTheme>
  * @param theme Your theme object.
  * @returns The merged theme object.
  */
-export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
+export const createCalicoTheme = <
+  T extends CreateCalicoThemeInput<keyof T['aliases']>
+>(
   theme: T,
 ) => {
   const mediaQueries = pipe(
@@ -61,6 +67,8 @@ export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
       ...baseCalicoTheme.variants,
       ...theme.variants,
     },
+
+    aliases: theme.aliases,
   } as const
 
   return x

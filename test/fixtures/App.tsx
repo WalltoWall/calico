@@ -135,6 +135,13 @@ const App = () => (
         color: ['black', null, 'white'],
       }}
     />
+    <Box
+      id="aliases"
+      styles={{
+        marginX: 'auto',
+        paddingX: 2,
+      }}
+    />
     <Box id="polymorphic" as={CompWithDefaultProps} />
     <Box id="polymorphic-component-prop" component={CompWithDefaultProps} />
   </>
