@@ -42,7 +42,6 @@ export type BoxFocusProps = NotUndefOrNever<
   }
 >
 
-// TODO: Refactor to create aliases at build time if we can get purgeCSS working.
 const resolveClassNames = (
   props: BoxStylesProps | undefined,
   styles: any,
@@ -57,12 +56,15 @@ const resolveClassNames = (
     const value = props[key]
     if (value === null || value === undefined) continue
 
+    // TODO: Refactor to create aliases at build time if we can get purgeCSS working.
     if (aliasNames.includes(key)) {
-      calicoTheme.aliases[key].forEach((cssProperty) => {
+      calicoTheme.aliases[key].forEach((cssProperty) =>
         resolvedClassNames.push(
           resolveResponsiveProp(value, styles[cssProperty]),
-        )
-      })
+        ),
+      )
+
+      continue
     }
 
     resolvedClassNames.push(resolveResponsiveProp(value, styles[key]))
