@@ -7,12 +7,12 @@ import { pipe } from 'fp-ts/pipeable'
 import { createMq } from './createMq'
 
 // TODO: Do not hardcode this.
-type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
+export type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 
 /**
  * Record of identifiers to CSS rules.
  */
-type Rules<K extends keyof StandardProperties> = Partial<
+export type Rules<K extends keyof StandardProperties> = Partial<
   {
     [P in K]: Record<
       string | number,
@@ -25,31 +25,29 @@ type Rules<K extends keyof StandardProperties> = Partial<
  * Record of CSS properties to a set of variants to generate. Variants include
  * pseudo-classes such as `:hover` and `:focus`.
  */
-type Variants<K extends keyof StandardProperties> = Partial<
+export type Variants<K extends keyof StandardProperties> = Partial<
   Record<K, Partial<Record<'hover' | 'focus', true>>>
 >
 
 export interface CreateCalicoThemeInput<
-  TBreakpointKeys extends BreakpointKeys,
-  TRulesKeys extends keyof StandardProperties,
-  TRules extends Rules<TRulesKeys>,
-  TVariantKeys extends TRulesKeys,
-  TVariants extends Variants<TVariantKeys>
+  TBreakpointKeys extends BreakpointKeys = BreakpointKeys,
+  TRulesKeys extends keyof StandardProperties = never,
+  TRules extends Rules<TRulesKeys> = {},
+  TVariantKeys extends TRulesKeys = never,
+  TVariants extends Variants<TVariantKeys> = {}
 > {
-  breakpoints: Record<TBreakpointKeys, string>
+  breakpoints?: Record<TBreakpointKeys, string>
   rules?: TRules
   variants?: TVariants
-  // TODO: Is there any need to allow users to provide these values?
-  // mediaQueries?: Record<TBreakpointKeys, string>
-  // mq?: (mqStyles: MqStyles) => Style
 }
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
 
 /**
- * Creates a `treat` compatible theme object that merges with the default calico rules.
+ * Creates a treat compatible theme object that merges with the default Calico rules.
  *
  * @param theme Your theme object.
+ *
  * @returns The merged theme object.
  */
 export const createCalicoTheme = <
@@ -68,11 +66,11 @@ export const createCalicoTheme = <
   >,
 ) => {
   const mediaQueries = pipe(
-    theme.breakpoints,
+    theme.breakpoints ?? {},
     R.map((value) => `screen and (min-width: ${value})`),
   )
   const mq = pipe(
-    theme.breakpoints,
+    theme.breakpoints ?? {},
     R.collect((_, val) => val),
     A.tail,
     O.getOrElse(() => [] as string[]),
@@ -80,7 +78,7 @@ export const createCalicoTheme = <
   )
 
   return {
-    breakpoints: theme.breakpoints,
+    breakpoints: theme.breakpoints ?? {},
     mediaQueries,
     mq,
     rules: theme.rules ?? ({} as TRules),

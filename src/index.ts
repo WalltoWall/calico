@@ -19,4 +19,4 @@ export * from './types'
 export { theme as sensibleTheme } from './themes/sensible'
 export { theme as grid12ColumnTheme } from './themes/grid-12-column'
 
-export { mergeThemes } from './mergeThemes'
+export { mergeCalicoThemes } from './mergeCalicoThemes'
