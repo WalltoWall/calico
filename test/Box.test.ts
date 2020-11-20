@@ -274,7 +274,15 @@ test('polymorphic component with component prop', async () => {
 test('prop aliases', async () => {
   const styles = await getStyles(castPage, '#aliases')
 
-  expect(styles).toMatchInlineSnapshot()
+  expect(styles).toMatchInlineSnapshot(`
+    Object {
+      "display": "block",
+      "margin-left": "auto",
+      "margin-right": "auto",
+      "padding-left": ".25rem",
+      "padding-right": ".25rem",
+    }
+  `)
 })
 
 afterAll(() => {

@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { TreatProvider } from 'react-treat'
 import { Box, BoxProps } from '../../src/Box'
-import { theme } from './theme.treat'
+import { CalicoProvider } from '../../src/CalicoProvider'
+import { theme as treatTheme } from './theme.treat'
+import { theme as calicoTheme } from './theme'
 
 const CompWithDefaultProps = (props: BoxProps) => (
   <Box data-foo="bar" {...props} />
@@ -140,15 +141,15 @@ const App = () => (
       id="aliases"
       styles={{
         marginX: 'auto',
-        paddingX: 2,
+        paddingX: 1,
       }}
     />
   </>
 )
 
 ReactDOM.render(
-  <TreatProvider theme={theme}>
-    <App />,
-  </TreatProvider>,
+  <CalicoProvider treatTheme={treatTheme} calicoTheme={calicoTheme}>
+    <App />
+  </CalicoProvider>,
   document.body.appendChild(document.createElement('div')),
 )
