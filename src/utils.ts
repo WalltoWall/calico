@@ -2,12 +2,16 @@ import { Style } from 'treat'
 import clsx from 'clsx'
 import { Theme } from 'treat/theme'
 import { Properties, SimplePseudos } from 'csstype'
-import * as B from 'fp-ts/boolean'
+import * as A from 'fp-ts/Array'
 import * as R from 'fp-ts/Record'
+import * as S from 'fp-ts/Semigroup'
+import * as Ord from 'fp-ts/Ord'
+import * as Tup from 'fp-ts/Tuple'
+import * as B from 'fp-ts/boolean'
 import { pipe } from 'fp-ts/function'
 import { eqNumber } from 'fp-ts/Eq'
 
-import { ResponsiveProp } from './types'
+import { Breakpoints, ResponsiveProp } from './types'
 
 /**
  * Creates a Style with a single property.
@@ -110,29 +114,29 @@ export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
  *
  * @returns A stringified list of class names.
  */
-export const resolveResponsiveProp = <
-  Keys extends string | number = string | number
->(
-  value: ResponsiveProp<Keys> | undefined,
-  responsiveAtoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
+export const resolveResponsiveProp = <K extends string | number>(
+  value: ResponsiveProp<K> | undefined,
+  responsiveAtoms: Record<keyof Theme['breakpoints'], Record<K, string>>,
 ) => {
   if (value === undefined) return
-  if (typeof value === 'string' || typeof value === 'number')
-    return responsiveAtoms.mobile[value]
+  if (typeof value === 'string' || typeof value === 'number') {
+    const smallestBreakpoint = Object.keys(responsiveAtoms)[0]
+    return responsiveAtoms[smallestBreakpoint][value]
+  }
 
   const [mobileValue, tabletValue, desktopValue, desktopWideValue] = value as [
-    Keys,
-    Keys,
-    Keys,
-    Keys,
+    K,
+    K,
+    K,
+    K,
   ]
 
   // If a responsive value is null, it will return undefined and wont be included.
   return clsx(
-    responsiveAtoms.mobile[mobileValue as Keys],
-    responsiveAtoms.tablet[tabletValue as Keys],
-    responsiveAtoms.desktop[desktopValue as Keys],
-    responsiveAtoms.desktopWide[desktopWideValue as Keys],
+    responsiveAtoms.mobile[mobileValue as K],
+    responsiveAtoms.tablet[tabletValue as K],
+    responsiveAtoms.desktop[desktopValue as K],
+    responsiveAtoms.desktopWide[desktopWideValue as K],
   )
 }
 
@@ -152,3 +156,29 @@ export const mapToBreakpoints = (theme: Theme) => (
       pipe(atoms, R.map(makeResponsive(breakpointName, theme))),
     ),
   )
+
+const breakpointOrd: Ord.Ord<string> = {
+  equals: (x, y) => x === y,
+  compare: (x, y) =>
+    Ord.ordNumber.compare(Number.parseFloat(x), Number.parseFloat(y)),
+}
+
+const byBreakpointTupleSnd = Ord.ord.contramap(
+  breakpointOrd,
+  ([_fst, snd]: [string, string]) => snd,
+)
+
+export const sortBreakpointsAsc = <K extends string>(
+  breakpoints: Breakpoints<K>,
+): Breakpoints<K> =>
+  pipe(breakpoints, R.toArray, A.sortBy([byBreakpointTupleSnd]), (tuples) =>
+    R.fromFoldableMap(S.getLastSemigroup<string>(), A.array)(
+      tuples,
+      ([key, val]) => [key, val],
+    ),
+  )
+
+export const getSortedBreakpointKeys = <K extends string>(
+  breakpoints: Breakpoints<K>,
+): K[] =>
+  pipe(breakpoints, R.toArray, A.sortBy([byBreakpointTupleSnd]), A.map(Tup.fst))
