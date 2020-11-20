@@ -47,7 +47,9 @@ export type Aliases<
 
 export interface CreateCalicoThemeInput<
   TBreakpointKeys extends string = BreakpointKeys,
-  TBreakpoints extends Partial<Breakpoints<TBreakpointKeys>> = {},
+  TBreakpoints extends Breakpoints<TBreakpointKeys> = Breakpoints<
+    TBreakpointKeys
+  >,
   TRulesKeys extends keyof StandardProperties = never,
   TRules extends Rules<TRulesKeys> = {},
   TVariantKeys extends TRulesKeys = never,
