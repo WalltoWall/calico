@@ -1,20 +1,24 @@
 import * as React from 'react'
 import { StandardProperties } from 'csstype'
 
+// type Prepend<I, T extends unknown[]> = [I, ...T]
+// type Append<I, T extends unknown[]> = [...T, I]
+
+type ResponsivePropElements<AtomName> = (AtomName | null)[]
+
 export type ResponsiveProp<AtomName> =
   | AtomName
-  | Readonly<[AtomName | null, AtomName]>
-  | Readonly<[AtomName | null, AtomName | null, AtomName]>
-  | Readonly<[AtomName | null, AtomName | null, AtomName | null, AtomName]>
+  // | Append<AtomName, Prepend<AtomName | null, (AtomName | null)[]>>
+  | [
+      AtomName | null,
+      AtomName | null,
+      ...ResponsivePropElements<AtomName>,
+      AtomName,
+    ]
 
 export type SafeReactHTMLAttributes = React.AllHTMLAttributes<'div'> & {
   loading?: string
 }
-
-/**
- * Record of breakpoint identifiers to media query minimum widths.
- */
-export type Breakpoints<K extends string> = Record<K, string>
 
 /**
  * Record of identifiers to CSS rules.

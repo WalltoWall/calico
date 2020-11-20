@@ -1,7 +1,7 @@
 import {
   createCalicoTheme,
   grid12ColumnTheme,
-  mergeCalicoThemes,
+  mergeCalicoTokens,
   sensibleTheme,
 } from '../../src'
 
@@ -26,14 +26,9 @@ const colors = {
 }
 
 export const theme = createCalicoTheme(
-  mergeCalicoThemes(sensibleTheme, grid12ColumnTheme, {
+  mergeCalicoTokens(sensibleTheme, grid12ColumnTheme, {
     // Sizes
-    breakpoints: {
-      mobile: '0rem',
-      tablet: '48rem',
-      desktop: '75rem',
-      desktopWide: '90rem',
-    },
+    breakpoints: ['0', '48rem', '75rem'],
 
     rules: {
       color: colors,
