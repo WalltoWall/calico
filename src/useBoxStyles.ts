@@ -58,7 +58,7 @@ const resolveClassNames = (
 
     // TODO: Refactor to create aliases at build time if we can get purgeCSS working.
     if (aliasNames.includes(key)) {
-      calicoTheme.aliases[key].forEach((cssProperty) =>
+      calicoTheme.aliases[key]!.forEach((cssProperty) =>
         resolvedClassNames.push(
           resolveResponsiveProp(value, styles[cssProperty]),
         ),

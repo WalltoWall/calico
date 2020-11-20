@@ -43,7 +43,7 @@ export type Variants<K extends keyof StandardProperties> = Partial<
 export type Aliases<
   K extends string | number | symbol,
   R extends keyof StandardProperties
-> = Partial<Record<K, Readonly<R[]>>>
+> = Record<K, Readonly<R[]>>
 
 export interface CreateCalicoThemeInput<
   TBreakpointKeys extends string = BreakpointKeys,
@@ -55,7 +55,10 @@ export interface CreateCalicoThemeInput<
   TVariantKeys extends TRulesKeys = never,
   TVariants extends Variants<TVariantKeys> = {},
   TAliasKeys extends string | number | symbol = never,
-  TAliases extends Aliases<TAliasKeys, TRulesKeys> = {}
+  TAliases extends Aliases<TAliasKeys, TRulesKeys> = Aliases<
+    TAliasKeys,
+    TRulesKeys
+  >
 > {
   breakpoints?: TBreakpoints
   rules?: TRules
