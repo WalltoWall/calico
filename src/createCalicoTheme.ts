@@ -5,9 +5,15 @@ import * as O from 'fp-ts/Option'
 import { pipe } from 'fp-ts/pipeable'
 
 import { createMq } from './createMq'
+import { minWidthMediaQuery } from './utils'
 
 // TODO: Do not hardcode this.
 export type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
+
+/**
+ * Record of breakpoint identifiers to media query minimum widths.
+ */
+export type Breakpoints<K extends string> = Record<K, string>
 
 /**
  * Record of identifiers to CSS rules.
@@ -30,13 +36,14 @@ export type Variants<K extends keyof StandardProperties> = Partial<
 >
 
 export interface CreateCalicoThemeInput<
-  TBreakpointKeys extends BreakpointKeys = BreakpointKeys,
+  TBreakpointKeys extends string = BreakpointKeys,
+  TBreakpoints extends Partial<Breakpoints<TBreakpointKeys>> = {},
   TRulesKeys extends keyof StandardProperties = never,
   TRules extends Rules<TRulesKeys> = {},
   TVariantKeys extends TRulesKeys = never,
   TVariants extends Variants<TVariantKeys> = {}
 > {
-  breakpoints?: Record<TBreakpointKeys, string>
+  breakpoints?: TBreakpoints
   rules?: TRules
   variants?: TVariants
 }
@@ -51,7 +58,8 @@ export type CalicoTheme = ReturnType<typeof createCalicoTheme>
  * @returns The merged theme object.
  */
 export const createCalicoTheme = <
-  TBreakpointKeys extends BreakpointKeys,
+  TBreakpointKeys extends string,
+  TBreakpoints extends Breakpoints<TBreakpointKeys>,
   TRulesKeys extends keyof StandardProperties,
   TRules extends Rules<TRulesKeys>,
   TVariantKeys extends TRulesKeys,
@@ -59,6 +67,7 @@ export const createCalicoTheme = <
 >(
   theme: CreateCalicoThemeInput<
     TBreakpointKeys,
+    TBreakpoints,
     TRulesKeys,
     TRules,
     TVariantKeys,
@@ -66,9 +75,10 @@ export const createCalicoTheme = <
   >,
 ) => {
   const mediaQueries = pipe(
-    theme.breakpoints ?? {},
-    R.map((value) => `screen and (min-width: ${value})`),
+    theme.breakpoints ?? ({} as TBreakpoints),
+    R.map(minWidthMediaQuery),
   )
+
   const mq = pipe(
     theme.breakpoints ?? {},
     R.collect((_, val) => val),
@@ -78,7 +88,7 @@ export const createCalicoTheme = <
   )
 
   return {
-    breakpoints: theme.breakpoints ?? {},
+    breakpoints: theme.breakpoints ?? ({} as TBreakpoints),
     mediaQueries,
     mq,
     rules: theme.rules ?? ({} as TRules),
