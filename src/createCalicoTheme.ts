@@ -29,16 +29,29 @@ export type Variants<K extends keyof StandardProperties> = Partial<
   Record<K, Partial<Record<'hover' | 'focus', true>>>
 >
 
+/**
+ * Record of custom property aliases to a set of CSS Properties to map to.
+ * @example
+ * let aliases = { marginX: ['marginLeft', 'marginRight'] }
+ */
+export type Aliases<
+  K extends string | number | symbol,
+  R extends keyof StandardProperties
+> = Partial<Record<K, Readonly<R[]>>>
+
 export interface CreateCalicoThemeInput<
   TBreakpointKeys extends BreakpointKeys = BreakpointKeys,
   TRulesKeys extends keyof StandardProperties = never,
   TRules extends Rules<TRulesKeys> = {},
   TVariantKeys extends TRulesKeys = never,
-  TVariants extends Variants<TVariantKeys> = {}
+  TVariants extends Variants<TVariantKeys> = {},
+  TAliasKeys extends string | number | symbol = never,
+  TAliases extends Aliases<TAliasKeys, TRulesKeys> = {}
 > {
   breakpoints?: Record<TBreakpointKeys, string>
   rules?: TRules
   variants?: TVariants
+  aliases?: TAliases
 }
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
@@ -55,14 +68,18 @@ export const createCalicoTheme = <
   TRulesKeys extends keyof StandardProperties,
   TRules extends Rules<TRulesKeys>,
   TVariantKeys extends TRulesKeys,
-  TVariants extends Variants<TVariantKeys>
+  TVariants extends Variants<TVariantKeys>,
+  TAliasKeys extends string | number | symbol,
+  TAliases extends Aliases<TAliasKeys, TRulesKeys>
 >(
   theme: CreateCalicoThemeInput<
     TBreakpointKeys,
     TRulesKeys,
     TRules,
     TVariantKeys,
-    TVariants
+    TVariants,
+    TAliasKeys,
+    TAliases
   >,
 ) => {
   const mediaQueries = pipe(
@@ -83,5 +100,6 @@ export const createCalicoTheme = <
     mq,
     rules: theme.rules ?? ({} as TRules),
     variants: theme.variants ?? ({} as TVariants),
+    aliases: theme.aliases ?? ({} as TAliases),
   }
 }

@@ -6,6 +6,7 @@ import {
 } from '../../src'
 
 export type Theme = typeof theme
+type Foo = Theme['aliases']
 
 const space = {
   auto: 'auto',
@@ -77,13 +78,6 @@ export const theme = createCalicoTheme(
         normal: '200ms',
         fast: '100ms',
       },
-    },
-
-    aliases: {
-      marginX: ['marginLeft', 'marginRight'],
-      marginY: ['marginTop', 'marginBottom'],
-      paddingX: ['paddingLeft', 'paddingRight'],
-      paddingY: ['paddingTop', 'paddingBottom'],
     },
   } as const),
 )

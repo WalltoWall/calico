@@ -140,8 +140,8 @@ const App = () => (
     <Box
       id="aliases"
       styles={{
-        marginX: 'auto',
-        paddingX: 1,
+        mx: 'auto',
+        px: 1,
       }}
     />
   </>
