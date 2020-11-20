@@ -4,8 +4,7 @@ import { Theme } from 'treat/theme'
 import { Properties, SimplePseudos } from 'csstype'
 import * as B from 'fp-ts/boolean'
 import * as R from 'fp-ts/Record'
-import { Semigroup } from 'fp-ts/Semigroup'
-import { pipe } from 'fp-ts/pipeable'
+import { pipe } from 'fp-ts/function'
 import { eqNumber } from 'fp-ts/Eq'
 
 import { ResponsiveProp } from './types'
@@ -125,17 +124,6 @@ export const resolveResponsiveProp = <
     responsiveAtoms.desktop[desktopValue as Keys],
     responsiveAtoms.desktopWide[desktopWideValue as Keys],
   )
-}
-
-export const semigroupResponsiveStyle: Semigroup<Style> = {
-  concat: (x, y) => ({
-    ...x,
-    ...y,
-    '@media': {
-      ...y['@media'],
-      ...x['@media'],
-    },
-  }),
 }
 
 /**

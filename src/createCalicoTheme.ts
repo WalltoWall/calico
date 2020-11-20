@@ -1,75 +1,87 @@
-import { Style } from 'treat'
 import { StandardProperties } from 'csstype'
-import { map } from 'fp-ts/Record'
+import * as R from 'fp-ts/Record'
+import * as A from 'fp-ts/Array'
+import * as O from 'fp-ts/Option'
 import { pipe } from 'fp-ts/pipeable'
 
-import { rules } from './rules'
-import { variants } from './variants'
-import { createMq, MqStyles } from './createMq'
+import { createMq } from './createMq'
 
-type CSSProperties = keyof StandardProperties<string | number>
+// TODO: Do not hardcode this.
+export type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
 
-type Rules = {
-  [P in CSSProperties]?: Record<
-    string | number,
-    NonNullable<StandardProperties<string | number>[P]>
-  >
+/**
+ * Record of identifiers to CSS rules.
+ */
+export type Rules<K extends keyof StandardProperties> = Partial<
+  {
+    [P in K]: Record<
+      string | number,
+      NonNullable<StandardProperties<string | number>[P]>
+    >
+  }
+>
+
+/**
+ * Record of CSS properties to a set of variants to generate. Variants include
+ * pseudo-classes such as `:hover` and `:focus`.
+ */
+export type Variants<K extends keyof StandardProperties> = Partial<
+  Record<K, Partial<Record<'hover' | 'focus', true>>>
+>
+
+export interface CreateCalicoThemeInput<
+  TBreakpointKeys extends BreakpointKeys = BreakpointKeys,
+  TRulesKeys extends keyof StandardProperties = never,
+  TRules extends Rules<TRulesKeys> = {},
+  TVariantKeys extends TRulesKeys = never,
+  TVariants extends Variants<TVariantKeys> = {}
+> {
+  breakpoints?: Record<TBreakpointKeys, string>
+  rules?: TRules
+  variants?: TVariants
 }
-type Variants = {
-  [P in CSSProperties]?: Partial<Record<'hover' | 'focus', true>>
-}
-type Aliases<T extends string | number | symbol> = Record<T, CSSProperties[]>
-
-export interface CreateCalicoThemeInput<T extends string | number | symbol> {
-  breakpoints: Record<'mobile' | 'tablet' | 'desktop' | 'desktopWide', string>
-  mq?: (mqStyles: MqStyles) => Style
-  rules?: Rules
-  variants?: Variants
-  aliases?: Aliases<T>
-}
-
-export const baseCalicoTheme = {
-  rules,
-  variants,
-  aliases: {},
-} as const
 
 export type CalicoTheme = ReturnType<typeof createCalicoTheme>
 
 /**
- * Creates a `treat` compatible theme object that merges with the default calico rules.
+ * Creates a treat compatible theme object that merges with the default Calico rules.
  *
  * @param theme Your theme object.
+ *
  * @returns The merged theme object.
  */
 export const createCalicoTheme = <
-  T extends CreateCalicoThemeInput<keyof T['aliases']>
+  TBreakpointKeys extends BreakpointKeys,
+  TRulesKeys extends keyof StandardProperties,
+  TRules extends Rules<TRulesKeys>,
+  TVariantKeys extends TRulesKeys,
+  TVariants extends Variants<TVariantKeys>
 >(
-  theme: T,
+  theme: CreateCalicoThemeInput<
+    TBreakpointKeys,
+    TRulesKeys,
+    TRules,
+    TVariantKeys,
+    TVariants
+  >,
 ) => {
   const mediaQueries = pipe(
-    theme.breakpoints,
-    map((value) => `screen and (min-width: ${value})`),
+    theme.breakpoints ?? {},
+    R.map((value) => `screen and (min-width: ${value})`),
+  )
+  const mq = pipe(
+    theme.breakpoints ?? {},
+    R.collect((_, val) => val),
+    A.tail,
+    O.getOrElse(() => [] as string[]),
+    createMq,
   )
 
-  const x = {
+  return {
+    breakpoints: theme.breakpoints ?? {},
     mediaQueries,
-    mq: createMq(Object.values(theme.breakpoints).slice(1)),
-    ...baseCalicoTheme,
-    ...theme,
-
-    rules: {
-      ...baseCalicoTheme.rules,
-      ...theme.rules,
-    },
-
-    variants: {
-      ...baseCalicoTheme.variants,
-      ...theme.variants,
-    },
-
-    aliases: theme.aliases,
-  } as const
-
-  return x
+    mq,
+    rules: theme.rules ?? ({} as TRules),
+    variants: theme.variants ?? ({} as TVariants),
+  }
 }
