@@ -1,10 +1,8 @@
 import * as React from 'react'
 import { TreatProvider } from 'react-treat'
-import { CalicoTheme, baseCalicoTheme } from './createCalicoTheme'
+import { CalicoTheme } from './createCalicoTheme'
 
-const CalicoContext = React.createContext<CalicoTheme>(
-  baseCalicoTheme as CalicoTheme,
-)
+const CalicoContext = React.createContext({} as CalicoTheme)
 
 type CalicoProviderProps = {
   children: React.ReactNode
