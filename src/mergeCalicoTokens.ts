@@ -1,4 +1,4 @@
-import mergeWith from 'lodash.mergeWith'
+import mergeWith from 'lodash.mergewith'
 
 import { CalicoTokens } from './createCalicoTheme'
 
