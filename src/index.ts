@@ -16,7 +16,7 @@ export type { CalicoTheme } from './createCalicoTheme'
 
 export * from './types'
 
-export { theme as sensibleTheme } from './themes/sensible'
-export { theme as grid12ColumnTheme } from './themes/grid-12-column'
+export { tokens as sensibleTokens } from './tokens/sensible'
+export { tokens as grid12ColumnTokens } from './tokens/grid-12-column'
 
 export { mergeCalicoTokens } from './mergeCalicoTokens'

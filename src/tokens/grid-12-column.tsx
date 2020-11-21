@@ -1,4 +1,4 @@
-export const theme = {
+export const tokens = {
   rules: {
     width: {
       '1/12': `${(1 / 12) * 100}%`,
