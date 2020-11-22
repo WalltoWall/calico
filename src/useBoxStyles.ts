@@ -1,5 +1,4 @@
 import clsx from 'clsx'
-import { Theme } from 'treat/theme'
 import { useStyles } from 'react-treat'
 
 import { resolveResponsiveProp } from './utils'
@@ -7,47 +6,37 @@ import { ResponsiveProp } from './types'
 
 import * as styleRefs from './useBoxStyles.treat'
 
-type NotUndefOrNever<T extends {}> = Pick<
-  T,
-  { [K in keyof T]: T[K] extends undefined | never ? never : K }[keyof T]
->
+type UnpackedArray<T> = T extends (infer U)[] ? U : T
 
-export type BoxStylesProps = {
-  [K in keyof Theme['rules']]?: ResponsiveProp<keyof Theme['rules'][K]>
-}
-
-export type BoxHoverProps = NotUndefOrNever<
+export type StyleProps<TRefName extends keyof typeof styleRefs> = Partial<
   {
-    [K in keyof Theme['variants']]?: NonNullable<
-      Theme['variants'][K]
-    >['hover'] extends true
-      ? ResponsiveProp<keyof Theme['rules'][K]>
-      : never
+    [P in keyof typeof styleRefs[TRefName]]: ResponsiveProp<
+      keyof UnpackedArray<typeof styleRefs[TRefName][P]>
+    >
   }
 >
 
-export type BoxFocusProps = NotUndefOrNever<
-  {
-    [K in keyof Theme['variants']]?: NonNullable<
-      Theme['variants'][K]
-    >['focus'] extends true
-      ? ResponsiveProp<keyof Theme['rules'][K]>
-      : never
-  }
->
+export type BoxStylesProps = StyleProps<'styles'>
+export type BoxHoverProps = StyleProps<'hover'>
+export type BoxFocusProps = StyleProps<'focus'>
 
-const resolveClassNames = (props: BoxStylesProps | undefined, styles: any) => {
+// const resolveClassNames = <TRefName extends keyof typeof styleRefs>(
+//   props: StyleProps<TRefName> | undefined,
+//   styles: any,
+// ) => {
+const resolveClassNames = (
+  props: BoxStylesProps | BoxHoverProps | BoxFocusProps | undefined,
+  styles: any,
+) => {
   if (props === undefined) return
 
   let resolvedClassNames: (string | undefined)[] = []
 
   for (const key in props) {
-    const value = props[key as keyof Theme['rules']]
+    const value = props[key as keyof typeof props]
     if (value === null || value === undefined) continue
 
-    resolvedClassNames.push(
-      resolveResponsiveProp(value, styles[key as keyof Theme['rules']]),
-    )
+    resolvedClassNames.push(resolveResponsiveProp(value, styles[key]))
   }
 
   return resolvedClassNames

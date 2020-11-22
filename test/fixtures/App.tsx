@@ -14,7 +14,7 @@ const App = () => (
     <Box
       id="background"
       styles={{
-        backgroundSize: 'cover',
+        backgroundSize: 'contain',
         backgroundPositionX: 'left',
         backgroundPositionY: 'top',
         backgroundRepeat: 'repeat',

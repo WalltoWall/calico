@@ -1,4 +1,3 @@
-import { StandardProperties } from 'csstype'
 import * as A from 'fp-ts/Array'
 import { pipe } from 'fp-ts/function'
 
@@ -13,10 +12,8 @@ import { Rules, Variants } from './types'
  * - `rules`:
  */
 export interface CalicoTokens<
-  TRulesKeys extends keyof StandardProperties = never,
-  TRules extends Rules<TRulesKeys> = Rules<TRulesKeys>,
-  TVariantKeys extends TRulesKeys = never,
-  TVariants extends Variants<TVariantKeys> = Variants<TVariantKeys>
+  TRules extends Rules = Rules,
+  TVariants extends Variants<keyof TRules> = Variants<keyof TRules>
 > {
   /**
    * Media query breakpoints defined as minimum widths. These values will map
@@ -38,11 +35,9 @@ export interface CalicoTokens<
 }
 
 export interface CalicoTheme<
-  TRulesKeys extends keyof StandardProperties = never,
-  TRules extends Rules<TRulesKeys> = Rules<TRulesKeys>,
-  TVariantKeys extends TRulesKeys = never,
-  TVariants extends Variants<TVariantKeys> = Variants<TVariantKeys>
-> extends Required<CalicoTokens<TRulesKeys, TRules, TVariantKeys, TVariants>> {
+  TRules extends Rules = Rules,
+  TVariants extends Variants<keyof TRules> = Variants<keyof TRules>
+> extends Required<CalicoTokens<TRules, TVariants>> {
   /**
    * Media queries generated from the breakpoint tokens.
    */
@@ -62,13 +57,11 @@ export interface CalicoTheme<
  * @returns The merged theme object.
  */
 export const createCalicoTheme = <
-  TRulesKeys extends keyof StandardProperties,
-  TRules extends Rules<TRulesKeys>,
-  TVariantKeys extends TRulesKeys,
-  TVariants extends Variants<TVariantKeys>
+  TRules extends Rules,
+  TVariants extends Variants<keyof TRules>
 >(
-  tokens: CalicoTokens<TRulesKeys, TRules, TVariantKeys, TVariants>,
-): CalicoTheme<TRulesKeys, TRules, TVariantKeys, TVariants> => {
+  tokens: CalicoTokens<TRules, TVariants>,
+): CalicoTheme<TRules, TVariants> => {
   const breakpoints = [...(tokens.breakpoints ?? (['0'] as const))]
   const mediaQueries = pipe(breakpoints, A.map(minWidthMediaQuery))
   const mq = createMq(mediaQueries.slice(1))

@@ -105,8 +105,8 @@ export const resolveResponsiveProp = <K extends string | number>(
  *
  * @returns The theme's breakpoints mapped to the set of atoms.
  */
-export const mapToBreakpoints = (theme: Theme) => (
-  atoms: Record<string, Style>,
+export const mapToBreakpoints = <K extends string>(theme: Theme) => (
+  atoms: Record<K, Style>,
 ) =>
   pipe(
     [...theme.breakpoints],
