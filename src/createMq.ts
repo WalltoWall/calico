@@ -1,6 +1,8 @@
 import { SimplePseudos } from 'csstype'
 import { Style } from 'treat'
 
+// TODO: Limit properties to just those provided to the Theme.
+
 type PlainStyle = string | number | null
 type StyleArray = PlainStyle[] | readonly PlainStyle[]
 

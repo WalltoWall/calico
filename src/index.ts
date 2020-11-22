@@ -8,10 +8,15 @@ export type {
   BoxFocusProps as BoxFocusProp,
 } from './useBoxStyles'
 
-export { createCalicoTheme, baseCalicoTheme } from './createCalicoTheme'
+export { createCalicoTheme } from './createCalicoTheme'
 export { createMq } from './createMq'
-export { normalizeResponsiveProp, resolveResponsiveProp } from './utils'
+export { resolveResponsiveProp } from './utils'
 
 export type { CalicoTheme } from './createCalicoTheme'
 
 export * from './types'
+
+export { tokens as sensibleTokens } from './tokens/sensible'
+export { tokens as grid12ColumnTokens } from './tokens/grid-12-column'
+
+export { mergeCalicoTokens } from './mergeCalicoTokens'

@@ -1,67 +1,83 @@
-import { Style } from 'treat'
 import { StandardProperties } from 'csstype'
-import { map } from 'fp-ts/Record'
-import { pipe } from 'fp-ts/pipeable'
+import * as A from 'fp-ts/Array'
+import { pipe } from 'fp-ts/function'
 
-import { rules } from './rules'
-import { variants } from './variants'
-import { createMq, MqStyles } from './createMq'
-
-type BreakpointKeys = 'mobile' | 'tablet' | 'desktop' | 'desktopWide'
-
-export interface CreateCalicoThemeInput {
-  breakpoints: Record<BreakpointKeys, string>
-
-  mq?: (mqStyles: MqStyles) => Style
-
-  rules?: {
-    [P in keyof StandardProperties]?: Record<
-      string | number,
-      NonNullable<StandardProperties<string | number>[P]>
-    >
-  }
-  variants?: {
-    [P in keyof StandardProperties]?: Partial<Record<'hover' | 'focus', true>>
-  }
-}
-
-export const baseCalicoTheme = {
-  rules,
-  variants,
-} as const
-
-export type CalicoTheme = ReturnType<typeof createCalicoTheme>
+import { createMq } from './createMq'
+import { minWidthMediaQuery } from './utils'
+import { Rules, Variants } from './types'
 
 /**
- * Creates a `treat` compatible theme object that merges with the default calico rules.
+ * A set of design tokens used to produce a Calico theme.
  *
- * @param theme Your theme object.
+ * - `breakpoints`: Media query breakpoints available to `<Box>` and `useBoxStyles`.
+ * - `rules`:
+ */
+export interface CalicoTokens<
+  TRulesKeys extends keyof StandardProperties = never,
+  TRules extends Rules<TRulesKeys> = Rules<TRulesKeys>,
+  TVariantKeys extends TRulesKeys = never,
+  TVariants extends Variants<TVariantKeys> = Variants<TVariantKeys>
+> {
+  /**
+   * Media query breakpoints defined as minimum widths. These values will map
+   * to responsive style arrays given to `<Box>`, `useBoxStyles`, and
+   * `usePseudoBoxStyles`.
+   */
+  breakpoints?: readonly string[]
+
+  /**
+   * Record of identifiers to CSS rules.
+   */
+  rules?: TRules
+
+  /**
+   * Record of CSS properties to a set of variants to generate. Variants
+   * include pseudo-classes such as `:hover` and `:focus`.
+   */
+  variants?: TVariants
+}
+
+export interface CalicoTheme<
+  TRulesKeys extends keyof StandardProperties = never,
+  TRules extends Rules<TRulesKeys> = Rules<TRulesKeys>,
+  TVariantKeys extends TRulesKeys = never,
+  TVariants extends Variants<TVariantKeys> = Variants<TVariantKeys>
+> extends Required<CalicoTokens<TRulesKeys, TRules, TVariantKeys, TVariants>> {
+  /**
+   * Media queries generated from the breakpoint tokens.
+   */
+  mediaQueries: string[]
+
+  /**
+   * A function that can be used to create responsive CSS rules using arrays.
+   */
+  mq: ReturnType<typeof createMq>
+}
+
+/**
+ * Creates a Calico theme from a set of design tokens.
+ *
+ * @param tokens Your design tokens.
+ *
  * @returns The merged theme object.
  */
-export const createCalicoTheme = <T extends CreateCalicoThemeInput>(
-  theme: T,
-) => {
-  const mediaQueries = pipe(
-    theme.breakpoints,
-    map((value) => `screen and (min-width: ${value})`),
-  )
+export const createCalicoTheme = <
+  TRulesKeys extends keyof StandardProperties,
+  TRules extends Rules<TRulesKeys>,
+  TVariantKeys extends TRulesKeys,
+  TVariants extends Variants<TVariantKeys>
+>(
+  tokens: CalicoTokens<TRulesKeys, TRules, TVariantKeys, TVariants>,
+): CalicoTheme<TRulesKeys, TRules, TVariantKeys, TVariants> => {
+  const breakpoints = [...(tokens.breakpoints ?? (['0'] as const))]
+  const mediaQueries = pipe(breakpoints, A.map(minWidthMediaQuery))
+  const mq = createMq(mediaQueries.slice(1))
 
-  const x = {
+  return {
+    breakpoints,
     mediaQueries,
-    mq: createMq(Object.values(theme.breakpoints).slice(1)),
-    ...baseCalicoTheme,
-    ...theme,
-
-    rules: {
-      ...baseCalicoTheme.rules,
-      ...theme.rules,
-    },
-
-    variants: {
-      ...baseCalicoTheme.variants,
-      ...theme.variants,
-    },
-  } as const
-
-  return x
+    mq,
+    rules: tokens.rules ?? ({} as TRules),
+    variants: tokens.variants ?? ({} as TVariants),
+  }
 }

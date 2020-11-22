@@ -1,4 +1,9 @@
-import { baseCalicoTheme, createCalicoTheme } from '../../src'
+import {
+  createCalicoTheme,
+  mergeCalicoTokens,
+  grid12ColumnTokens,
+  sensibleTokens,
+} from '../../src'
 
 export type Theme = typeof theme
 
@@ -20,57 +25,53 @@ const colors = {
   black: '#000',
 }
 
-export const theme = createCalicoTheme({
-  // Sizes
-  breakpoints: {
-    mobile: '0rem',
-    tablet: '48rem',
-    desktop: '75rem',
-    desktopWide: '90rem',
-  },
+export const theme = createCalicoTheme(
+  mergeCalicoTokens(sensibleTokens, grid12ColumnTokens, {
+    // Sizes
+    breakpoints: ['0', '48rem', '75rem'],
 
-  rules: {
-    color: colors,
-    borderColor: colors,
-    backgroundColor: colors,
+    rules: {
+      color: colors,
+      borderColor: colors,
+      backgroundColor: colors,
 
-    margin: space,
-    marginTop: space,
-    marginBottom: space,
-    marginLeft: space,
-    marginRight: space,
+      margin: space,
+      marginTop: space,
+      marginBottom: space,
+      marginLeft: space,
+      marginRight: space,
 
-    padding: space,
-    paddingTop: space,
-    paddingBottom: space,
-    paddingLeft: space,
-    paddingRight: space,
+      padding: space,
+      paddingTop: space,
+      paddingBottom: space,
+      paddingLeft: space,
+      paddingRight: space,
 
-    gap: space,
+      gap: space,
 
-    fontFamily: {
-      sans: 'system-ui',
+      fontFamily: {
+        sans: 'system-ui',
+      },
+
+      maxWidth: {
+        small: '48rem',
+        medium: '60rem',
+        large: '75rem',
+        xlarge: '90rem',
+      },
+      lineHeight: {
+        solid: 1,
+      },
+      letterSpacing: {
+        s: '0.05em',
+        m: '0.1em',
+        l: '0.2em',
+      },
+      transitionDuration: {
+        slow: '300ms',
+        normal: '200ms',
+        fast: '100ms',
+      },
     },
-
-    maxWidth: {
-      small: '48rem',
-      medium: '60rem',
-      large: '75rem',
-      xlarge: '90rem',
-    },
-    lineHeight: {
-      solid: 1,
-    },
-    letterSpacing: {
-      ...baseCalicoTheme.rules.letterSpacing,
-      s: '0.05em',
-      m: '0.1em',
-      l: '0.2em',
-    },
-    transitionDuration: {
-      slow: '300ms',
-      normal: '200ms',
-      fast: '100ms',
-    },
-  },
-})
+  } as const),
+)

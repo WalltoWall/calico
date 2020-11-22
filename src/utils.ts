@@ -1,9 +1,10 @@
 import { Style } from 'treat'
-import clsx from 'clsx'
 import { Theme } from 'treat/theme'
 import { Properties, SimplePseudos } from 'csstype'
-import * as B from 'fp-ts/boolean'
+import clsx from 'clsx'
+import * as A from 'fp-ts/Array'
 import * as R from 'fp-ts/Record'
+import * as B from 'fp-ts/boolean'
 import { pipe } from 'fp-ts/function'
 import { eqNumber } from 'fp-ts/Eq'
 
@@ -26,26 +27,35 @@ export const styleSingleton = <
 /**
  * Assigns a Style to a particular breakpoint.
  *
- * @param breakpoint Breakpoint name to which styles will be assigned.
+ * @param breakpointIndex Breakpoint name to which styles will be assigned.
  * @param theme Theme with `breakpoints` tokens.
  *
  * @returns Style assigned to the breakpoint.
  */
-export const makeResponsive = (
-  breakpoint: keyof Theme['breakpoints'],
-  theme: Theme,
-) => (style: Style) => {
-  const minWidth = Number.parseFloat(theme.breakpoints[breakpoint])
-  const mediaQuery = theme.mediaQueries[breakpoint]
+export const makeResponsive = (breakpointIndex: number, theme: Theme) => (
+  style: Style,
+) => {
+  const minWidth = breakpointMagnitude(theme.breakpoints[breakpointIndex])
+  const mediaQuery = theme.mediaQueries[breakpointIndex]
 
   return pipe(
     eqNumber.equals(minWidth, 0),
-    B.fold<Style>(
-      () => R.singleton('@media', R.singleton(mediaQuery, style)),
+    B.fold(
+      () => R.singleton('@media', R.singleton(mediaQuery, style)) as Style,
       () => style,
     ),
   )
 }
+
+/**
+ * Builds a media query string for the screen media type and a given minimum width.
+ *
+ * @param minWidth Minimum width for the media query.
+ *
+ * @returns A media query string for the minimum width.
+ */
+export const minWidthMediaQuery = (minWidth: string) =>
+  `screen and (min-width: ${minWidth})`
 
 /**
  * Assigns a Style to a particular pseudo-class.
@@ -58,40 +68,6 @@ export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
   R.singleton(pseudo, style)
 
 /**
- * Normalizes a responsive prop value to a tuple with values for all
- * breakpoints. If the prop value contains less values than there are
- * breakpoints, the right-most element is repeated (i.e. it is expanded).
- *
- * @param value Reponsive prop value.
- *
- * @returns A tuple containing prop values for all breakpoints.
- */
-export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
-  value: ResponsiveProp<Keys>,
-): Readonly<[Keys | null, Keys | null, Keys | null, Keys | null]> => {
-  if (
-    typeof value === 'string' ||
-    typeof value === 'number' ||
-    typeof value === 'boolean'
-  )
-    return [value, value, value, value]
-
-  if ('length' in value)
-    switch (value.length) {
-      case 2:
-        return [value[0], value[1], value[1], value[1]]
-
-      case 3:
-        return [value[0], value[1], value[2], value[2]]
-
-      case 4:
-        return value
-    }
-
-  throw new Error(`Invalid responsive prop value: ${JSON.stringify(value)}`)
-}
-
-/**
  * Resolves a responsive prop value to a list of class names using a set of
  * atoms.
  *
@@ -100,30 +76,26 @@ export const normalizeResponsiveProp = <Keys extends string | number | boolean>(
  *
  * @returns A stringified list of class names.
  */
-export const resolveResponsiveProp = <
-  Keys extends string | number = string | number
->(
-  value: ResponsiveProp<Keys> | undefined,
-  responsiveAtoms: Record<keyof Theme['breakpoints'], Record<Keys, string>>,
+export const resolveResponsiveProp = <K extends string | number>(
+  value: ResponsiveProp<K> | undefined,
+  responsiveAtoms: Record<K, string>[],
 ) => {
   if (value === undefined) return
-  if (typeof value === 'string' || typeof value === 'number')
-    return responsiveAtoms.mobile[value]
 
-  const [mobileValue, tabletValue, desktopValue, desktopWideValue] = value as [
-    Keys,
-    Keys,
-    Keys,
-    Keys,
-  ]
+  if (Array.isArray(value)) {
+    const classes = []
 
-  // If a responsive value is null, it will return undefined and wont be included.
-  return clsx(
-    responsiveAtoms.mobile[mobileValue as Keys],
-    responsiveAtoms.tablet[tabletValue as Keys],
-    responsiveAtoms.desktop[desktopValue as Keys],
-    responsiveAtoms.desktopWide[desktopWideValue as Keys],
-  )
+    for (let i = 0; i < value.length; i++) {
+      const valueForBreakpoint = value[i]
+      const atomsForBreakpoint = responsiveAtoms[i]
+      if (valueForBreakpoint !== null && atomsForBreakpoint !== undefined)
+        classes[i] = atomsForBreakpoint[valueForBreakpoint]
+    }
+
+    return clsx(classes)
+  }
+
+  return responsiveAtoms[0][value]
 }
 
 /**
@@ -137,8 +109,19 @@ export const mapToBreakpoints = (theme: Theme) => (
   atoms: Record<string, Style>,
 ) =>
   pipe(
-    theme.breakpoints,
-    R.mapWithIndex((breakpointName) =>
-      pipe(atoms, R.map(makeResponsive(breakpointName, theme))),
+    [...theme.breakpoints],
+    A.mapWithIndex((breakpointIndex) =>
+      pipe(atoms, R.map(makeResponsive(breakpointIndex, theme))),
     ),
   )
+
+/**
+ * Returns the magnitude of a breakpoint by extracting the breakpoint's
+ * numerical value.
+ *
+ * @param breakpoint Breakpoint value as a string (e.g. `48rem`).
+ *
+ * @returns Magnitude of the breakpoint.
+ */
+export const breakpointMagnitude = (breakpoint: string): number =>
+  Number.parseFloat(breakpoint)
