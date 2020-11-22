@@ -16,7 +16,9 @@ export type ResponsiveProp<AtomName> =
       AtomName,
     ]
 
-export type SafeReactHTMLAttributes = React.AllHTMLAttributes<'div'> & {
+export type SafeReactHTMLAttributes<E = Element> = React.AllHTMLAttributes<
+  E
+> & {
   loading?: string
 }
 

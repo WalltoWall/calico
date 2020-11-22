@@ -137,6 +137,20 @@ const App = () => (
     />
     <Box id="polymorphic" as={CompWithDefaultProps} />
     <Box id="polymorphic-component-prop" component={CompWithDefaultProps} />
+    <Box
+      id="polymorphic-element-type"
+      as="input"
+      onChange={(event) => event.currentTarget.value}
+    />
+    <Box
+      id="polymorphic-element-type-with-component"
+      as={Box}
+      onChange={(event) => {
+        // @ts-expect-error - `value` shouldn't exist on currentTarget since
+        // `Box` isn't an input type
+        event.currentTarget.value
+      }}
+    />
   </>
 )
 
