@@ -6,10 +6,7 @@ import { minWidthMediaQuery } from './utils'
 import { MediaQueries, Rules, Variants } from './types'
 
 /**
- * A set of design tokens used to produce a Calico theme.
- *
- * - `breakpoints`: Media query breakpoints available to `<Box>` and `useBoxStyles`.
- * - `rules`:
+ * A collection of design tokens used to produce a Calico theme.
  */
 export interface CalicoTokens<
   TBreakpoints extends readonly string[] = string[],
@@ -35,6 +32,9 @@ export interface CalicoTokens<
   variants?: TVariants
 }
 
+/**
+ * A collection of design tokens made available to Calico components and hooks.
+ */
 export interface CalicoTheme<
   TBreakpoints extends readonly string[] = string[],
   TRules extends Rules = Rules,
