@@ -1,20 +1,9 @@
 import * as React from 'react'
 import { StandardProperties } from 'csstype'
 
-// type Prepend<I, T extends unknown[]> = [I, ...T]
-// type Append<I, T extends unknown[]> = [...T, I]
-
-type ResponsivePropElements<AtomName> = (AtomName | null)[]
-
 export type ResponsiveProp<AtomName> =
   | AtomName
-  // | Append<AtomName, Prepend<AtomName | null, (AtomName | null)[]>>
-  | [
-      AtomName | null,
-      AtomName | null,
-      ...ResponsivePropElements<AtomName>,
-      AtomName,
-    ]
+  | [AtomName | null, AtomName | null, ...(AtomName | null)[]]
 
 export type SafeReactHTMLAttributes<E = Element> = React.AllHTMLAttributes<
   E
