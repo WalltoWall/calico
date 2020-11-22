@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 export type ResponsiveProp<AtomName> =
   | AtomName
@@ -6,6 +6,8 @@ export type ResponsiveProp<AtomName> =
   | Readonly<[AtomName | null, AtomName | null, AtomName]>
   | Readonly<[AtomName | null, AtomName | null, AtomName | null, AtomName]>
 
-export type SafeReactHTMLAttributes = React.AllHTMLAttributes<'div'> & {
+export type SafeReactHTMLAttributes<E = Element> = React.AllHTMLAttributes<
+  E
+> & {
   loading?: string
 }
