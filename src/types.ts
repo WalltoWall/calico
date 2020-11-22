@@ -12,6 +12,13 @@ export type SafeReactHTMLAttributes<
 }
 
 /**
+ * Set of media queries derived from a set of breakpoints.
+ */
+export type MediaQueries<TBreakpoints extends readonly string[]> = {
+  [P in keyof TBreakpoints]: string
+}
+
+/**
  * Record of identifiers to CSS rules.
  */
 export type Rules = Partial<Record<keyof StandardProperties, unknown>> &
