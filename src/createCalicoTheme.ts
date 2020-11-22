@@ -3,7 +3,7 @@ import { pipe } from 'fp-ts/function'
 
 import { createMq } from './createMq'
 import { minWidthMediaQuery } from './utils'
-import { MediaQueries, Rules, Variants } from './types'
+import { MediaQueries, Rules, Pseudos } from './types'
 
 /**
  * A collection of design tokens used to produce a Calico theme.
@@ -11,7 +11,7 @@ import { MediaQueries, Rules, Variants } from './types'
 export interface CalicoTokens<
   TBreakpoints extends readonly string[] = string[],
   TRules extends Rules = Rules,
-  TVariants extends Variants<keyof TRules> = Variants<keyof TRules>
+  TPseudos extends Pseudos<keyof TRules> = Pseudos<keyof TRules>
 > {
   /**
    * Media query breakpoints defined as minimum widths. These values will map
@@ -26,10 +26,10 @@ export interface CalicoTokens<
   rules?: TRules
 
   /**
-   * Record of CSS properties to a set of variants to generate. Variants
-   * include pseudo-classes such as `:hover` and `:focus`.
+   * Record of CSS properties to a set of pseudo-classes or pseudo-elements to
+   * generate.
    */
-  variants?: TVariants
+  pseudos?: TPseudos
 }
 
 /**
@@ -38,8 +38,8 @@ export interface CalicoTokens<
 export interface CalicoTheme<
   TBreakpoints extends readonly string[] = string[],
   TRules extends Rules = Rules,
-  TVariants extends Variants<keyof TRules> = Variants<keyof TRules>
-> extends Required<CalicoTokens<TBreakpoints, TRules, TVariants>> {
+  TPseudos extends Pseudos<keyof TRules> = Pseudos<keyof TRules>
+> extends Required<CalicoTokens<TBreakpoints, TRules, TPseudos>> {
   /**
    * Media queries generated from the breakpoint tokens.
    */
@@ -61,10 +61,10 @@ export interface CalicoTheme<
 export const createCalicoTheme = <
   TBreakpoints extends readonly string[],
   TRules extends Rules,
-  TVariants extends Variants<keyof TRules>
+  TPseudos extends Pseudos<keyof TRules>
 >(
-  tokens: CalicoTokens<TBreakpoints, TRules, TVariants>,
-): CalicoTheme<TBreakpoints, TRules, TVariants> => {
+  tokens: CalicoTokens<TBreakpoints, TRules, TPseudos>,
+): CalicoTheme<TBreakpoints, TRules, TPseudos> => {
   const breakpoints = (tokens.breakpoints ?? ['0']) as TBreakpoints
   const mediaQueries = pipe(
     breakpoints,
@@ -77,6 +77,6 @@ export const createCalicoTheme = <
     mediaQueries,
     mq,
     rules: tokens.rules ?? ({} as TRules),
-    variants: tokens.variants ?? ({} as TVariants),
+    pseudos: tokens.pseudos ?? ({} as TPseudos),
   }
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StandardProperties } from 'csstype'
+import { StandardProperties, SimplePseudos } from 'csstype'
 
 export type ResponsiveProp<AtomName> =
   | AtomName
@@ -31,12 +31,10 @@ export type Rules = Partial<Record<keyof StandardProperties, unknown>> &
     }
   >
 
-export type VariantTypes = 'hover' | 'focus'
-
 /**
- * Record of CSS properties to a set of variants to generate. Variants include
- * pseudo-classes such as `:hover` and `:focus`.
+ * Record of CSS properties to a set of pseudo-classes or pseudo-elements to
+ * generate.
  */
-export type Variants<K extends string | number | symbol> = Partial<
-  Record<K, Partial<Record<VariantTypes, true>>>
+export type Pseudos<K extends string | number | symbol> = Partial<
+  Record<K, Partial<Record<SimplePseudos, true>>>
 >

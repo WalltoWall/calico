@@ -1,22 +1,25 @@
 import { styleTree, styleMap } from 'treat'
+import { Theme } from 'treat/theme'
+import { SimplePseudos } from 'csstype'
 import * as R from 'fp-ts/Record'
 import * as A from 'fp-ts/Array'
 import { pipe } from 'fp-ts/pipeable'
 
-import { Theme } from 'treat/theme'
-
 import { styleSingleton, mapToBreakpoints, mapToPseudo } from './utils'
-import { VariantTypes } from './types'
 
 type ThemeStyleTree = {
   [P in keyof Theme['rules']]: Record<keyof Theme['rules'][P], string>[]
 }
 
-type ThemeVariantStyleTree<TVariantType extends VariantTypes> = {
-  [P in keyof Theme['variants'] as TVariantType extends keyof Theme['variants'][P]
+type ThemeVariantStyleTree<TPsuedoType extends SimplePseudos> = {
+  [P in keyof Theme['pseudos'] as TPsuedoType extends keyof Theme['pseudos'][P]
     ? P
     : never]: Record<keyof Theme['rules'][P], string>[]
 }
+
+// TODO: Move all psuedo styles into one giant `styles` styleTree. Each rule can be shaped like:
+// { _: {base}, ':hover': {hover}, ':focus': {focus}, ... }
+// This means all pseudos can be generated without having special keys
 
 export const styles = styleTree((theme) =>
   pipe(
@@ -37,10 +40,10 @@ export const hover = styleTree((theme) =>
     theme.rules as Required<typeof theme.rules>,
     R.filterWithIndex((propertyName) =>
       Boolean(
-        theme.variants[propertyName as keyof typeof theme.variants]?.hover,
+        theme.pseudos[propertyName as keyof typeof theme.pseudos]?.[':hover'],
       ),
     ),
-    R.mapWithIndex((propertyName: keyof typeof theme.variants, atoms) =>
+    R.mapWithIndex((propertyName: keyof typeof theme.pseudos, atoms) =>
       pipe(
         atoms as Record<string | number, string | number>,
         R.map(styleSingleton(propertyName)),
@@ -50,17 +53,17 @@ export const hover = styleTree((theme) =>
       ),
     ),
   ),
-) as ThemeVariantStyleTree<'hover'>
+) as ThemeVariantStyleTree<':hover'>
 
 export const focus = styleTree((theme) =>
   pipe(
     theme.rules as Required<typeof theme.rules>,
     R.filterWithIndex((propertyName) =>
       Boolean(
-        theme.variants[propertyName as keyof typeof theme.variants]?.focus,
+        theme.pseudos[propertyName as keyof typeof theme.pseudos]?.[':focus'],
       ),
     ),
-    R.mapWithIndex((propertyName: keyof typeof theme.variants, atoms) =>
+    R.mapWithIndex((propertyName: keyof typeof theme.pseudos, atoms) =>
       pipe(
         atoms as Record<string | number, string | number>,
         R.map(styleSingleton(propertyName)),
@@ -70,4 +73,4 @@ export const focus = styleTree((theme) =>
       ),
     ),
   ),
-) as ThemeVariantStyleTree<'focus'>
+) as ThemeVariantStyleTree<':focus'>
