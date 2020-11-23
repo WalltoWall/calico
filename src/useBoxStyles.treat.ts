@@ -54,7 +54,7 @@ export const pseudos = styleTree((theme) =>
           // @ts-ignore
           acc[pseudo] = {
             ...acc[pseudo],
-            [propertyName]: pipe(theme.rules[propertyName]),
+            [propertyName]: theme.rules[propertyName],
           }
         }
         return acc
