@@ -44,9 +44,11 @@ const resolveClassNames = <K extends keyof typeof styleRefs.pseudos>(
 
     resolvedClassNames.push(
       resolveResponsiveProp(
-        // @ts-ignore
-        value,
-        styles?.[key as keyof typeof styles],
+        // @ts-expect-error - Type is too complex to represent
+        value as string | number,
+        styles[key as keyof typeof styles] as
+          | Record<string | number, string>[]
+          | undefined,
       ),
     )
   }

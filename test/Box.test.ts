@@ -14,6 +14,17 @@ beforeAll(async () => {
   server = await startFixture({
     entry: require.resolve('./fixtures/App.tsx'),
   })
+
+  let theTempValue = ''
+  page.on('pageerror', function (err) {
+    theTempValue = err.toString()
+    console.log('Page error: ' + theTempValue)
+  })
+  page.on('error', function (err) {
+    theTempValue = err.toString()
+    console.log('Error: ' + theTempValue)
+  })
+
   await page.goto(server.url)
 })
 

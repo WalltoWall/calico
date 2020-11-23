@@ -15,7 +15,7 @@ type ThemeStyleTree = {
 }
 
 type ThemePseudosStyleTree = {
-  [P in UnwrapedArray<RecordValue<Theme['pseudos']>>]: {
+  [P in UnwrapedArray<RecordValue<Required<Theme['pseudos']>>>]: {
     [Q in keyof Theme['pseudos'] as P extends UnwrapedArray<Theme['pseudos'][Q]>
       ? Q
       : never]: Record<keyof Theme['rules'][Q], string>[]
@@ -24,7 +24,7 @@ type ThemePseudosStyleTree = {
 
 export const styles = styleTree((theme) =>
   pipe(
-    theme.rules,
+    theme.rules as Required<typeof theme.rules>,
     R.mapWithIndex((propertyName, atoms) =>
       pipe(
         atoms as Atoms<typeof propertyName>,
@@ -38,10 +38,10 @@ export const styles = styleTree((theme) =>
 
 export const pseudos = styleTree((theme) =>
   pipe(
-    theme.pseudos,
+    theme.pseudos as Required<typeof theme.pseudos>,
     R.reduceWithIndex(
       {} as {
-        [P in UnwrapedArray<RecordValue<typeof theme.pseudos>>]: {
+        [P in UnwrapedArray<RecordValue<Required<typeof theme.pseudos>>>]: {
           [Q in keyof typeof theme.pseudos as P extends UnwrapedArray<
             typeof theme.pseudos[Q]
           >
@@ -62,7 +62,9 @@ export const pseudos = styleTree((theme) =>
     ),
     R.mapWithIndex((pseudo, rules) =>
       pipe(
-        rules as { [P in keyof typeof theme.pseudos]: typeof theme.rules[P] },
+        rules as {
+          [P in keyof Required<typeof theme.pseudos>]: typeof theme.rules[P]
+        },
         R.mapWithIndex((propertyName, atoms) =>
           pipe(
             atoms as Atoms<typeof propertyName>,

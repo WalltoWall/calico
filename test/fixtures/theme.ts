@@ -75,7 +75,7 @@ export const theme = createCalicoTheme(
     },
 
     pseudos: {
-      color: [':focus'],
+      color: [':hover', ':focus'],
     },
   } as const),
 )

@@ -77,10 +77,10 @@ export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
  * @returns A stringified list of class names.
  */
 export const resolveResponsiveProp = <K extends string | number>(
-  value: ResponsiveProp<K> | undefined,
-  responsiveAtoms: Record<K, string>[],
+  value?: ResponsiveProp<K>,
+  responsiveAtoms?: Record<K, string>[],
 ) => {
-  if (value === undefined) return
+  if (value === undefined || responsiveAtoms === undefined) return
 
   if (Array.isArray(value)) {
     const classes = []
