@@ -3,7 +3,7 @@ import { StandardProperties, SimplePseudos } from 'csstype'
 
 export type ResponsiveProp<AtomName> =
   | AtomName
-  | [AtomName | null, AtomName | null, ...(AtomName | null)[]]
+  | readonly [AtomName | null, AtomName | null, ...(AtomName | null)[]]
 
 export type SafeReactHTMLAttributes<
   E = Element
