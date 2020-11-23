@@ -2,7 +2,11 @@ export { Box } from './Box'
 export type { BoxProps } from './Box'
 
 export { useBoxStyles, usePseudoBoxStyles } from './useBoxStyles'
-export type { BoxStylesProps as BaseBoxStylesProps } from './useBoxStyles'
+export type {
+  UseBoxStylesProps as BaseBoxStylesProps,
+  UseBoxStylesProps,
+  UsePseudoBoxStylesProps,
+} from './useBoxStyles'
 
 export { createCalicoTheme } from './createCalicoTheme'
 export { createMq } from './createMq'

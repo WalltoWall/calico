@@ -44,4 +44,4 @@ export type Pseudos<K extends string | number | symbol> = Partial<
  * Record of pseudo-classes and pseudo-elements where existance of a key
  * determines which classes will be generated.
  */
-export type PseudosConfig = Partial<Record<SimplePseudos, true>>
+export type PseudosConfig = readonly SimplePseudos[]

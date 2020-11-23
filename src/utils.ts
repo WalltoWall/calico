@@ -1,6 +1,6 @@
 import { Style } from 'treat'
 import { Theme } from 'treat/theme'
-import { Properties, StandardProperties, SimplePseudos } from 'csstype'
+import { Properties, SimplePseudos } from 'csstype'
 import clsx from 'clsx'
 import * as A from 'fp-ts/Array'
 import * as R from 'fp-ts/Record'
@@ -8,7 +8,7 @@ import * as B from 'fp-ts/boolean'
 import { pipe } from 'fp-ts/function'
 import { eqNumber } from 'fp-ts/Eq'
 
-import { ResponsiveProp, Atoms, PseudosConfig } from './types'
+import { ResponsiveProp } from './types'
 
 /**
  * Creates a Style with a single property.
@@ -105,7 +105,7 @@ export const resolveResponsiveProp = <K extends string | number>(
  *
  * @returns The theme's breakpoints mapped to the set of atoms.
  */
-export const mapToBreakpoints = <K extends string>(theme: Theme) => (
+export const mapToBreakpoints = (theme: Theme) => <K extends string>(
   atoms: Record<K, Style>,
 ) =>
   pipe(
@@ -125,13 +125,3 @@ export const mapToBreakpoints = <K extends string>(theme: Theme) => (
  */
 export const breakpointMagnitude = (breakpoint: string): number =>
   Number.parseFloat(breakpoint)
-
-export const shapeAtomsForStyleTree = <K extends keyof StandardProperties>(
-  atoms: Atoms<K>,
-  pseudos: PseudosConfig = {},
-): Record<'' | keyof typeof pseudos, typeof atoms | undefined> =>
-  pipe(
-    pseudos as Required<typeof pseudos>,
-    R.map((val) => (val === true ? atoms : undefined)),
-    (x) => ({ ...x, '': atoms }),
-  )

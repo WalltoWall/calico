@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { useStyles } from 'react-treat'
-import { SimplePseudos } from 'csstype'
 
 import { resolveResponsiveProp } from './utils'
 import { ResponsiveProp } from './types'
@@ -9,21 +8,21 @@ import * as styleRefs from './useBoxStyles.treat'
 
 type UnpackedArray<T> = T extends (infer U)[] ? U : T
 
-export type StyleProps<TRefName extends keyof typeof styleRefs> = Partial<
+export type UseBoxStylesProps = Partial<
   {
-    [P in keyof typeof styleRefs[TRefName]]: ResponsiveProp<
-      keyof UnpackedArray<typeof styleRefs[TRefName][P]>
+    [P in keyof typeof styleRefs.styles]: ResponsiveProp<
+      keyof UnpackedArray<typeof styleRefs.styles[P]>
     >
   }
 >
 
-export type BoxStylesProps<K extends '_' | SimplePseudos> = Partial<
+export type UsePseudoBoxStylesProps<
+  K extends keyof typeof styleRefs.pseudos
+> = Partial<
   {
-    [P in keyof typeof styleRefs.styles as K extends keyof typeof styleRefs.styles[P]
-      ? P
-      : never]: K extends keyof typeof styleRefs.styles[P]
-      ? ResponsiveProp<keyof UnpackedArray<typeof styleRefs.styles[P][K]>>
-      : never
+    [P in keyof typeof styleRefs.pseudos[K]]: ResponsiveProp<
+      keyof UnpackedArray<typeof styleRefs.pseudos[K][P]>
+    >
   }
 >
 
@@ -31,10 +30,9 @@ export type BoxStylesProps<K extends '_' | SimplePseudos> = Partial<
 //   props: StyleProps<TRefName> | undefined,
 //   styles: any,
 // ) => {
-const resolveClassNames = <K extends '_' | SimplePseudos>(
-  props: BoxStylesProps<K> | undefined,
-  pseudo: K,
-  styles: typeof styleRefs.styles,
+const resolveClassNames = <K extends keyof typeof styleRefs.pseudos>(
+  props: UseBoxStylesProps | UsePseudoBoxStylesProps<K> | undefined,
+  styles: typeof styleRefs.styles | typeof styleRefs.pseudos[K],
 ) => {
   if (props === undefined) return
 
@@ -48,8 +46,7 @@ const resolveClassNames = <K extends '_' | SimplePseudos>(
       resolveResponsiveProp(
         // @ts-ignore
         value,
-        // @ts-ignore
-        styles?.[key as keyof typeof styles]?.[pseudo],
+        styles?.[key as keyof typeof styles],
       ),
     )
   }
@@ -64,10 +61,10 @@ const resolveClassNames = <K extends '_' | SimplePseudos>(
  * @param styles - The object of styles to map to `className`s
  * @returns A string containing the resolved `className`s.
  */
-export function useBoxStyles(styles: BoxStylesProps<'_'> | undefined): string {
+export function useBoxStyles(styles: UseBoxStylesProps | undefined): string {
   const boxStyles = useStyles(styleRefs)
 
-  return clsx(resolveClassNames(styles, '_', boxStyles.styles))
+  return clsx(resolveClassNames(styles, boxStyles.styles))
 }
 
 /**
@@ -81,11 +78,11 @@ export function useBoxStyles(styles: BoxStylesProps<'_'> | undefined): string {
  * @param psuedo The pseudo modifier to use.
  * @returns A string containing the resolved `className`s.
  */
-export function usePseudoBoxStyles<K extends SimplePseudos>(
-  styles: BoxStylesProps<K> | undefined,
+export function usePseudoBoxStyles<K extends keyof typeof styleRefs.pseudos>(
+  styles: UsePseudoBoxStylesProps<K> | undefined,
   pseudo: K,
 ): string {
   const boxStyles = useStyles(styleRefs)
 
-  return clsx(resolveClassNames(styles, pseudo, boxStyles.styles))
+  return clsx(resolveClassNames(styles, boxStyles.pseudos[pseudo]))
 }
