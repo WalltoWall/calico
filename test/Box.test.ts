@@ -2,6 +2,7 @@ import { Page } from 'puppeteer'
 
 import { startFixture, FixtureServer } from './utils/startFixture'
 import { getStyles } from './utils/getStyles'
+import { getClassNames } from './utils/getClassNames'
 
 let server: FixtureServer
 
@@ -17,8 +18,14 @@ beforeAll(async () => {
   await page.goto(server.url)
 })
 
+afterAll(() => {
+  server.close()
+})
+
 test('background props', async () => {
-  const styles = await getStyles(castPage, '#background')
+  const selector = '#background'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -31,10 +38,14 @@ test('background props', async () => {
       "display": "block",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_2adQ7 _3-lg9 _5GGgs _1p5U_"`)
 })
 
 test('border props', async () => {
-  const styles = await getStyles(castPage, '#border')
+  const selector = '#border'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -61,10 +72,14 @@ test('border props', async () => {
       "display": "block",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"VDA81 u7_Zg _1Ruid _19nER"`)
 })
 
 test('effect props', async () => {
-  const styles = await getStyles(castPage, '#effect')
+  const selector = '#effect'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -72,10 +87,14 @@ test('effect props', async () => {
       "opacity": ".25",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"nnl6c"`)
 })
 
 test('flexbox props', async () => {
-  const styles = await getStyles(castPage, '#flexbox')
+  const selector = '#flexbox'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -93,10 +112,16 @@ test('flexbox props', async () => {
       "justify-self": "flex-end",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(
+    `"_3OhwE _3Hm2K _1hmCU _3yoCY _1Cza- Xf_iD _1nzvY _3wFyH _1nAdt mepj2 _2Uzy6"`,
+  )
 })
 
 test('grid props', async () => {
-  const styles = await getStyles(castPage, '#grid')
+  const selector = '#grid'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -115,10 +140,16 @@ test('grid props', async () => {
       "row-gap": "0.25rem",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(
+    `"_1qeOP _2ypSJ _1syVb SMBS- _2_Jac _1gL7F"`,
+  )
 })
 
 test('interactivity props', async () => {
-  const styles = await getStyles(castPage, '#interactivity')
+  const selector = '#interactivity'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -134,10 +165,14 @@ test('interactivity props', async () => {
       "user-select": "none",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_2Dk0s _3nO81 q-2xG"`)
 })
 
 test('layout props', async () => {
-  const styles = await getStyles(castPage, '#layout')
+  const selector = '#layout'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -153,10 +188,16 @@ test('layout props', async () => {
       "z-index": "2",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(
+    `"_2b7Gy _3KvGA _3dKb5 _1Wqgl _1N3A1 RU35K _3xC7O RhIrs"`,
+  )
 })
 
 test('sizing props', async () => {
-  const styles = await getStyles(castPage, '#sizing')
+  const selector = '#sizing'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -166,10 +207,14 @@ test('sizing props', async () => {
       "width": "auto",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_2DtBX _2DhJ7 YuNdC"`)
 })
 
 test('space props', async () => {
-  const styles = await getStyles(castPage, '#space')
+  const selector = '#space'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -186,10 +231,14 @@ test('space props', async () => {
       "padding-top": "0.25rem",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_1ziWV _1W0JL"`)
 })
 
 test('transition props', async () => {
-  const styles = await getStyles(castPage, '#transition')
+  const selector = '#transition'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -198,10 +247,14 @@ test('transition props', async () => {
       "transition-timing-function": "cubic-bezier(.4,0,1,1)",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_3h5l_ _4jgK9"`)
 })
 
 test('typography props', async () => {
-  const styles = await getStyles(castPage, '#typography')
+  const selector = '#typography'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -215,10 +268,16 @@ test('typography props', async () => {
       "text-transform": "uppercase",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(
+    `"_1519q _3lA3f _3dLfT wtkcE _11sFr _2qZyn _3jnoa"`,
+  )
 })
 
 test('hover prop', async () => {
-  const styles = await getStyles(castPage, '#hover', 'hover')
+  const selector = '#hover'
+  const styles = await getStyles(castPage, selector, 'hover')
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -226,10 +285,14 @@ test('hover prop', async () => {
       "display": "block",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_3jfLK"`)
 })
 
 test('focus prop', async () => {
-  const styles = await getStyles(castPage, '#focus', 'focus')
+  const selector = '#hover'
+  const styles = await getStyles(castPage, selector, 'focus')
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -240,10 +303,14 @@ test('focus prop', async () => {
       "outline-width": "1px",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_3jfLK"`)
 })
 
 test('responsive styles', async () => {
-  const styles = await getStyles(castPage, '#responsive')
+  const selector = '#responsive'
+  const styles = await getStyles(castPage, selector)
+  const classNames = await getClassNames(castPage, selector)
 
   expect(styles).toMatchInlineSnapshot(`
     Object {
@@ -251,6 +318,8 @@ test('responsive styles', async () => {
       "display": "block",
     }
   `)
+
+  expect(classNames).toMatchInlineSnapshot(`"_2pwSt AhJjn"`)
 })
 
 test('polymorphic component', async () => {
@@ -269,8 +338,4 @@ test('polymorphic component with component prop', async () => {
   })
 
   expect(dataFooVal).toBe('bar')
-})
-
-afterAll(() => {
-  server.close()
 })
