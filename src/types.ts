@@ -21,8 +21,7 @@ export type MediaQueries<TBreakpoints extends readonly string[]> = {
 /**
  * Record of identifiers to atoms.
  */
-export type Rules = Partial<Record<keyof StandardProperties, unknown>> &
-  Partial<{ [P in keyof StandardProperties]?: Atoms<P> }>
+export type Rules = Partial<{ [P in keyof StandardProperties]: Atoms<P> }>
 
 /**
  * Record of identifiers to CSS rules.
@@ -36,9 +35,9 @@ export type Atoms<P extends keyof StandardProperties> = Record<
  * Record of CSS properties to a set of pseudo-classes or pseudo-elements to
  * generate.
  */
-export type Pseudos<K extends string | number | symbol> = Partial<
-  Record<K, PseudosConfig>
->
+export type Pseudos<K extends string | number | symbol> = {
+  [P in K]?: PseudosConfig
+}
 
 /**
  * Record of pseudo-classes and pseudo-elements where existance of a key
