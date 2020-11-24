@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.0](https://github.com/WalltoWall/calico/compare/v0.5.0...v0.6.0-next.0) (2020-11-24)
+
+
+### Features
+
+* allow arbitrary breakpoints and remove base theme ([#35](https://github.com/WalltoWall/calico/issues/35)) ([8e1d9bb](https://github.com/WalltoWall/calico/commit/8e1d9bb536cde1ce60ed32b3a7316319a3e2e3e4))
+
+
+### Bug Fixes
+
+* correctly assign HTML element type ([#33](https://github.com/WalltoWall/calico/issues/33)) ([71db630](https://github.com/WalltoWall/calico/commit/71db630586bb085e7a26f3038f67ba99dd7118c9))
+
 ## [0.5.0](https://github.com/WalltoWall/calico/compare/v0.4.0...v0.5.0) (2020-11-14)
 
 
