@@ -39,7 +39,7 @@ test('background props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_2adQ7 _3-lg9 _5GGgs _1p5U_"`)
+  expect(classNames).toMatchInlineSnapshot(`"qR34W _2M4Z6 _3RiK0 _1AKKL"`)
 })
 
 test('border props', async () => {
@@ -73,7 +73,7 @@ test('border props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"VDA81 u7_Zg _1Ruid _19nER"`)
+  expect(classNames).toMatchInlineSnapshot(`"_1D9xH _3eLv4 _6I3Bp nPEFE"`)
 })
 
 test('effect props', async () => {
@@ -88,7 +88,7 @@ test('effect props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"nnl6c"`)
+  expect(classNames).toMatchInlineSnapshot(`"_4AyaT"`)
 })
 
 test('flexbox props', async () => {
@@ -114,7 +114,7 @@ test('flexbox props', async () => {
   `)
 
   expect(classNames).toMatchInlineSnapshot(
-    `"_3OhwE _3Hm2K _1hmCU _3yoCY _1Cza- Xf_iD _1nzvY _3wFyH _1nAdt mepj2 _2Uzy6"`,
+    `"_1KE92 _3Hm2K _3XIn5 _1MfY8 PHH_i yDs16 _3KhUU _2UkMk _2Uzy6 _3Ray2 _2vCWx"`,
   )
 })
 
@@ -142,7 +142,7 @@ test('grid props', async () => {
   `)
 
   expect(classNames).toMatchInlineSnapshot(
-    `"_1qeOP _2ypSJ _1syVb SMBS- _2_Jac _1gL7F"`,
+    `"_25kG7 b3vNs _2zzdF _26Eyg iyG7c hqQkj"`,
   )
 })
 
@@ -166,7 +166,7 @@ test('interactivity props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_2Dk0s _3nO81 q-2xG"`)
+  expect(classNames).toMatchInlineSnapshot(`"o6fhi _1nehS tFuv1"`)
 })
 
 test('layout props', async () => {
@@ -190,7 +190,7 @@ test('layout props', async () => {
   `)
 
   expect(classNames).toMatchInlineSnapshot(
-    `"_2b7Gy _3KvGA _3dKb5 _1Wqgl _1N3A1 RU35K _3xC7O RhIrs"`,
+    `"_1tLHM _1qXrM lW6ui _2E9tK nYeIn _1haMH NlMSR _12pXv"`,
   )
 })
 
@@ -208,7 +208,7 @@ test('sizing props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_2DtBX _2DhJ7 YuNdC"`)
+  expect(classNames).toMatchInlineSnapshot(`"iI2WZ _1xfo- _27UkU"`)
 })
 
 test('space props', async () => {
@@ -232,7 +232,7 @@ test('space props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_1ziWV _1W0JL"`)
+  expect(classNames).toMatchInlineSnapshot(`"_2X9h_ _1Orit"`)
 })
 
 test('transition props', async () => {
@@ -248,7 +248,7 @@ test('transition props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_3h5l_ _4jgK9"`)
+  expect(classNames).toMatchInlineSnapshot(`"G_qXc _2i-Pa"`)
 })
 
 test('typography props', async () => {
@@ -270,7 +270,7 @@ test('typography props', async () => {
   `)
 
   expect(classNames).toMatchInlineSnapshot(
-    `"_1519q _3lA3f _3dLfT wtkcE _11sFr _2qZyn _3jnoa"`,
+    `"jY0Ru _2yxws vpOjF _2gjei _2xs_R _1h6z2 _3ZU8I"`,
   )
 })
 
@@ -286,7 +286,7 @@ test('hover prop', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_3jfLK"`)
+  expect(classNames).toMatchInlineSnapshot(`"MSiKD"`)
 })
 
 test('focus prop', async () => {
@@ -304,7 +304,7 @@ test('focus prop', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_3jfLK"`)
+  expect(classNames).toMatchInlineSnapshot(`"MSiKD"`)
 })
 
 test('responsive styles', async () => {
@@ -319,7 +319,7 @@ test('responsive styles', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_2pwSt AhJjn"`)
+  expect(classNames).toMatchInlineSnapshot(`"JjbC0 ZvseK"`)
 })
 
 test('polymorphic component', async () => {
