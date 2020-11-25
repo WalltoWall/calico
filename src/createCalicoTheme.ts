@@ -105,7 +105,7 @@ export const createCalicoTheme = <
     TPseudoKeys,
     TPseudos
   >,
-): CalicoTheme<TBreakpointKeys, TRulesKeys, TRules, TPseudoKeys, TPseudos> => {
+) => {
   const breakpoints = tokens.breakpoints ?? ({} as Breakpoints<TBreakpointKeys>)
   const mediaQueries = pipe(breakpoints, R.map(minWidthMediaQuery))
   const mq = pipe(
