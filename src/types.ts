@@ -1,6 +1,10 @@
 import * as React from 'react'
 import { StandardProperties, SimplePseudos } from 'csstype'
 
+export type RecordValue<T> = T extends Record<any, infer U> ? U : T
+export type Mutable<T> = { -readonly [P in keyof T]: T[P] }
+export type UnwrappedArray<T> = T extends (infer U)[] ? U : T
+
 export type ResponsiveProp<AtomName> =
   | AtomName
   | readonly [AtomName | null, AtomName | null, ...(AtomName | null)[]]
@@ -12,35 +16,51 @@ export type SafeReactHTMLAttributes<
 }
 
 /**
- * Set of media queries derived from a set of breakpoints.
+ * Record of identifiers to media query minimum widths used as breakpoints.
  */
-export type MediaQueries<TBreakpoints extends readonly string[]> = {
-  [P in keyof TBreakpoints]: string
-}
+export type Breakpoints<K extends string> = Record<K, string>
+
+/**
+ * Record of identifiers to media queries.
+ */
+export type MediaQueries<K extends string> = Record<K, string>
 
 /**
  * Record of identifiers to atoms.
  */
-export type Rules = Partial<{ [P in keyof StandardProperties]: Atoms<P> }>
+export type Rules<K extends keyof StandardProperties> = Partial<
+  { [P in K]: Atoms<P> }
+>
 
 /**
  * Record of identifiers to CSS rules.
  */
 export type Atoms<P extends keyof StandardProperties> = Record<
   string | number,
-  NonNullable<StandardProperties<string | number>[P]>
+  AtomValue<P>
+>
+
+/**
+ * Value of a CSS rule.
+ */
+export type AtomValue<P extends keyof StandardProperties> = NonNullable<
+  StandardProperties<string | number>[P]
 >
 
 /**
  * Record of CSS properties to a set of pseudo-classes or pseudo-elements to
  * generate.
  */
-export type Pseudos<K extends string | number | symbol> = {
-  [P in K]?: PseudosConfig
-}
+export type Pseudos<K extends string | number | symbol> = Partial<
+  Record<K, PseudosConfig>
+>
 
 /**
  * Record of pseudo-classes and pseudo-elements where existance of a key
  * determines which classes will be generated.
  */
 export type PseudosConfig = readonly SimplePseudos[]
+
+export type InvertedPseudos<P extends string | number | symbol> = Partial<
+  Record<SimplePseudos, P[]>
+>

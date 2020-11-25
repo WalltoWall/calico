@@ -22,7 +22,6 @@ const defaultConfig: Configuration = {
         include: [
           path.resolve(__dirname, '../../src'),
           path.resolve(__dirname, '../../test'),
-          /node_modules\/fp-ts/,
         ],
         use: [
           {

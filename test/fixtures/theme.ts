@@ -3,7 +3,7 @@ import {
   mergeCalicoTokens,
   grid12ColumnTokens,
   sensibleTokens,
-} from '../../src'
+} from '../../src/treat'
 
 export type Theme = typeof theme
 
@@ -28,7 +28,11 @@ const colors = {
 export const theme = createCalicoTheme(
   mergeCalicoTokens(sensibleTokens, grid12ColumnTokens, {
     // Sizes
-    breakpoints: ['0', '48rem', '75rem'],
+    breakpoints: {
+      _: '0',
+      tablet: '48rem',
+      desktop: '75rem',
+    },
 
     rules: {
       color: colors,

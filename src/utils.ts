@@ -2,7 +2,6 @@ import { Style } from 'treat'
 import { Theme } from 'treat/theme'
 import { Properties, SimplePseudos } from 'csstype'
 import clsx from 'clsx'
-import * as A from 'fp-ts/Array'
 import * as R from 'fp-ts/Record'
 import * as B from 'fp-ts/boolean'
 import { pipe } from 'fp-ts/function'
@@ -32,14 +31,17 @@ export const styleSingleton = <
  *
  * @returns Style assigned to the breakpoint.
  */
-export const makeResponsive = (breakpointIndex: number, theme: Theme) => (
-  style: Style,
-) => {
-  const minWidth = breakpointMagnitude(theme.breakpoints[breakpointIndex])
-  const mediaQuery = theme.mediaQueries[breakpointIndex]
+export const makeResponsive = (
+  breakpointName: keyof Theme['breakpoints'],
+  theme: Theme,
+) => (style: Style) => {
+  const minWidthMagnitude = breakpointMagnitude(
+    theme.breakpoints[breakpointName],
+  )
+  const mediaQuery = theme.mediaQueries[breakpointName]
 
   return pipe(
-    eqNumber.equals(minWidth, 0),
+    eqNumber.equals(minWidthMagnitude, 0),
     B.fold(
       () => R.singleton('@media', R.singleton(mediaQuery, style)) as Style,
       () => style,
@@ -78,24 +80,31 @@ export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
  */
 export const resolveResponsiveProp = <K extends string | number>(
   value?: ResponsiveProp<K>,
-  responsiveAtoms?: Record<K, string>[],
+  responsiveAtoms?: Record<keyof Theme['breakpoints'], Record<K, string>>,
 ) => {
   if (value === undefined || responsiveAtoms === undefined) return
+
+  const breakpointKeys = Object.keys(
+    responsiveAtoms,
+  ) as (keyof typeof responsiveAtoms)[]
+
+  if (typeof value === 'string' || typeof value === 'number')
+    return responsiveAtoms[breakpointKeys[0]][value]
 
   if (Array.isArray(value)) {
     const classes = []
 
     for (let i = 0; i < value.length; i++) {
       const valueForBreakpoint = value[i]
-      const atomsForBreakpoint = responsiveAtoms[i]
-      if (valueForBreakpoint !== null && atomsForBreakpoint !== undefined)
+      const atomsForBreakpoint = responsiveAtoms[breakpointKeys[i]]
+      if (valueForBreakpoint !== null && atomsForBreakpoint)
         classes[i] = atomsForBreakpoint[valueForBreakpoint]
     }
 
     return clsx(classes)
   }
 
-  return responsiveAtoms[0][value]
+  throw new Error('This should be an unreachable error. Please report this.')
 }
 
 /**
@@ -109,9 +118,9 @@ export const mapToBreakpoints = (theme: Theme) => <K extends string>(
   atoms: Record<K, Style>,
 ) =>
   pipe(
-    [...theme.breakpoints],
-    A.mapWithIndex((breakpointIndex) =>
-      pipe(atoms, R.map(makeResponsive(breakpointIndex, theme))),
+    theme.breakpoints,
+    R.mapWithIndex((breakpointName) =>
+      pipe(atoms, R.map(makeResponsive(breakpointName, theme))),
     ),
   )
 

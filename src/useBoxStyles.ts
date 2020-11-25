@@ -2,16 +2,14 @@ import clsx from 'clsx'
 import { useStyles } from 'react-treat'
 
 import { resolveResponsiveProp } from './utils'
-import { ResponsiveProp } from './types'
+import { ResponsiveProp, RecordValue } from './types'
 
 import * as styleRefs from './useBoxStyles.treat'
-
-type UnpackedArray<T> = T extends (infer U)[] ? U : T
 
 export type UseBoxStylesProps = Partial<
   {
     [P in keyof typeof styleRefs.styles]: ResponsiveProp<
-      keyof UnpackedArray<typeof styleRefs.styles[P]>
+      keyof RecordValue<typeof styleRefs.styles[P]>
     >
   }
 >
@@ -21,34 +19,37 @@ export type UsePseudoBoxStylesProps<
 > = Partial<
   {
     [P in keyof typeof styleRefs.pseudos[K]]: ResponsiveProp<
-      keyof UnpackedArray<typeof styleRefs.pseudos[K][P]>
+      keyof RecordValue<typeof styleRefs.pseudos[K][P]>
     >
   }
 >
 
-// const resolveClassNames = <TRefName extends keyof typeof styleRefs>(
-//   props: StyleProps<TRefName> | undefined,
-//   styles: any,
-// ) => {
 const resolveClassNames = <K extends keyof typeof styleRefs.pseudos>(
   props: UseBoxStylesProps | UsePseudoBoxStylesProps<K> | undefined,
-  styles: typeof styleRefs.styles | typeof styleRefs.pseudos[K],
+  styles: typeof styleRefs.styles | typeof styleRefs.pseudos[K] = {},
+  pseudo?: K,
 ) => {
   if (props === undefined) return
 
   let resolvedClassNames: (string | undefined)[] = []
 
-  for (const key in props) {
-    const value = props[key as keyof typeof props]
+  for (const propertyName in props) {
+    const value = props[propertyName as keyof typeof props]
     if (value === null || value === undefined) continue
+
+    const responsiveAtoms = styles[propertyName as keyof typeof styles]
+    if (!responsiveAtoms)
+      throw new Error(
+        `Theme does not contain atom "${value}" for property "${propertyName}"${
+          pseudo ? ` for pseudo "${pseudo}"` : ''
+        }.`,
+      )
 
     resolvedClassNames.push(
       resolveResponsiveProp(
-        // @ts-expect-error - Type is too complex to represent
-        value as string | number,
-        styles[key as keyof typeof styles] as
-          | Record<string | number, string>[]
-          | undefined,
+        // @ts-expect-error - Union type is too complex to represent.
+        value,
+        styles[propertyName as keyof typeof styles],
       ),
     )
   }
@@ -86,5 +87,5 @@ export function usePseudoBoxStyles<K extends keyof typeof styleRefs.pseudos>(
 ): string {
   const boxStyles = useStyles(styleRefs)
 
-  return clsx(resolveClassNames(styles, boxStyles.pseudos[pseudo]))
+  return clsx(resolveClassNames(styles, boxStyles.pseudos[pseudo], pseudo))
 }

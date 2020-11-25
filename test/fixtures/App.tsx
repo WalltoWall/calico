@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { TreatProvider } from 'react-treat'
 
-import { Box, BoxProps } from '../../src/Box'
+import { Box, BoxProps } from '../../src'
 import { theme } from './theme.treat'
 
 const CompWithDefaultProps = (props: BoxProps) => (
