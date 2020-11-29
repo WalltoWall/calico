@@ -47,8 +47,8 @@ export type BoxProps<
 let didWarnAboutComponentPropMigration = false
 
 /**
- * The basic building block of `calico`. By default, it renders a `<div />` element,
- * but this can be overridden via the `as` prop.
+ * The basic building block of Calico. By default, it renders a `<div />`
+ * element, but this can be overridden via the `as` prop.
  *
  * @param props
  *
