@@ -305,10 +305,7 @@ export const tokens = {
     py: ['paddingTop', 'paddingBottom'],
     bg: ['backgroundColor'],
   },
-  variants: {
-    color: {
-      hover: true,
-      focus: true,
-    },
+  pseudos: {
+    color: [':hover', ':focus'],
   },
 } as const
