@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.3](https://github.com/WalltoWall/calico/compare/v0.6.0-next.2...v0.6.0-next.3) (2020-11-29)
+
+
+### Bug Fixes
+
+* correctly include treat.ts file ([9abbaa0](https://github.com/WalltoWall/calico/commit/9abbaa05fe24b6ab8cf26df11bafbc4778cef689))
+
 ## [0.6.0-next.2](https://github.com/WalltoWall/calico/compare/v0.6.0-next.1...v0.6.0-next.2) (2020-11-29)
 
 
