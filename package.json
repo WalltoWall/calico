@@ -28,12 +28,12 @@
   ],
   "dependencies": {
     "clsx": "^1.1.1",
-    "fp-ts": "^2.8.6",
+    "fp-ts": "^2.9.0",
     "lodash.mergewith": "^4.6.2",
     "react-polymorphic-box": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.7",
+    "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
@@ -51,7 +51,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/webpack": "^4.41.25",
     "@types/webpack-merge": "^4.1.5",
-    "babel-loader": "^8.2.1",
+    "babel-loader": "^8.2.2",
     "babel-plugin-treat": "^1.6.2",
     "csstype": "^3.0.5",
     "express": "^4.17.1",
@@ -61,7 +61,7 @@
     "jest-puppeteer": "^4.4.0",
     "memory-fs": "^0.5.0",
     "mime-types": "^2.1.27",
-    "prettier": "^2.2.0",
+    "prettier": "^2.2.1",
     "puppeteer": "^5.5.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
