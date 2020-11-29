@@ -6,7 +6,8 @@
   "main": "src/index.ts",
   "sideEffects": false,
   "files": [
-    "src"
+    "src",
+    "treat"
   ],
   "scripts": {
     "format": "prettier --write '{src,docs}/**/*.{ts,tsx,md}'",
