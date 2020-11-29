@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.1](https://github.com/WalltoWall/calico/compare/v0.6.0-next.0...v0.6.0-next.1) (2020-11-29)
+
+
+### Features
+
+* support arbitrary pseudo classes and elements ([#37](https://github.com/WalltoWall/calico/issues/37)) ([83c681c](https://github.com/WalltoWall/calico/commit/83c681cc18cf32dc2c0b10327510b1ebd9921654))
+
 ## [0.6.0-next.0](https://github.com/WalltoWall/calico/compare/v0.5.0...v0.6.0-next.0) (2020-11-24)
 
 
