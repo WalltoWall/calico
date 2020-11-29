@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.2](https://github.com/WalltoWall/calico/compare/v0.6.0-next.1...v0.6.0-next.2) (2020-11-29)
+
+
+### Bug Fixes
+
+* include treat entry in npm package ([8a4adbc](https://github.com/WalltoWall/calico/commit/8a4adbca8ad5e0058934e6bfd54e6fa7a819b158))
+
 ## [0.6.0-next.1](https://github.com/WalltoWall/calico/compare/v0.6.0-next.0...v0.6.0-next.1) (2020-11-29)
 
 
