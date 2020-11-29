@@ -5,6 +5,9 @@ export type RecordValue<T> = T extends Record<any, infer U> ? U : T
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] }
 export type UnwrappedArray<T> = T extends (infer U)[] ? U : T
 
+/**
+ * A set of atoms optionally represented as a responsive values.
+ */
 export type ResponsiveProp<AtomName> =
   | AtomName
   | readonly [AtomName | null, AtomName | null, ...(AtomName | null)[]]
@@ -28,9 +31,7 @@ export type MediaQueries<K extends string> = Record<K, string>
 /**
  * Record of identifiers to atoms.
  */
-export type Rules<K extends keyof StandardProperties> = Partial<
-  { [P in K]: Atoms<P> }
->
+export type Rules<K extends keyof StandardProperties> = { [P in K]?: Atoms<P> }
 
 /**
  * Record of identifiers to CSS rules.
@@ -51,16 +52,12 @@ export type AtomValue<P extends keyof StandardProperties> = NonNullable<
  * Record of CSS properties to a set of pseudo-classes or pseudo-elements to
  * generate.
  */
-export type Pseudos<K extends string | number | symbol> = Partial<
-  Record<K, PseudosConfig>
->
+export type Pseudos<K extends keyof StandardProperties> = {
+  [P in K]?: PseudosConfig
+}
 
 /**
- * Record of pseudo-classes and pseudo-elements where existance of a key
+ * Set of pseudo-classes and pseudo-elements where existance of a key
  * determines which classes will be generated.
  */
-export type PseudosConfig = readonly SimplePseudos[]
-
-export type InvertedPseudos<P extends string | number | symbol> = Partial<
-  Record<SimplePseudos, P[]>
->
+export type PseudosConfig = readonly [SimplePseudos, ...SimplePseudos[]]

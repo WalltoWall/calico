@@ -57,7 +57,7 @@ export const makeResponsive = (
  * @returns A media query string for the minimum width.
  */
 export const minWidthMediaQuery = (minWidth: string) =>
-  `screen and (min-width: ${minWidth})`
+  `screen and (min-width: ${minWidth})` as const
 
 /**
  * Assigns a Style to a particular pseudo-class.

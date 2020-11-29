@@ -1,4 +1,4 @@
-import { SimplePseudos, StandardProperties } from 'csstype'
+import { StandardProperties } from 'csstype'
 import * as R from 'fp-ts/Record'
 import * as A from 'fp-ts/Array'
 import * as O from 'fp-ts/Option'
@@ -8,17 +8,14 @@ import { MediaQueries, Rules, Pseudos, Breakpoints } from './types'
 import { createMq } from './createMq'
 import { minWidthMediaQuery } from './utils'
 
-export const INVERTED_PSEUDOS = '__INVERTED_PSEUDOS__'
-
 /**
  * A collection of design tokens used to produce a Calico theme.
  */
 export interface CalicoTokens<
   TBreakpointKeys extends string = string,
-  TRulesKeys extends keyof StandardProperties = keyof StandardProperties,
+  TRulesKeys extends keyof StandardProperties = never,
   TRules extends Rules<TRulesKeys> = Rules<TRulesKeys>,
-  TPseudoKeys extends keyof TRules = keyof TRules,
-  TPseudos extends Pseudos<TPseudoKeys> = Pseudos<TPseudoKeys>
+  TPseudos extends Pseudos<TRulesKeys> = Pseudos<TRulesKeys>
 > {
   /**
    * Media query breakpoints defined as minimum widths. These values will map
@@ -46,10 +43,9 @@ export interface CalicoTheme<
   TBreakpointKeys extends string = string,
   TRulesKeys extends keyof StandardProperties = keyof StandardProperties,
   TRules extends Rules<TRulesKeys> = Rules<TRulesKeys>,
-  TPseudoKeys extends keyof TRules = keyof TRules,
-  TPseudos extends Pseudos<TPseudoKeys> = Pseudos<TPseudoKeys>
+  TPseudos extends Pseudos<TRulesKeys> = Pseudos<TRulesKeys>
 > extends Required<
-    CalicoTokens<TBreakpointKeys, TRulesKeys, TRules, TPseudoKeys, TPseudos>
+    CalicoTokens<TBreakpointKeys, TRulesKeys, TRules, TPseudos>
   > {
   /**
    * Media queries generated from the breakpoint tokens.
@@ -60,29 +56,7 @@ export interface CalicoTheme<
    * A function that can be used to create responsive CSS rules using arrays.
    */
   mq: ReturnType<typeof createMq>
-
-  [INVERTED_PSEUDOS]: Partial<
-    Record<SimplePseudos, Record<keyof TPseudos, true>>
-  >
 }
-
-export const invertPseudos = <
-  P extends SimplePseudos,
-  Q extends keyof StandardProperties
->(pseudos: {
-  Q?: P[]
-}): Record<P, Partial<Record<Q, true>>> =>
-  pipe(
-    pseudos as Required<typeof pseudos>,
-    R.reduceWithIndex(
-      {} as Record<P, Partial<Record<Q, true>>>,
-      (propertyName, acc, config) => {
-        for (const pseudo of config)
-          acc[pseudo] = { ...(acc[pseudo] ?? {}), [propertyName]: true }
-        return acc
-      },
-    ),
-  )
 
 /**
  * Creates a Calico theme from a set of design tokens.
@@ -95,17 +69,10 @@ export const createCalicoTheme = <
   TBreakpointKeys extends string,
   TRulesKeys extends keyof StandardProperties,
   TRules extends Rules<TRulesKeys>,
-  TPseudoKeys extends keyof TRules,
-  TPseudos extends Pseudos<TPseudoKeys>
+  TPseudos extends Pseudos<TRulesKeys>
 >(
-  tokens: CalicoTokens<
-    TBreakpointKeys,
-    TRulesKeys,
-    TRules,
-    TPseudoKeys,
-    TPseudos
-  >,
-) => {
+  tokens: CalicoTokens<TBreakpointKeys, TRulesKeys, TRules, TPseudos>,
+): CalicoTheme<TBreakpointKeys, TRulesKeys, TRules, TPseudos> => {
   const breakpoints = tokens.breakpoints ?? ({} as Breakpoints<TBreakpointKeys>)
   const mediaQueries = pipe(breakpoints, R.map(minWidthMediaQuery))
   const mq = pipe(
@@ -115,8 +82,6 @@ export const createCalicoTheme = <
     O.getOrElse(() => [] as string[]),
     createMq,
   )
-  const pseudos = tokens.pseudos ?? ({} as TPseudos)
-  const invertedPseudos = invertPseudos(pseudos)
 
   return {
     breakpoints,
@@ -124,6 +89,5 @@ export const createCalicoTheme = <
     mq,
     rules: tokens.rules ?? ({} as TRules),
     pseudos: tokens.pseudos ?? ({} as TPseudos),
-    [INVERTED_PSEUDOS]: invertedPseudos,
   }
 }
