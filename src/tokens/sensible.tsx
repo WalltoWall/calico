@@ -197,6 +197,21 @@ export const tokens = {
       disc: 'disc',
       decimal: 'decimal',
     },
+    margin: {
+      auto: 'auto',
+    },
+    marginTop: {
+      auto: 'auto',
+    },
+    marginRight: {
+      auto: 'auto',
+    },
+    marginBottom: {
+      auto: 'auto',
+    },
+    marginLeft: {
+      auto: 'auto',
+    },
     opacity: {
       0: 0,
       25: 0.25,
