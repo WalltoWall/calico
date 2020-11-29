@@ -7,7 +7,7 @@
   "sideEffects": false,
   "files": [
     "src",
-    "treat"
+    "treat.ts"
   ],
   "scripts": {
     "format": "prettier --write '{src,docs}/**/*.{ts,tsx,md}'",
