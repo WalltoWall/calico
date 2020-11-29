@@ -197,6 +197,21 @@ export const tokens = {
       disc: 'disc',
       decimal: 'decimal',
     },
+    margin: {
+      auto: 'auto',
+    },
+    marginTop: {
+      auto: 'auto',
+    },
+    marginRight: {
+      auto: 'auto',
+    },
+    marginBottom: {
+      auto: 'auto',
+    },
+    marginLeft: {
+      auto: 'auto',
+    },
     opacity: {
       0: 0,
       25: 0.25,
@@ -290,10 +305,7 @@ export const tokens = {
     py: ['paddingTop', 'paddingBottom'],
     bg: ['backgroundColor'],
   },
-  variants: {
-    color: {
-      hover: true,
-      focus: true,
-    },
+  pseudos: {
+    color: [':hover', ':focus'],
   },
 } as const

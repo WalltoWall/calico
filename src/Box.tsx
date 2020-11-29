@@ -9,9 +9,8 @@ import { SafeReactHTMLAttributes } from './types'
 import {
   useBoxStyles,
   usePseudoBoxStyles,
-  BoxStylesProps,
-  BoxHoverProps,
-  BoxFocusProps,
+  UseBoxStylesProps,
+  UsePseudoBoxStylesProps,
 } from './useBoxStyles'
 
 const defaultElement = 'div'
@@ -26,13 +25,13 @@ type CalicoBoxProps<E = Element> = {
   component?: React.ElementType
 
   /** The atomic styles to apply to this element. */
-  styles?: BoxStylesProps
+  styles?: UseBoxStylesProps
 
   /** The atomic hover styles to apply to this element. */
-  hoverStyles?: BoxHoverProps
+  hoverStyles?: UsePseudoBoxStylesProps<':hover'>
 
   /** The atomic hover styles to apply to this element. */
-  focusStyles?: BoxFocusProps
+  focusStyles?: UsePseudoBoxStylesProps<':focus'>
 } & Omit<SafeReactHTMLAttributes<E>, 'as'>
 
 /**
@@ -71,8 +70,8 @@ export const Box = React.forwardRef(
     const resolvedClassNames =
       clsx(
         useBoxStyles(styles),
-        usePseudoBoxStyles(focusStyles, 'focus'),
-        usePseudoBoxStyles(hoverStyles, 'hover'),
+        usePseudoBoxStyles(focusStyles, ':focus'),
+        usePseudoBoxStyles(hoverStyles, ':hover'),
         className,
       ) || undefined
 

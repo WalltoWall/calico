@@ -15,6 +15,17 @@ beforeAll(async () => {
   server = await startFixture({
     entry: require.resolve('./fixtures/App.tsx'),
   })
+
+  let theTempValue = ''
+  page.on('pageerror', function (err) {
+    theTempValue = err.toString()
+    console.log('Page error: ' + theTempValue)
+  })
+  page.on('error', function (err) {
+    theTempValue = err.toString()
+    console.log('Error: ' + theTempValue)
+  })
+
   await page.goto(server.url)
 })
 
@@ -73,7 +84,7 @@ test('border props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_1D9xH _3eLv4 _6I3Bp nPEFE"`)
+  expect(classNames).toMatchInlineSnapshot(`"uN4ul _3eLv4 _6I3Bp nPEFE"`)
 })
 
 test('effect props', async () => {
@@ -88,7 +99,7 @@ test('effect props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_4AyaT"`)
+  expect(classNames).toMatchInlineSnapshot(`"_2vlWS"`)
 })
 
 test('flexbox props', async () => {
@@ -166,7 +177,7 @@ test('interactivity props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"o6fhi _1nehS tFuv1"`)
+  expect(classNames).toMatchInlineSnapshot(`"_3px1P _2sYHh _3Wm_U"`)
 })
 
 test('layout props', async () => {
@@ -190,7 +201,7 @@ test('layout props', async () => {
   `)
 
   expect(classNames).toMatchInlineSnapshot(
-    `"_1tLHM _1qXrM lW6ui _2E9tK nYeIn _1haMH NlMSR _12pXv"`,
+    `"_1tLHM _2dgJI _28XMX _1939a Khhn_ _1haMH NlMSR _2OZra"`,
   )
 })
 
@@ -208,7 +219,7 @@ test('sizing props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"iI2WZ _1xfo- _27UkU"`)
+  expect(classNames).toMatchInlineSnapshot(`"_2_UAO _1xfo- _27UkU"`)
 })
 
 test('space props', async () => {
@@ -232,7 +243,7 @@ test('space props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"_2X9h_ _1Orit"`)
+  expect(classNames).toMatchInlineSnapshot(`"_4AyaT _1Orit"`)
 })
 
 test('transition props', async () => {
@@ -248,7 +259,7 @@ test('transition props', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"G_qXc _2i-Pa"`)
+  expect(classNames).toMatchInlineSnapshot(`"ssIJ9 _2i-Pa"`)
 })
 
 test('typography props', async () => {
@@ -270,7 +281,7 @@ test('typography props', async () => {
   `)
 
   expect(classNames).toMatchInlineSnapshot(
-    `"jY0Ru _2yxws vpOjF _2gjei _2xs_R _1h6z2 _3ZU8I"`,
+    `"jY0Ru _2yxws vpOjF _2aI4r _2Ck7c _1h6z2 _22G2M"`,
   )
 })
 
@@ -319,7 +330,7 @@ test('responsive styles', async () => {
     }
   `)
 
-  expect(classNames).toMatchInlineSnapshot(`"JjbC0 ZvseK"`)
+  expect(classNames).toMatchInlineSnapshot(`"jCa00 _2EJV3"`)
 })
 
 test('polymorphic component', async () => {
