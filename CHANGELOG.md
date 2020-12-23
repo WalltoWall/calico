@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.6](https://github.com/WalltoWall/calico/compare/v0.6.0-next.5...v0.6.0-next.6) (2020-12-23)
+
+
+### Bug Fixes
+
+* type in internal function ([0ac1996](https://github.com/WalltoWall/calico/commit/0ac19963d063fc8e9d82ad50c15cb34d2ec9fa3e))
+
 ## [0.6.0-next.5](https://github.com/WalltoWall/calico/compare/v0.6.0-next.3...v0.6.0-next.5) (2020-12-23)
 
 
