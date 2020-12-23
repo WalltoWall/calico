@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.8](https://github.com/WalltoWall/calico/compare/v0.6.0-next.7...v0.6.0-next.8) (2020-12-23)
+
+
+### Bug Fixes
+
+* ignore type error due to TypeScript 4.1.3 bug ([40a2970](https://github.com/WalltoWall/calico/commit/40a2970712fcc28bfb07ce4c8fc5a3a15eb182eb))
+
 ## [0.6.0-next.7](https://github.com/WalltoWall/calico/compare/v0.6.0-next.6...v0.6.0-next.7) (2020-12-23)
 
 
