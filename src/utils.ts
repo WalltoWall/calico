@@ -128,12 +128,13 @@ export const resolveResponsiveProp = <K extends AtomName>(
     return responsiveAtoms[breakpointKeys[0]][value]
 
   if (Array.isArray(value)) {
-    const classes = []
+    const classes = [] as string[]
 
     for (let i = 0; i < value.length; i++) {
       const valueForBreakpoint = value[i]
       const atomsForBreakpoint = responsiveAtoms[breakpointKeys[i]]
       if (valueForBreakpoint !== null && atomsForBreakpoint)
+        // @ts-expect-error - TS 4.1.3 bug (see https://github.com/microsoft/TypeScript/issues/41984)
         classes[i] = atomsForBreakpoint[valueForBreakpoint]
     }
 
