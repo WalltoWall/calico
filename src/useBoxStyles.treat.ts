@@ -14,7 +14,7 @@ type ThemeStyleTree = {
   >
 }
 
-export const styles = styleTree((theme) =>
+export const styles = styleTree<ThemeStyleTree>((theme) =>
   pipe(
     theme.rules as Required<typeof theme.rules>,
     R.mapWithIndex((propertyName, atoms) =>
@@ -26,7 +26,7 @@ export const styles = styleTree((theme) =>
       ),
     ),
   ),
-) as ThemeStyleTree
+)
 
 type ThemePseudosStyleTree = {
   [P in SimplePseudos as P extends UnwrappedArray<
@@ -44,7 +44,7 @@ type ThemePseudosStyleTree = {
   }
 }
 
-export const pseudos = styleTree((theme) =>
+export const pseudos = styleTree<ThemePseudosStyleTree>((theme) =>
   pipe(
     theme.pseudos as Required<typeof theme.pseudos>,
     R.reduceWithIndex(
@@ -77,4 +77,4 @@ export const pseudos = styleTree((theme) =>
       ),
     ),
   ),
-) as ThemePseudosStyleTree
+)
