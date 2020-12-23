@@ -26,10 +26,10 @@ export type UsePseudoBoxStylesProps<
 
 const resolveClassNames = <K extends keyof typeof styleRefs.pseudos>(
   props: UseBoxStylesProps | UsePseudoBoxStylesProps<K> | undefined,
-  styles: typeof styleRefs.styles | typeof styleRefs.pseudos[K] = {},
+  styles?: typeof styleRefs.styles | typeof styleRefs.pseudos[K],
   pseudo?: K,
 ) => {
-  if (props === undefined) return
+  if (!props || !styles) return
 
   let resolvedClassNames: (string | undefined)[] = []
 
