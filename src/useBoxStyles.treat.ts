@@ -5,7 +5,11 @@ import * as R from 'fp-ts/Record'
 import { pipe } from 'fp-ts/pipeable'
 
 import { Atoms, Mutable, RecordValue, UnwrappedArray } from './types'
-import { styleSingleton, mapToBreakpoints, mapToPseudo } from './utils'
+import {
+  mapToBreakpoints,
+  mapToStyleSingletons,
+  mapToPseudoStyles,
+} from './utils'
 
 type ThemeStyleTree = {
   [P in keyof Theme['rules']]: Record<
@@ -20,7 +24,7 @@ export const styles = styleTree<ThemeStyleTree>((theme) =>
     R.mapWithIndex((propertyName, atoms) =>
       pipe(
         atoms as Atoms<typeof propertyName>,
-        R.map(styleSingleton(propertyName)),
+        mapToStyleSingletons(propertyName),
         mapToBreakpoints(theme),
         R.map((atoms) => styleMap(atoms, propertyName)),
       ),
@@ -68,8 +72,8 @@ export const pseudos = styleTree<ThemePseudosStyleTree>((theme) =>
         R.mapWithIndex((propertyName, atoms) =>
           pipe(
             atoms as Atoms<typeof propertyName>,
-            R.map(styleSingleton(propertyName)),
-            R.map(mapToPseudo(pseudo)),
+            mapToStyleSingletons(propertyName),
+            mapToPseudoStyles(pseudo),
             mapToBreakpoints(theme),
             R.map((atoms) => styleMap(atoms, propertyName)),
           ),

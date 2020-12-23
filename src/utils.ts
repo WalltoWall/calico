@@ -1,13 +1,13 @@
 import { Style } from 'treat'
 import { Theme } from 'treat/theme'
-import { Properties, SimplePseudos } from 'csstype'
+import { StandardProperties, SimplePseudos } from 'csstype'
 import clsx from 'clsx'
 import * as R from 'fp-ts/Record'
 import * as B from 'fp-ts/boolean'
 import { pipe } from 'fp-ts/function'
 import { eqNumber } from 'fp-ts/Eq'
 
-import { ResponsiveProp } from './types'
+import { AtomName, Atoms, ResponsiveProp } from './types'
 
 /**
  * Creates a Style with a single property.
@@ -16,12 +16,30 @@ import { ResponsiveProp } from './types'
  *
  * @returns Treat-compatible Style to pass to `style`.
  */
-export const styleSingleton = <
-  TPropertyName extends keyof Properties,
-  TValue extends string | number
+const styleSingleton = <
+  TPropertyName extends keyof StandardProperties,
+  TValue extends StandardProperties[TPropertyName]
 >(
   propertyName: TPropertyName,
 ) => (value: TValue): Style => R.singleton(propertyName, value)
+
+/**
+ * Maps a Record of atoms to Style objects with a single property.
+ *
+ * @param propertyName CSS property to which `value` will be assigned.
+ *
+ * @returns Map of Treat-compatible Style objects to pass to `style`.
+ */
+export const mapToStyleSingletons = <
+  TPropertyName extends keyof StandardProperties,
+  K extends AtomName
+>(
+  propertyName: TPropertyName,
+) =>
+  R.map(
+    // @ts-expect-error - [tsserver 2590] [E] Expression produces a union type that is too complex to represent
+    styleSingleton(propertyName),
+  ) as (atoms: Atoms<TPropertyName>) => Record<K, Style>
 
 /**
  * Assigns a Style to a particular breakpoint.
@@ -66,8 +84,26 @@ export const minWidthMediaQuery = (minWidth: string) =>
  *
  * @returns Style assigned to the pseudo-class.
  */
-export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
-  R.singleton(pseudo, style)
+const toPseudoStyle = <TPseudo extends SimplePseudos>(pseudo: TPseudo) => (
+  style: Style,
+) => R.singleton(pseudo, style)
+
+/**
+ * Maps a Record of atoms to Style objects wrapped in a pseudo selector.
+ *
+ * @param pseudo Pseudo-class to which styles will be assigned.
+ *
+ * @returns Map of Treat-compatible Style objects to pass to `style`.
+ */
+export const mapToPseudoStyles = <
+  TPsuedo extends SimplePseudos,
+  K extends AtomName
+>(
+  pseudo: TPsuedo,
+) =>
+  R.map(toPseudoStyle(pseudo)) as (
+    styles: Record<K, Style>,
+  ) => Record<K, Record<TPsuedo, Style>>
 
 /**
  * Resolves a responsive prop value to a list of class names using a set of
@@ -78,7 +114,7 @@ export const mapToPseudo = (pseudo: SimplePseudos) => (style: Style) =>
  *
  * @returns A stringified list of class names.
  */
-export const resolveResponsiveProp = <K extends string | number>(
+export const resolveResponsiveProp = <K extends AtomName>(
   value?: ResponsiveProp<K>,
   responsiveAtoms?: Record<keyof Theme['breakpoints'], Record<K, string>>,
 ) => {
@@ -114,13 +150,17 @@ export const resolveResponsiveProp = <K extends string | number>(
  *
  * @returns The theme's breakpoints mapped to the set of atoms.
  */
-export const mapToBreakpoints = (theme: Theme) => <K extends string>(
+export const mapToBreakpoints = (theme: Theme) => <K extends AtomName>(
   atoms: Record<K, Style>,
-) =>
+): Record<keyof typeof theme.breakpoints, Record<K, Style>> =>
   pipe(
     theme.breakpoints,
     R.mapWithIndex((breakpointName) =>
-      pipe(atoms, R.map(makeResponsive(breakpointName, theme))),
+      pipe(
+        atoms,
+        R.map(makeResponsive(breakpointName, theme)),
+        (x) => x as Record<K, Style>,
+      ),
     ),
   )
 

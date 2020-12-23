@@ -36,10 +36,15 @@ export type Rules<K extends keyof StandardProperties> = { [P in K]?: Atoms<P> }
 /**
  * Record of identifiers to CSS rules.
  */
-export type Atoms<P extends keyof StandardProperties> = Record<
-  string | number,
-  AtomValue<P>
->
+export type Atoms<
+  P extends keyof StandardProperties = keyof StandardProperties,
+  K extends AtomName = AtomName
+> = Record<K, AtomValue<P>>
+
+/**
+ * Identifier for a CSS rule.
+ */
+export type AtomName = string | number
 
 /**
  * Value of a CSS rule.
