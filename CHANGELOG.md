@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.7](https://github.com/WalltoWall/calico/compare/v0.6.0-next.6...v0.6.0-next.7) (2020-12-23)
+
+
+### Bug Fixes
+
+* change ts-ignore type to allow downstream compilation ([351182f](https://github.com/WalltoWall/calico/commit/351182f0856deaa53a84068eebf43f6f7ecf0312))
+
 ## [0.6.0-next.6](https://github.com/WalltoWall/calico/compare/v0.6.0-next.5...v0.6.0-next.6) (2020-12-23)
 
 
