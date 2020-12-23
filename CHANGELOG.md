@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.5](https://github.com/WalltoWall/calico/compare/v0.6.0-next.3...v0.6.0-next.5) (2020-12-23)
+
+
+### Bug Fixes
+
+* coerce types to support number atom identifiers ([e42411a](https://github.com/WalltoWall/calico/commit/e42411a475d2fc5e0f21352aa70a7f249b09bb92))
+* move treat return types to generics ([59df7b6](https://github.com/WalltoWall/calico/commit/59df7b6be1dcbd4b2947f8cc8561795a8b06ed83))
+* move treat return types to generics ([67fdceb](https://github.com/WalltoWall/calico/commit/67fdceb56157e31b63c51be7306b5a5cb16557a6))
+
 ## [0.6.0-next.3](https://github.com/WalltoWall/calico/compare/v0.6.0-next.2...v0.6.0-next.3) (2020-11-29)
 
 
