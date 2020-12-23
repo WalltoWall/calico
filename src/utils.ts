@@ -37,7 +37,7 @@ export const mapToStyleSingletons = <
   propertyName: TPropertyName,
 ) =>
   R.map(
-    // @ts-expect-error - [tsserver 2590] [E] Expression produces a union type that is too complex to represent
+    // @ts-ignore - [tsserver 2590] [E] Expression produces a union type that is too complex to represent
     styleSingleton(propertyName),
   ) as (atoms: Atoms<TPropertyName>) => Record<K, Style>
 
