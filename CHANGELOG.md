@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0-next.9](https://github.com/WalltoWall/calico/compare/v0.6.0-next.8...v0.6.0-next.9) (2020-12-24)
+
+
+### Features
+
+* export BoxStylesProps and its friends ([d3e7e72](https://github.com/WalltoWall/calico/commit/d3e7e729314c74b635e2f9e881e51c0a2241ef05))
+
+
+### Bug Fixes
+
+* more accurate BoxProps ([034ed5e](https://github.com/WalltoWall/calico/commit/034ed5e2c754bce3af92f698b04e679084bdb92f))
+
 ## [0.6.0-next.8](https://github.com/WalltoWall/calico/compare/v0.6.0-next.7...v0.6.0-next.8) (2020-12-23)
 
 
