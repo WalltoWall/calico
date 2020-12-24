@@ -15,7 +15,10 @@ import {
 
 const defaultElement = 'div'
 
-type CalicoBoxProps<E = Element> = {
+type CalicoBoxProps<
+  E extends React.ElementType = React.ElementType,
+  F = E extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[E] : E
+> = {
   // TODO: Remove in 1.0 release.
   /**
    * The HTML element to render the `Box` as.
@@ -32,16 +35,15 @@ type CalicoBoxProps<E = Element> = {
 
   /** The atomic hover styles to apply to this element. */
   focusStyles?: UsePseudoBoxStylesProps<':focus'>
-} & Omit<SafeReactHTMLAttributes<E>, 'as'>
+} & Omit<SafeReactHTMLAttributes<F>, 'as'>
 
 /**
  * A `<Box />` accepts all standard HTML props in addition to some additional
  * props for styling.
  */
 export type BoxProps<
-  E extends React.ElementType = typeof defaultElement,
-  F = E extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[E] : Element
-> = PolymorphicComponentProps<E, CalicoBoxProps<F>>
+  E extends React.ElementType = typeof defaultElement
+> = PolymorphicComponentProps<E, CalicoBoxProps<E>>
 
 // TODO: Remove in 1.0 release.
 let didWarnAboutComponentPropMigration = false

@@ -13,7 +13,7 @@ export type ResponsiveProp<AtomName> =
   | readonly [AtomName | null, AtomName | null, ...(AtomName | null)[]]
 
 export type SafeReactHTMLAttributes<
-  E = Element
+  E = React.ElementType
 > = React.AllHTMLAttributes<E> & {
   loading?: string
 }
