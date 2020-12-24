@@ -15,6 +15,10 @@ import {
 
 const defaultElement = 'div'
 
+export type BoxStylesProps = UseBoxStylesProps
+export type BoxFocusStylesProps = UsePseudoBoxStylesProps<':focus'>
+export type BoxHoverStylesProps = UsePseudoBoxStylesProps<':hover'>
+
 type CalicoBoxProps<
   E extends React.ElementType = React.ElementType,
   F = E extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[E] : E
@@ -28,13 +32,13 @@ type CalicoBoxProps<
   component?: React.ElementType
 
   /** The atomic styles to apply to this element. */
-  styles?: UseBoxStylesProps
+  styles?: BoxStylesProps
 
   /** The atomic hover styles to apply to this element. */
-  hoverStyles?: UsePseudoBoxStylesProps<':hover'>
+  hoverStyles?: BoxHoverStylesProps
 
   /** The atomic hover styles to apply to this element. */
-  focusStyles?: UsePseudoBoxStylesProps<':focus'>
+  focusStyles?: BoxFocusStylesProps
 } & Omit<SafeReactHTMLAttributes<F>, 'as'>
 
 /**
